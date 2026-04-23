@@ -1,0 +1,326 @@
+import type { LucideIcon } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BarChart3,
+  BookOpen,
+  Bot,
+  Briefcase,
+  CalendarDays,
+  Camera,
+  ChartNoAxesCombined,
+  CheckCircle2,
+  Clock3,
+  Code2,
+  Cpu,
+  Fingerprint,
+  Globe2,
+  GraduationCap,
+  LayoutDashboard,
+  Lightbulb,
+  Mail,
+  MapPin,
+  Phone,
+  PlayCircle,
+  Sparkles,
+  Users,
+  Waypoints,
+} from 'lucide-react';
+
+export type Course = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  icon: LucideIcon;
+  duration: string;
+  students: string;
+  tag: string;
+};
+
+export type Mentor = {
+  name: string;
+  role: string;
+  image: string;
+  socials: { twitter: string; linkedin: string; instagram: string };
+};
+
+export const NAV_ITEMS = [
+  { label: 'Hero', href: '#hero' },
+  { label: 'Courses', href: '#courses' },
+  { label: 'Teachers', href: '#teachers' },
+  { label: 'Events', href: '#events' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
+];
+
+export const FEATURES = [
+  {
+    title: 'AI-Native Curriculum',
+    description: 'Programs designed around real product workflows, agents, automation, and deployment pipelines.',
+    icon: Bot,
+  },
+  {
+    title: 'Mentor Signal Layer',
+    description: 'Weekly critiques, office hours, and portfolio reviews from working operators and builders.',
+    icon: Users,
+  },
+  {
+    title: 'Immersive Project Labs',
+    description: 'Students ship polished capstones with live datasets, UI systems, and production-grade tooling.',
+    icon: LayoutDashboard,
+  },
+  {
+    title: 'Career Launch Support',
+    description: 'Interview prep, proof-of-work storytelling, and role matching that focuses on measurable outcomes.',
+    icon: Briefcase,
+  },
+];
+
+export const COURSES: Course[] = [
+  {
+    id: 'ai-ml',
+    title: 'AI & Machine Learning',
+    description: 'Master deep learning, LLM workflows, and predictive systems with enterprise-ready projects.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+    icon: Cpu,
+    duration: '24 weeks',
+    students: '1.2k+',
+    tag: 'Flagship',
+  },
+  {
+    id: 'ui-ux',
+    title: 'UI/UX for Intelligent Products',
+    description: 'Design premium interfaces for AI products, dashboards, and immersive digital experiences.',
+    image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fc4c?auto=format&fit=crop&q=80&w=1200',
+    icon: Sparkles,
+    duration: '16 weeks',
+    students: '800+',
+    tag: 'Design',
+  },
+  {
+    id: 'video-editing',
+    title: 'AI Video & Motion',
+    description: 'Create cinematic edits, branded reels, and generative motion systems for modern media teams.',
+    image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200',
+    icon: Camera,
+    duration: '12 weeks',
+    students: '1.5k+',
+    tag: 'Creator',
+  },
+  {
+    id: 'graphic-design',
+    title: 'Visual Design Systems',
+    description: 'Build scalable brand systems, 3D-forward campaigns, and conversion-led creative assets.',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1200',
+    icon: Lightbulb,
+    duration: '14 weeks',
+    students: '2.1k+',
+    tag: 'Brand',
+  },
+  {
+    id: 'web-dev',
+    title: 'Modern Web Engineering',
+    description: 'Ship fast React products with animation, APIs, and production-focused architecture decisions.',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
+    icon: Code2,
+    duration: '24 weeks',
+    students: '3k+',
+    tag: 'Build',
+  },
+  {
+    id: 'digital-marketing',
+    title: 'Growth & Analytics',
+    description: 'Blend performance marketing, funnel intelligence, and AI-driven experimentation into one playbook.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
+    icon: ChartNoAxesCombined,
+    duration: '12 weeks',
+    students: '1.8k+',
+    tag: 'Growth',
+  },
+];
+
+export const MENTORS: Mentor[] = [
+  {
+    name: 'Dr. Sarah Chen',
+    role: 'AI Research Lead',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800',
+    socials: { twitter: '#', linkedin: '#', instagram: '#' },
+  },
+  {
+    name: 'Marcus Thorne',
+    role: 'Experience Design Director',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800',
+    socials: { twitter: '#', linkedin: '#', instagram: '#' },
+  },
+  {
+    name: 'Elena Rodriguez',
+    role: 'Motion Systems Specialist',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=800',
+    socials: { twitter: '#', linkedin: '#', instagram: '#' },
+  },
+  {
+    name: 'James Wilson',
+    role: 'Full Stack AI Engineer',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800',
+    socials: { twitter: '#', linkedin: '#', instagram: '#' },
+  },
+];
+
+export const STATS = [
+  { label: 'Learners placed', value: '500+', detail: 'into modern product and AI roles', icon: GraduationCap },
+  { label: 'Live programs', value: '100+', detail: 'across creator, design, growth, and engineering tracks', icon: BookOpen },
+  { label: 'Portfolio projects', value: '750+', detail: 'shipped with feedback loops and reviews', icon: Waypoints },
+  { label: 'Industry mentors', value: '30+', detail: 'supporting every cohort and studio sprint', icon: Globe2 },
+];
+
+export const WHY_CHOOSE_US = [
+  {
+    title: 'Agency-Level Output',
+    description: 'Students learn to present work with the polish clients, recruiters, and founders expect.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Systems, Not Tutorials',
+    description: 'We teach decision-making frameworks so you can build confidently beyond step-by-step videos.',
+    icon: Fingerprint,
+  },
+  {
+    title: 'Career Momentum',
+    description: 'Every sprint is mapped to proof-of-work assets that increase hiring confidence.',
+    icon: ArrowUpRight,
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    name: 'Anika Sharma',
+    role: 'AI Engineer at Google',
+    comment: 'Metawaves AI transformed my career. The hands-on AI projects were exactly what I needed to land my dream job.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=anika',
+  },
+  {
+    name: 'David Miller',
+    role: 'Junior Designer',
+    comment: 'The UI/UX course is incredibly detailed. The mentors are always there to help you refine your portfolio.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=david',
+  },
+  {
+    name: 'Kevin Park',
+    role: 'Content Creator',
+    comment: 'I learned everything about video editing here. Now I manage a successful channel with high-retention branded content.',
+    rating: 4,
+    avatar: 'https://i.pravatar.cc/150?u=kevin',
+  },
+];
+
+export const BLOG_POSTS = [
+  {
+    title: 'The Future of AI in Education',
+    excerpt: 'How intelligence layers are personalizing delivery, speed, and feedback for learners across the globe.',
+    date: 'October 12, 2024',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200',
+  },
+  {
+    title: 'Designing for the Metaverse',
+    excerpt: 'Principles, tools, and visual systems that make immersive products feel premium instead of gimmicky.',
+    date: 'October 15, 2024',
+    image: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&q=80&w=1200',
+  },
+  {
+    title: 'Why Soft Skills Matter in Tech',
+    excerpt: 'Communication, taste, and leadership are still the edge in high-performance product teams.',
+    date: 'October 20, 2024',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200',
+  },
+];
+
+export const EVENTS = [
+  {
+    title: 'AI Future Summit 2024',
+    date: 'November 15',
+    time: '10:00 AM',
+    location: 'Online',
+    image: 'https://images.unsplash.com/photo-1540575861501-7ad0582373f2?auto=format&fit=crop&q=80&w=1200',
+  },
+  {
+    title: 'UX Design Workshop',
+    date: 'November 20',
+    time: '02:00 PM',
+    location: 'Virtual Studio',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200',
+  },
+  {
+    title: 'Freelancing for Creatives',
+    date: 'December 05',
+    time: '05:00 PM',
+    location: 'Zoom',
+    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=1200',
+  },
+];
+
+export const GALLERY_ITEMS = [
+  'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200',
+  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200',
+  'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=1200',
+  'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=1200',
+];
+
+export const CONTACT_CHANNELS = [
+  {
+    title: 'Email our team',
+    value: 'admissions@metawaves.ai',
+    description: 'For admissions, partnerships, and premium cohort queries.',
+    icon: Mail,
+  },
+  {
+    title: 'Talk to admissions',
+    value: '+1 (555) 000-1234',
+    description: 'Weekday consult calls with a learning advisor.',
+    icon: Phone,
+  },
+  {
+    title: 'Visit the studio',
+    value: '123 AI Boulevard, Silicon Valley, CA 94043',
+    description: 'Hybrid workshops, labs, and founder meetups.',
+    icon: MapPin,
+  },
+];
+
+export const FOOTER_LINKS = {
+  company: ['About', 'Programs', 'Mentors', 'Events'],
+  resources: ['Blog', 'Testimonials', 'Careers', 'Support'],
+  contact: ['Privacy Policy', 'Terms of Service', 'Cookies'],
+};
+
+export const ABOUT_PILLARS = [
+  {
+    title: 'Personalized learning pathways',
+    description: 'Adaptive skill tracks help beginners and career-switchers move with clarity.',
+    icon: CheckCircle2,
+  },
+  {
+    title: 'Live feedback architecture',
+    description: 'Every sprint includes critique loops, mentor support, and portfolio iteration.',
+    icon: PlayCircle,
+  },
+  {
+    title: 'Outcome-first positioning',
+    description: 'Students learn how to package, present, and pitch their work professionally.',
+    icon: BarChart3,
+  },
+];
+
+export const VIDEO_HIGHLIGHTS = [
+  'Live AI build-alongs',
+  'Recorded critiques and playbacks',
+  'Studio-level motion breakdowns',
+  'Founder and hiring manager panels',
+];
+
+export const EVENT_META_ICONS = {
+  time: Clock3,
+  date: CalendarDays,
+  location: MapPin,
+};
