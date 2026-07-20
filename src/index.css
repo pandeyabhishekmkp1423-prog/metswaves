@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Maven Pro", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Maven Pro", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-ui: "Sora", ui-sans-serif, system-ui, sans-serif;
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8fafc;
   --color-bg-alt: #f4f7fb;
@@ -49,16 +50,26 @@
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
+    font-family: var(--font-ui);
+    letter-spacing: normal;
+  }
+
+  p {
+    line-height: 1.7;
   }
 
   nav {
-    font-family: var(--font-display);
+    font-family: var(--font-ui);
   }
 
   a {
@@ -84,7 +95,7 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-[1280px] px-5 py-[60px] sm:px-6 md:py-[80px] lg:px-8 lg:py-[120px];
+    @apply mx-auto w-full max-w-[1280px] scroll-mt-28 px-5 py-[60px] sm:px-6 md:py-[80px] lg:px-8 lg:py-[120px];
   }
 
   .surface-card {
@@ -100,7 +111,7 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-accent-blue/20 bg-accent-blue/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-accent-blue;
+    @apply font-ui inline-flex items-center gap-2 rounded-full border border-accent-blue/20 bg-accent-blue/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-accent-blue;
   }
 
   .icon-chip {
@@ -108,11 +119,11 @@
   }
 
   .btn-premium {
-    @apply rounded-premium border border-transparent bg-[linear-gradient(135deg,#2563EB_0%,#3B82F6_100%)] font-semibold text-white shadow-[0_10px_24px_rgba(37,99,235,0.28)];
+    @apply font-ui rounded-premium border border-transparent bg-[linear-gradient(135deg,#2563EB_0%,#3B82F6_100%)] font-medium text-white shadow-[0_10px_24px_rgba(37,99,235,0.28)];
   }
 
   .btn-secondary {
-    @apply rounded-premium border border-border-soft bg-white font-medium text-navy;
+    @apply font-ui rounded-premium border border-border-soft bg-white font-medium text-navy;
   }
 
   .button-glow {
@@ -129,7 +140,7 @@
   }
 
   .footer-title {
-    @apply text-sm uppercase tracking-[0.32em] text-white/40;
+    @apply font-ui text-sm font-medium uppercase tracking-[0.32em] text-white/40;
   }
 
   .footer-link {
@@ -137,7 +148,7 @@
   }
 
   .badge-pill {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-border-soft bg-gray-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-gray-600;
+    @apply font-ui inline-flex items-center gap-1.5 rounded-full border border-border-soft bg-gray-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-gray-600;
   }
 }
 

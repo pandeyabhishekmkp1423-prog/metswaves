@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { FOOTER_LINKS } from '../../constants';
+import { handleAnchorClick } from '../../utils';
 
 const socialLinks = [
   { label: 'Facebook', icon: Facebook },
@@ -26,7 +27,7 @@ export function Footer() {
       <div className="section-shell relative z-10 py-16!">
         <div className="surface-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy sm:text-3xl">
+            <h3 className="font-heading text-2xl font-bold tracking-[-0.02em] text-navy sm:text-[28px]">
               Get cohort drops and career signal in your inbox.
             </h3>
             <p className="mt-2 text-text-secondary">No spam — just admissions windows, events, and new tracks.</p>
@@ -53,10 +54,15 @@ export function Footer() {
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1.1fr_0.7fr_0.7fr_0.7fr]">
           <div>
-            <a href="#hero" className="inline-flex items-center" aria-label="Metawaves AI home">
+            <a
+              href="#hero"
+              onClick={(event) => handleAnchorClick(event, '#hero')}
+              className="inline-flex items-center"
+              aria-label="Metawaves AI home"
+            >
               <img src="/logo.png" alt="Metawaves AI" className="h-7 w-auto" />
             </a>
-            <p className="mt-6 max-w-md leading-8 text-white/65">
+            <p className="mt-6 max-w-md text-white/65">
               Premium education for learners who want to build AI fluency, creative confidence, and career momentum in one intentional ecosystem.
             </p>
             <div className="mt-8 flex gap-3">
@@ -66,6 +72,7 @@ export function Footer() {
                   <a
                     key={item.label}
                     href="#"
+                    onClick={(event) => handleAnchorClick(event, '#')}
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/5 text-white/60 transition hover:border-accent-blue-light/40 hover:bg-accent-blue/15 hover:text-white"
                     aria-label={item.label}
                   >
@@ -80,7 +87,7 @@ export function Footer() {
             <p className="footer-title">Company</p>
             <div className="mt-5 grid gap-3">
               {FOOTER_LINKS.company.map((item) => (
-                <a key={item} href="#" className="footer-link">
+                <a key={item} href="#" onClick={(event) => handleAnchorClick(event, '#')} className="footer-link">
                   {item}
                 </a>
               ))}
@@ -91,7 +98,7 @@ export function Footer() {
             <p className="footer-title">Resources</p>
             <div className="mt-5 grid gap-3">
               {FOOTER_LINKS.resources.map((item) => (
-                <a key={item} href="#" className="footer-link">
+                <a key={item} href="#" onClick={(event) => handleAnchorClick(event, '#')} className="footer-link">
                   {item}
                 </a>
               ))}
@@ -102,7 +109,7 @@ export function Footer() {
             <p className="footer-title">Legal</p>
             <div className="mt-5 grid gap-3">
               {FOOTER_LINKS.contact.map((item) => (
-                <a key={item} href="#" className="footer-link">
+                <a key={item} href="#" onClick={(event) => handleAnchorClick(event, '#')} className="footer-link">
                   {item}
                 </a>
               ))}

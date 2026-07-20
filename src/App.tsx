@@ -24,6 +24,7 @@ import { Reveal } from './components/ui/Reveal';
 import { SectionIntro } from './components/ui/SectionIntro';
 import { TiltCard } from './components/ui/TiltCard';
 import { useLenis } from './hooks/useLenis';
+import { handleAnchorClick } from './utils';
 import {
   ABOUT_PILLARS,
   BLOG_POSTS,
@@ -88,6 +89,17 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
 
   return (
     <section id="hero" className="relative overflow-hidden bg-white">
+      <div className="absolute inset-0" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1920"
+          alt=""
+          className="h-full w-full object-cover opacity-[0.14]"
+          loading="eager"
+          decoding="async"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.85)_38%,rgba(248,250,252,0.97)_100%)]" />
+      </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.10),transparent_38%),radial-gradient(circle_at_85%_12%,rgba(96,165,250,0.09),transparent_32%)]" />
 
       <div className="section-shell relative z-10 flex min-h-screen items-center pt-28">
@@ -97,7 +109,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
               <span className="eyebrow">Immersive AI Education</span>
             </Reveal>
             <Reveal delay={0.08}>
-              <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.05em] text-navy sm:text-6xl lg:text-8xl">
+              <h1 className="mt-5 max-w-4xl text-[32px] font-extrabold text-navy sm:text-[40px] md:text-[48px] xl:text-[64px]">
                 Start Your
                 <span className="block bg-[linear-gradient(135deg,#2563EB_0%,#60A5FA_100%)] bg-clip-text text-transparent">
                   AI-Powered
@@ -106,7 +118,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
               </h1>
             </Reveal>
             <Reveal delay={0.16}>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-text-secondary md:text-xl">
+              <p className="mt-6 max-w-2xl text-base text-text-secondary sm:text-lg">
                 A high-conviction learning platform for builders, designers, and operators who want premium skills,
                 portfolio depth, and real market momentum.
               </p>
@@ -115,9 +127,9 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
             <Reveal delay={0.22}>
               <form
                 onSubmit={handleSubmit}
-                className="mt-8 flex w-full max-w-xl items-center gap-2 rounded-premium border border-border-soft bg-white p-2 shadow-[0_1px_3px_rgba(16,24,40,0.06)] transition focus-within:border-accent-blue/40"
+                className="mt-8 flex w-full max-w-xl items-center gap-1.5 rounded-premium border border-border-soft bg-white p-2 shadow-[0_1px_3px_rgba(16,24,40,0.06)] transition focus-within:border-accent-blue/40 sm:gap-2"
               >
-                <Search size={18} className="ml-3 flex-none text-gray-400" />
+                <Search size={18} className="ml-2.5 flex-none text-gray-400 sm:ml-3" />
                 <label className="sr-only" htmlFor="hero-course-search">
                   Search courses
                 </label>
@@ -126,12 +138,12 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   type="text"
                   value={query}
                   onChange={(event) => onQueryChange(event.target.value)}
-                  placeholder="Search courses — AI, Design, Growth..."
-                  className="w-full bg-transparent py-3 text-navy placeholder:text-gray-400 outline-none"
+                  placeholder="Search courses..."
+                  className="w-full min-w-0 bg-transparent py-3 text-navy placeholder:text-gray-400 outline-none"
                 />
                 <button
                   type="submit"
-                  className="btn-premium button-glow inline-flex flex-none items-center gap-2 px-5 py-3 text-sm"
+                  className="btn-premium button-glow inline-flex flex-none items-center gap-2 px-4 py-3 text-sm sm:px-5"
                 >
                   Search
                 </button>
@@ -140,12 +152,17 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
 
             <Reveal delay={0.26}>
               <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-                <MagneticButton href="#courses" className="btn-premium button-glow inline-flex items-center justify-center gap-2 px-7 py-4">
+                <MagneticButton
+                  href="#courses"
+                  onClick={(event) => handleAnchorClick(event, '#courses')}
+                  className="btn-premium button-glow inline-flex items-center justify-center gap-2 px-7 py-4"
+                >
                   Explore Cohorts
                   <ArrowRight size={18} />
                 </MagneticButton>
                 <MagneticButton
                   href="#video"
+                  onClick={(event) => handleAnchorClick(event, '#video')}
                   className="btn-secondary button-glow inline-flex items-center justify-center gap-3 px-7 py-4"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue/10 text-accent-blue">
@@ -157,15 +174,15 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
             </Reveal>
 
             <Reveal delay={0.32}>
-              <div className="mt-12 grid gap-4 sm:grid-cols-3">
+              <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-4">
                 {[
                   ['4.9/5', 'student satisfaction score'],
                   ['12k+', 'community members and alumni'],
                   ['94%', 'project completion rate'],
                 ].map(([value, label]) => (
-                  <div key={label} className="surface-card p-4">
-                    <p className="text-3xl font-semibold tracking-[-0.04em] text-navy">{value}</p>
-                    <p className="mt-2 text-sm text-text-secondary">{label}</p>
+                  <div key={label} className="surface-card p-3 sm:p-4">
+                    <p className="font-ui text-2xl font-bold text-navy sm:text-3xl">{value}</p>
+                    <p className="mt-2 text-xs text-text-secondary sm:text-sm">{label}</p>
                   </div>
                 ))}
               </div>
@@ -190,14 +207,14 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
                       <p className="text-sm text-white/60">Current learner focus</p>
-                      <p className="mt-3 text-2xl font-semibold text-white">Prompt Systems</p>
+                      <p className="mt-3 font-ui text-2xl font-semibold text-white">Prompt Systems</p>
                       <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
                         <div className="h-full w-[82%] rounded-full bg-[linear-gradient(90deg,#3b82f6,#60a5fa)]" />
                       </div>
                     </div>
                     <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
                       <p className="text-sm text-white/60">Next launch window</p>
-                      <p className="mt-3 text-2xl font-semibold text-white">May Cohort</p>
+                      <p className="mt-3 font-ui text-2xl font-semibold text-white">May Cohort</p>
                       <p className="mt-2 text-sm text-accent-blue-light">Admissions open for creators and engineers</p>
                     </div>
                   </div>
@@ -344,8 +361,8 @@ function App() {
                       <div className="icon-chip">
                         <Icon size={24} />
                       </div>
-                      <h3 className="mt-6 text-2xl font-semibold tracking-[-0.03em] text-navy">{feature.title}</h3>
-                      <p className="mt-4 leading-7 text-text-secondary">{feature.description}</p>
+                      <h3 className="mt-6 text-2xl font-semibold text-navy">{feature.title}</h3>
+                      <p className="mt-4 text-text-secondary">{feature.description}</p>
                       <span className="mt-auto pt-8 text-sm uppercase tracking-[0.24em] text-accent-blue">Premium track</span>
                     </div>
                   </TiltCard>
@@ -410,8 +427,8 @@ function App() {
                         <Icon size={20} />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-navy">{pillar.title}</h3>
-                        <p className="mt-2 text-sm leading-7 text-text-secondary">{pillar.description}</p>
+                        <h3 className="text-xl font-medium text-navy">{pillar.title}</h3>
+                        <p className="mt-2 text-sm text-text-secondary">{pillar.description}</p>
                       </div>
                     </div>
                   );
@@ -439,9 +456,9 @@ function App() {
                     <div className="icon-chip mx-auto h-16 w-16">
                       <Icon size={28} />
                     </div>
-                    <p className="mt-6 text-5xl font-semibold tracking-[-0.05em] text-navy">{stat.value}</p>
+                    <p className="font-ui mt-6 text-5xl font-bold text-navy">{stat.value}</p>
                     <p className="mt-3 text-sm uppercase tracking-[0.28em] text-text-secondary">{stat.label}</p>
-                    <p className="mt-4 text-sm leading-7 text-text-secondary">{stat.detail}</p>
+                    <p className="mt-4 text-sm text-text-secondary">{stat.detail}</p>
                   </div>
                 </Reveal>
               );
@@ -494,8 +511,8 @@ function App() {
                             <Icon size={20} />
                           </div>
                         </div>
-                        <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-navy">{course.title}</h3>
-                        <p className="mt-3 leading-7 text-text-secondary">{course.description}</p>
+                        <h3 className="mt-5 text-2xl font-semibold text-navy">{course.title}</h3>
+                        <p className="mt-3 text-text-secondary">{course.description}</p>
                         <p className="mt-4 text-sm text-text-secondary">
                           by <span className="text-navy">{course.instructor}</span>
                         </p>
@@ -511,6 +528,7 @@ function App() {
                           <span className="text-xl font-semibold text-navy">{course.price}</span>
                           <MagneticButton
                             href="#contact"
+                            onClick={(event) => handleAnchorClick(event, '#contact')}
                             className="btn-premium button-glow inline-flex items-center gap-1.5 px-4 py-2.5 text-sm"
                           >
                             Enroll
@@ -541,7 +559,11 @@ function App() {
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,19,39,0.05),rgba(7,19,39,0.55))]" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <MagneticButton href="#contact" className="button-glow flex h-24 w-24 items-center justify-center rounded-full border border-white/30 bg-white/15 backdrop-blur-md">
+                    <MagneticButton
+                      href="#contact"
+                      onClick={(event) => handleAnchorClick(event, '#contact')}
+                      className="button-glow flex h-24 w-24 items-center justify-center rounded-full border border-white/30 bg-white/15 backdrop-blur-md"
+                    >
                       <Play size={30} className="ml-1 text-white" />
                     </MagneticButton>
                   </div>
@@ -593,7 +615,7 @@ function App() {
                     <span className="badge-pill absolute left-4 top-4 border-white/15 bg-navy/75 text-white">{mentor.experience}</span>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{mentor.name}</h3>
+                    <h3 className="text-2xl font-semibold text-navy">{mentor.name}</h3>
                     <p className="mt-2 text-text-secondary">{mentor.role}</p>
                     <div className="mt-5 flex gap-2">
                       <a
@@ -644,8 +666,8 @@ function App() {
                         <Icon size={22} />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{reason.title}</h3>
-                        <p className="mt-3 leading-7 text-text-secondary">{reason.description}</p>
+                        <h3 className="text-2xl font-semibold text-navy">{reason.title}</h3>
+                        <p className="mt-3 text-text-secondary">{reason.description}</p>
                       </div>
                     </div>
                   </Reveal>
@@ -708,7 +730,7 @@ function App() {
                       referrerPolicy="no-referrer"
                     />
                     <div className="p-5">
-                      <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{event.title}</h3>
+                      <h3 className="text-2xl font-semibold text-navy">{event.title}</h3>
                       <div className="mt-5 space-y-3 text-sm text-text-secondary">
                         <div className="flex items-center gap-3">
                           <DateIcon size={16} className="text-accent-blue" />
@@ -750,7 +772,7 @@ function App() {
                       <div>
                         <p className="text-sm uppercase tracking-[0.24em] text-text-secondary">{channel.title}</p>
                         <p className="mt-2 text-lg font-medium text-navy">{channel.value}</p>
-                        <p className="mt-2 text-sm leading-7 text-text-secondary">{channel.description}</p>
+                        <p className="mt-2 text-sm text-text-secondary">{channel.description}</p>
                       </div>
                     </div>
                   );
@@ -807,7 +829,7 @@ function App() {
               <Reveal key={testimonial.name} delay={index * 0.05}>
                 <div className="surface-card card-hover h-full p-6">
                   <Quote className="text-accent-blue" />
-                  <p className="mt-6 text-lg leading-8 text-text-primary/90">{testimonial.comment}</p>
+                  <p className="mt-6 text-lg text-text-primary/90">{testimonial.comment}</p>
                   <div className="mt-8 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                       <img
@@ -860,8 +882,8 @@ function App() {
                   />
                   <div className="p-5">
                     <p className="text-xs uppercase tracking-[0.28em] text-gray-400">{post.date}</p>
-                    <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-navy">{post.title}</h3>
-                    <p className="mt-3 leading-7 text-text-secondary">{post.excerpt}</p>
+                    <h3 className="mt-4 text-2xl font-semibold text-navy">{post.title}</h3>
+                    <p className="mt-3 text-text-secondary">{post.excerpt}</p>
                   </div>
                 </TiltCard>
               </Reveal>

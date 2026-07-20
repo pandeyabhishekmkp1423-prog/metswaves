@@ -23,7 +23,7 @@ export function Accordion({ items }: AccordionProps) {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="text-lg font-medium text-navy">{item.question}</span>
+              <span className="font-ui text-lg font-medium text-navy">{item.question}</span>
               <span
                 className={`flex h-9 w-9 flex-none items-center justify-center rounded-full border border-border-soft bg-accent-blue/10 text-accent-blue transition-transform duration-300 ${
                   isOpen ? 'rotate-180' : ''
@@ -41,7 +41,7 @@ export function Accordion({ items }: AccordionProps) {
                   transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-6 leading-7 text-text-secondary">{item.answer}</p>
+                  <p className="px-6 pb-6 text-text-secondary">{item.answer}</p>
                 </motion.div>
               ) : null}
             </AnimatePresence>

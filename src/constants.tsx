@@ -106,7 +106,7 @@ export const COURSES: Course[] = [
     id: 'ui-ux',
     title: 'UI/UX for Intelligent Products',
     description: 'Design premium interfaces for AI products, dashboards, and immersive digital experiences.',
-    image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fc4c?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&q=80&w=1200',
     icon: Sparkles,
     duration: '16 weeks',
     students: '800+',
