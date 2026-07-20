@@ -81,6 +81,12 @@ type HeroSectionProps = {
   onSearchSubmit: () => void;
 };
 
+const HERO_STATS: [string, string][] = [
+  ['4.9/5', 'student satisfaction score'],
+  ['12k+', 'community members and alumni'],
+  ['94%', 'project completion rate'],
+];
+
 function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSectionProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -93,17 +99,20 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
         <img
           src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1920"
           alt=""
-          className="h-full w-full object-cover opacity-[0.14]"
+          className="h-full w-full object-cover [filter:saturate(0.8)_blur(1px)]"
           loading="eager"
           decoding="async"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.85)_38%,rgba(248,250,252,0.97)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(255,255,255,0.99)_0%,rgba(255,255,255,0.96)_30%,rgba(255,255,255,0.68)_50%,rgba(255,255,255,0.42)_68%,rgba(255,255,255,0.28)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-white/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t from-white via-white/75 to-transparent" />
+        <div className="absolute inset-0 bg-white lg:hidden" />
       </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.10),transparent_38%),radial-gradient(circle_at_85%_12%,rgba(96,165,250,0.09),transparent_32%)]" />
 
       <div className="section-shell relative z-10 flex min-h-screen items-center pt-28">
-        <div className="grid w-full items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid w-full items-start gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <Reveal>
               <span className="eyebrow">Immersive AI Education</span>
@@ -173,13 +182,9 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
               </div>
             </Reveal>
 
-            <Reveal delay={0.32}>
+            <Reveal delay={0.32} className="lg:hidden">
               <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-4">
-                {[
-                  ['4.9/5', 'student satisfaction score'],
-                  ['12k+', 'community members and alumni'],
-                  ['94%', 'project completion rate'],
-                ].map(([value, label]) => (
+                {HERO_STATS.map(([value, label]) => (
                   <div key={label} className="surface-card p-3 sm:p-4">
                     <p className="font-ui text-2xl font-bold text-navy sm:text-3xl">{value}</p>
                     <p className="mt-2 text-xs text-text-secondary sm:text-sm">{label}</p>
@@ -190,7 +195,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
           </div>
 
           <Reveal delay={0.18} className="relative hidden lg:block">
-            <div className="relative ml-auto max-w-xl" data-parallax data-depth="80">
+            <div className="relative ml-auto max-w-xl lg:-mt-4" data-parallax data-depth="80">
               <div className="relative overflow-hidden rounded-premium border border-navy/10 bg-navy p-6 shadow-[0_24px_60px_rgba(7,19,39,0.32)]">
                 <div className="absolute inset-0 opacity-35 [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]">
                   <HeroCanvas mobile={mobile} />
@@ -229,6 +234,15 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   </div>
                 </div>
               </div>
+
+              <div className="mt-6 grid grid-cols-3 gap-4">
+                {HERO_STATS.map(([value, label]) => (
+                  <div key={label} className="surface-card p-4">
+                    <p className="font-ui text-2xl font-bold text-navy">{value}</p>
+                    <p className="mt-2 text-sm text-text-secondary">{label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
         </div>
@@ -255,6 +269,17 @@ function App() {
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), 1400);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!window.location.hash) return;
+
+    const hash = window.location.hash;
+    const target = document.querySelector(hash);
+    if (target) {
+      window.setTimeout(() => target.scrollIntoView({ behavior: 'auto', block: 'start' }), 50);
+    }
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
   }, []);
 
   useEffect(() => {
@@ -620,6 +645,7 @@ function App() {
                     <div className="mt-5 flex gap-2">
                       <a
                         href={mentor.socials.twitter}
+                        onClick={(event) => handleAnchorClick(event, mentor.socials.twitter)}
                         aria-label={`${mentor.name} on Twitter`}
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >
@@ -627,6 +653,7 @@ function App() {
                       </a>
                       <a
                         href={mentor.socials.linkedin}
+                        onClick={(event) => handleAnchorClick(event, mentor.socials.linkedin)}
                         aria-label={`${mentor.name} on LinkedIn`}
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >
@@ -634,6 +661,7 @@ function App() {
                       </a>
                       <a
                         href={mentor.socials.instagram}
+                        onClick={(event) => handleAnchorClick(event, mentor.socials.instagram)}
                         aria-label={`${mentor.name} on Instagram`}
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >

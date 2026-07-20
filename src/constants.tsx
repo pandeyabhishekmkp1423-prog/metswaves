@@ -55,7 +55,7 @@ export type Faq = {
 };
 
 export const NAV_ITEMS = [
-  { label: 'Hero', href: '#hero' },
+  { label: 'Home', href: '#hero' },
   { label: 'Courses', href: '#courses' },
   { label: 'Teachers', href: '#teachers' },
   { label: 'Events', href: '#events' },
