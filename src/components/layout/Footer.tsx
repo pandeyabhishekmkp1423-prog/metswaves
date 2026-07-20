@@ -21,12 +21,12 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/8 bg-[#050d1e]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(79,140,255,0.1),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(122,90,248,0.08),transparent_28%)]" />
+    <footer className="relative overflow-hidden border-t border-white/8 bg-navy">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(96,165,250,0.08),transparent_28%)]" />
       <div className="section-shell relative z-10 py-16!">
         <div className="surface-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+            <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy sm:text-3xl">
               Get cohort drops and career signal in your inbox.
             </h3>
             <p className="mt-2 text-text-secondary">No spam — just admissions windows, events, and new tracks.</p>
@@ -56,7 +56,7 @@ export function Footer() {
             <a href="#hero" className="inline-flex items-center" aria-label="Metawaves AI home">
               <img src="/logo.png" alt="Metawaves AI" className="h-7 w-auto" />
             </a>
-            <p className="mt-6 max-w-md leading-8 text-text-secondary">
+            <p className="mt-6 max-w-md leading-8 text-white/65">
               Premium education for learners who want to build AI fluency, creative confidence, and career momentum in one intentional ecosystem.
             </p>
             <div className="mt-8 flex gap-3">
@@ -66,7 +66,7 @@ export function Footer() {
                   <a
                     key={item.label}
                     href="#"
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/5 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-white"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/5 text-white/60 transition hover:border-accent-blue-light/40 hover:bg-accent-blue/15 hover:text-white"
                     aria-label={item.label}
                   >
                     <Icon size={18} />

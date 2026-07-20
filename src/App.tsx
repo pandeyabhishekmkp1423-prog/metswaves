@@ -45,59 +45,15 @@ const HeroScene = lazy(() => import('./components/3d/HeroScene'));
 
 gsap.registerPlugin(ScrollTrigger);
 
-function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-    if (!finePointer) return;
-
-    const handleMove = (event: MouseEvent) => {
-      setPosition({ x: event.clientX, y: event.clientY });
-      setVisible(true);
-    };
-
-    const handleLeave = () => setVisible(false);
-
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('mouseout', handleLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMove);
-      window.removeEventListener('mouseout', handleLeave);
-    };
-  }, []);
-
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="pointer-events-none fixed z-50 hidden h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(79,140,255,0.28),rgba(79,140,255,0))] blur-2xl lg:block"
-      animate={{
-        x: position.x - 80,
-        y: position.y - 80,
-        opacity: visible ? 1 : 0,
-        scale: visible ? 1 : 0.7,
-      }}
-      transition={{ type: 'spring', damping: 28, stiffness: 180, mass: 0.6 }}
-    />
-  );
-}
-
 function LoadingScreen() {
   return (
     <motion.div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#071327]"
-      exit={{ opacity: 0, transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] } }}
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-white"
+      exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.76, 0, 0.24, 1] } }}
     >
-      <div className="relative flex flex-col items-center gap-6">
-        <div className="loader-ring">
-          <div className="loader-core" />
-        </div>
-        <div className="text-center">
-          <p className="text-xs uppercase tracking-[0.45em] text-accent-blue-light/80">Initializing Metawaves</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white">Building the AI learning grid</h1>
-        </div>
+      <div className="flex flex-col items-center gap-6">
+        <img src="/logo-navy.png" alt="Metawaves AI" className="loader-logo h-8 w-auto" />
+        <div className="loader-track" />
       </div>
     </motion.div>
   );
@@ -108,9 +64,7 @@ function HeroCanvas({ mobile }: { mobile: boolean }) {
     <Suspense
       fallback={
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="loader-ring scale-75">
-            <div className="loader-core" />
-          </div>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-white/60" />
         </div>
       }
     >
@@ -133,12 +87,8 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
   };
 
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(79,140,255,0.20),transparent_38%),radial-gradient(circle_at_80%_18%,rgba(122,90,248,0.16),transparent_30%)]" />
-      <div className="grid-overlay absolute inset-0 opacity-40" />
-      <div className="absolute inset-0 opacity-55 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
-        <HeroCanvas mobile={mobile} />
-      </div>
+    <section id="hero" className="relative overflow-hidden bg-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.10),transparent_38%),radial-gradient(circle_at_85%_12%,rgba(96,165,250,0.09),transparent_32%)]" />
 
       <div className="section-shell relative z-10 flex min-h-screen items-center pt-28">
         <div className="grid w-full items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
@@ -147,9 +97,9 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
               <span className="eyebrow">Immersive AI Education</span>
             </Reveal>
             <Reveal delay={0.08}>
-              <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.05em] text-white sm:text-6xl lg:text-8xl">
+              <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.05em] text-navy sm:text-6xl lg:text-8xl">
                 Start Your
-                <span className="block bg-[linear-gradient(135deg,#e6edff_0%,#9fbcff_35%,#7a5af8_70%,#4f8cff_100%)] bg-clip-text text-transparent">
+                <span className="block bg-[linear-gradient(135deg,#2563EB_0%,#60A5FA_100%)] bg-clip-text text-transparent">
                   AI-Powered
                 </span>
                 Career Journey
@@ -165,9 +115,9 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
             <Reveal delay={0.22}>
               <form
                 onSubmit={handleSubmit}
-                className="mt-8 flex w-full max-w-xl items-center gap-2 rounded-premium border border-white/10 bg-white/5 p-2 backdrop-blur-xl transition focus-within:border-accent-blue/40"
+                className="mt-8 flex w-full max-w-xl items-center gap-2 rounded-premium border border-border-soft bg-white p-2 shadow-[0_1px_3px_rgba(16,24,40,0.06)] transition focus-within:border-accent-blue/40"
               >
-                <Search size={18} className="ml-3 flex-none text-text-secondary" />
+                <Search size={18} className="ml-3 flex-none text-gray-400" />
                 <label className="sr-only" htmlFor="hero-course-search">
                   Search courses
                 </label>
@@ -177,7 +127,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   value={query}
                   onChange={(event) => onQueryChange(event.target.value)}
                   placeholder="Search courses — AI, Design, Growth..."
-                  className="w-full bg-transparent py-3 text-white placeholder:text-white/30 outline-none"
+                  className="w-full bg-transparent py-3 text-navy placeholder:text-gray-400 outline-none"
                 />
                 <button
                   type="submit"
@@ -198,7 +148,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   href="#video"
                   className="btn-secondary button-glow inline-flex items-center justify-center gap-3 px-7 py-4"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-accent-blue-light">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue/10 text-accent-blue">
                     <Play size={16} className="ml-0.5" />
                   </span>
                   Watch the Experience
@@ -214,7 +164,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
                   ['94%', 'project completion rate'],
                 ].map(([value, label]) => (
                   <div key={label} className="surface-card p-4">
-                    <p className="text-3xl font-semibold tracking-[-0.04em] text-white">{value}</p>
+                    <p className="text-3xl font-semibold tracking-[-0.04em] text-navy">{value}</p>
                     <p className="mt-2 text-sm text-text-secondary">{label}</p>
                   </div>
                 ))}
@@ -224,34 +174,39 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
 
           <Reveal delay={0.18} className="relative hidden lg:block">
             <div className="relative ml-auto max-w-xl" data-parallax data-depth="80">
-              <div className="surface-card relative overflow-hidden p-6">
+              <div className="relative overflow-hidden rounded-premium border border-navy/10 bg-navy p-6 shadow-[0_24px_60px_rgba(7,19,39,0.32)]">
+                <div className="absolute inset-0 opacity-35 [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]">
+                  <HeroCanvas mobile={mobile} />
+                </div>
                 <div className="absolute -right-16 top-0 h-40 w-40 rounded-full bg-accent-blue/25 blur-3xl" />
-                <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-accent-purple/20 blur-3xl" />
+                <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-accent-blue-light/15 blur-3xl" />
                 <div className="relative z-10 grid gap-5">
                   <div className="flex items-center justify-between">
-                    <span className="badge-pill">Neural Dashboard</span>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-accent-blue-light">
+                      Neural Dashboard
+                    </span>
                     <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs text-emerald-300">Live</span>
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="glass-panel p-5">
-                      <p className="text-sm text-text-secondary">Current learner focus</p>
+                    <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
+                      <p className="text-sm text-white/60">Current learner focus</p>
                       <p className="mt-3 text-2xl font-semibold text-white">Prompt Systems</p>
                       <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full w-[82%] rounded-full bg-[linear-gradient(90deg,#4f8cff,#7a5af8)]" />
+                        <div className="h-full w-[82%] rounded-full bg-[linear-gradient(90deg,#3b82f6,#60a5fa)]" />
                       </div>
                     </div>
-                    <div className="glass-panel p-5">
-                      <p className="text-sm text-text-secondary">Next launch window</p>
+                    <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
+                      <p className="text-sm text-white/60">Next launch window</p>
                       <p className="mt-3 text-2xl font-semibold text-white">May Cohort</p>
                       <p className="mt-2 text-sm text-accent-blue-light">Admissions open for creators and engineers</p>
                     </div>
                   </div>
-                  <div className="glass-panel flex items-center justify-between gap-4 p-5">
+                  <div className="flex items-center justify-between gap-4 rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
                     <div>
-                      <p className="text-sm text-text-secondary">Sound design hook</p>
+                      <p className="text-sm text-white/60">Sound design hook</p>
                       <p className="mt-2 text-lg font-medium text-white">Spatial intro ready for Web Audio layering</p>
                     </div>
-                    <div className="flex h-14 w-14 items-center justify-center rounded-[16px] border border-white/10 bg-white/5 text-accent-blue-light">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-[16px] border border-white/10 bg-white/10 text-accent-blue-light">
                       <Volume2 />
                     </div>
                   </div>
@@ -281,7 +236,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 1650);
+    const timer = window.setTimeout(() => setLoading(false), 1400);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -348,11 +303,8 @@ function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#071327] text-white">
+    <div className="relative min-h-screen overflow-x-hidden bg-white text-text-primary">
       <AnimatePresence>{loading ? <LoadingScreen /> : null}</AnimatePresence>
-      <CursorGlow />
-      <div className="background-noise fixed inset-0 z-0 opacity-40" />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,rgba(79,140,255,0.07),transparent_35%),radial-gradient(circle_at_bottom,rgba(122,90,248,0.06),transparent_30%)]" />
 
       <Navbar />
 
@@ -364,9 +316,9 @@ function App() {
           onSearchSubmit={handleCourseSearchSubmit}
         />
 
-        <section className="relative z-10 border-y border-white/8 bg-white/2">
+        <section className="relative z-10 border-y border-border-soft bg-bg-secondary">
           <div className="section-shell !py-5">
-            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm uppercase tracking-[0.32em] text-white/40">
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm uppercase tracking-[0.32em] text-gray-400">
               {heroLogos.map((item) => (
                 <span key={item}>{item}</span>
               ))}
@@ -374,7 +326,7 @@ function App() {
           </div>
         </section>
 
-        <section id="features" className="section-shell">
+        <section id="features" className="section-shell bg-white">
           <Reveal>
             <SectionIntro
               eyebrow="Features"
@@ -392,9 +344,9 @@ function App() {
                       <div className="icon-chip">
                         <Icon size={24} />
                       </div>
-                      <h3 className="mt-6 text-2xl font-semibold tracking-[-0.03em] text-white">{feature.title}</h3>
+                      <h3 className="mt-6 text-2xl font-semibold tracking-[-0.03em] text-navy">{feature.title}</h3>
                       <p className="mt-4 leading-7 text-text-secondary">{feature.description}</p>
-                      <span className="mt-auto pt-8 text-sm uppercase tracking-[0.24em] text-accent-blue-light">Premium track</span>
+                      <span className="mt-auto pt-8 text-sm uppercase tracking-[0.24em] text-accent-blue">Premium track</span>
                     </div>
                   </TiltCard>
                 </Reveal>
@@ -403,7 +355,7 @@ function App() {
           </div>
         </section>
 
-        <section id="about" className="section-shell">
+        <section id="about" className="section-shell bg-bg-secondary">
           <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal className="relative">
               <div className="grid grid-cols-2 gap-4" data-rotate>
@@ -418,7 +370,7 @@ function App() {
                   />
                   <div className="glass-panel p-4">
                     <p className="text-xs uppercase tracking-[0.25em] text-text-secondary">Studio Signal</p>
-                    <p className="mt-3 text-2xl font-semibold text-white">10+ years</p>
+                    <p className="mt-3 text-2xl font-semibold text-navy">10+ years</p>
                     <p className="mt-2 text-sm text-text-secondary">of refined curriculum evolution for digital-first careers.</p>
                   </div>
                 </div>
@@ -458,7 +410,7 @@ function App() {
                         <Icon size={20} />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-white">{pillar.title}</h3>
+                        <h3 className="text-lg font-medium text-navy">{pillar.title}</h3>
                         <p className="mt-2 text-sm leading-7 text-text-secondary">{pillar.description}</p>
                       </div>
                     </div>
@@ -469,7 +421,7 @@ function App() {
           </div>
         </section>
 
-        <section id="stats" className="section-shell">
+        <section id="stats" className="section-shell bg-white">
           <Reveal>
             <SectionIntro
               eyebrow="Stats"
@@ -484,10 +436,10 @@ function App() {
               return (
                 <Reveal key={stat.label} delay={index * 0.06}>
                   <div className="surface-card card-hover h-full p-6 text-center">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[16px] border border-accent-blue/20 bg-accent-blue/10 text-accent-blue-light">
+                    <div className="icon-chip mx-auto h-16 w-16">
                       <Icon size={28} />
                     </div>
-                    <p className="mt-6 text-5xl font-semibold tracking-[-0.05em] text-white">{stat.value}</p>
+                    <p className="mt-6 text-5xl font-semibold tracking-[-0.05em] text-navy">{stat.value}</p>
                     <p className="mt-3 text-sm uppercase tracking-[0.28em] text-text-secondary">{stat.label}</p>
                     <p className="mt-4 text-sm leading-7 text-text-secondary">{stat.detail}</p>
                   </div>
@@ -497,7 +449,7 @@ function App() {
           </div>
         </section>
 
-        <section id="courses" className="section-shell">
+        <section id="courses" className="section-shell bg-bg-alt">
           <Reveal>
             <SectionIntro
               eyebrow="Courses"
@@ -508,11 +460,11 @@ function App() {
 
           {filteredCourses.length === 0 ? (
             <div className="surface-card mt-14 flex flex-col items-center gap-3 p-12 text-center">
-              <p className="text-lg text-white">No courses match "{courseQuery}"</p>
+              <p className="text-lg text-navy">No courses match "{courseQuery}"</p>
               <button
                 type="button"
                 onClick={() => setCourseQuery('')}
-                className="text-sm font-medium text-accent-blue-light hover:text-white"
+                className="text-sm font-medium text-accent-blue hover:text-navy"
               >
                 Clear search
               </button>
@@ -533,7 +485,7 @@ function App() {
                           decoding="async"
                           referrerPolicy="no-referrer"
                         />
-                        <span className="badge-pill absolute left-4 top-4 border-white/15 bg-[#071327]/70">{course.tag}</span>
+                        <span className="badge-pill absolute left-4 top-4 border-white/15 bg-navy/75 text-white">{course.tag}</span>
                       </div>
                       <div className="flex flex-1 flex-col p-5">
                         <div className="flex items-center justify-between">
@@ -542,21 +494,21 @@ function App() {
                             <Icon size={20} />
                           </div>
                         </div>
-                        <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-white">{course.title}</h3>
+                        <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-navy">{course.title}</h3>
                         <p className="mt-3 leading-7 text-text-secondary">{course.description}</p>
                         <p className="mt-4 text-sm text-text-secondary">
-                          by <span className="text-white">{course.instructor}</span>
+                          by <span className="text-navy">{course.instructor}</span>
                         </p>
                         <div className="mt-5 flex items-center justify-between text-sm text-text-secondary">
                           <span>{course.duration}</span>
-                          <span className="flex items-center gap-1 text-amber-300">
+                          <span className="flex items-center gap-1 text-amber-500">
                             <Star size={14} className="fill-current" />
                             {course.rating}
                           </span>
                           <span>{course.students}</span>
                         </div>
-                        <div className="mt-6 flex items-center justify-between border-t border-white/8 pt-5">
-                          <span className="text-xl font-semibold text-white">{course.price}</span>
+                        <div className="mt-6 flex items-center justify-between border-t border-border-soft pt-5">
+                          <span className="text-xl font-semibold text-navy">{course.price}</span>
                           <MagneticButton
                             href="#contact"
                             className="btn-premium button-glow inline-flex items-center gap-1.5 px-4 py-2.5 text-sm"
@@ -574,12 +526,11 @@ function App() {
           )}
         </section>
 
-        <section id="video" className="section-shell">
+        <section id="video" className="section-shell bg-white">
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <Reveal>
               <div className="surface-card relative overflow-hidden p-4">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(79,140,255,0.20),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(122,90,248,0.16),transparent_26%)]" />
-                <div className="relative overflow-hidden rounded-[16px] border border-white/10">
+                <div className="relative overflow-hidden rounded-[16px] border border-border-soft">
                   <img
                     src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1400"
                     alt="Metawaves AI video preview"
@@ -590,7 +541,7 @@ function App() {
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,19,39,0.05),rgba(7,19,39,0.55))]" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <MagneticButton href="#contact" className="btn-secondary button-glow flex h-24 w-24 items-center justify-center rounded-full">
+                    <MagneticButton href="#contact" className="button-glow flex h-24 w-24 items-center justify-center rounded-full border border-white/30 bg-white/15 backdrop-blur-md">
                       <Play size={30} className="ml-1 text-white" />
                     </MagneticButton>
                   </div>
@@ -607,10 +558,10 @@ function App() {
               <div className="mt-8 grid gap-4">
                 {VIDEO_HIGHLIGHTS.map((item) => (
                   <div key={item} className="glass-panel flex items-center gap-4 px-5 py-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue/10 text-accent-blue-light">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue/10 text-accent-blue">
                       <Check size={18} />
                     </div>
-                    <span className="text-white/90">{item}</span>
+                    <span className="text-text-primary/90">{item}</span>
                   </div>
                 ))}
               </div>
@@ -618,7 +569,7 @@ function App() {
           </div>
         </section>
 
-        <section id="teachers" className="section-shell">
+        <section id="teachers" className="section-shell bg-bg-secondary">
           <Reveal>
             <SectionIntro
               eyebrow="Teachers"
@@ -639,30 +590,30 @@ function App() {
                       decoding="async"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="badge-pill absolute left-4 top-4 border-white/15 bg-[#071327]/70">{mentor.experience}</span>
+                    <span className="badge-pill absolute left-4 top-4 border-white/15 bg-navy/75 text-white">{mentor.experience}</span>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{mentor.name}</h3>
+                    <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{mentor.name}</h3>
                     <p className="mt-2 text-text-secondary">{mentor.role}</p>
                     <div className="mt-5 flex gap-2">
                       <a
                         href={mentor.socials.twitter}
                         aria-label={`${mentor.name} on Twitter`}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-white"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >
                         <Twitter size={15} />
                       </a>
                       <a
                         href={mentor.socials.linkedin}
                         aria-label={`${mentor.name} on LinkedIn`}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-white"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >
                         <Linkedin size={15} />
                       </a>
                       <a
                         href={mentor.socials.instagram}
                         aria-label={`${mentor.name} on Instagram`}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-white"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-gray-50 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-accent-blue"
                       >
                         <Instagram size={15} />
                       </a>
@@ -674,7 +625,7 @@ function App() {
           </div>
         </section>
 
-        <section id="why-choose-us" className="section-shell">
+        <section id="why-choose-us" className="section-shell bg-white">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
               <SectionIntro
@@ -693,7 +644,7 @@ function App() {
                         <Icon size={22} />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{reason.title}</h3>
+                        <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{reason.title}</h3>
                         <p className="mt-3 leading-7 text-text-secondary">{reason.description}</p>
                       </div>
                     </div>
@@ -704,7 +655,7 @@ function App() {
           </div>
         </section>
 
-        <section id="gallery" className="section-shell">
+        <section id="gallery" className="section-shell bg-bg-secondary">
           <Reveal>
             <SectionIntro
               eyebrow="Gallery"
@@ -731,7 +682,7 @@ function App() {
           </div>
         </section>
 
-        <section id="events" className="section-shell">
+        <section id="events" className="section-shell bg-white">
           <Reveal>
             <SectionIntro
               eyebrow="Events"
@@ -757,18 +708,18 @@ function App() {
                       referrerPolicy="no-referrer"
                     />
                     <div className="p-5">
-                      <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{event.title}</h3>
+                      <h3 className="text-2xl font-semibold tracking-[-0.03em] text-navy">{event.title}</h3>
                       <div className="mt-5 space-y-3 text-sm text-text-secondary">
                         <div className="flex items-center gap-3">
-                          <DateIcon size={16} className="text-accent-blue-light" />
+                          <DateIcon size={16} className="text-accent-blue" />
                           <span>{event.date}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <TimeIcon size={16} className="text-accent-blue-light" />
+                          <TimeIcon size={16} className="text-accent-blue" />
                           <span>{event.time}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <LocationIcon size={16} className="text-accent-blue-light" />
+                          <LocationIcon size={16} className="text-accent-blue" />
                           <span>{event.location}</span>
                         </div>
                       </div>
@@ -780,7 +731,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="section-shell">
+        <section id="contact" className="section-shell bg-bg-alt">
           <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
             <Reveal>
               <SectionIntro
@@ -798,7 +749,7 @@ function App() {
                       </div>
                       <div>
                         <p className="text-sm uppercase tracking-[0.24em] text-text-secondary">{channel.title}</p>
-                        <p className="mt-2 text-lg font-medium text-white">{channel.value}</p>
+                        <p className="mt-2 text-lg font-medium text-navy">{channel.value}</p>
                         <p className="mt-2 text-sm leading-7 text-text-secondary">{channel.description}</p>
                       </div>
                     </div>
@@ -842,7 +793,7 @@ function App() {
           </div>
         </section>
 
-        <section id="testimonials" className="section-shell">
+        <section id="testimonials" className="section-shell bg-white">
           <Reveal>
             <SectionIntro
               eyebrow="Testimonials"
@@ -855,27 +806,27 @@ function App() {
             {TESTIMONIALS.map((testimonial, index) => (
               <Reveal key={testimonial.name} delay={index * 0.05}>
                 <div className="surface-card card-hover h-full p-6">
-                  <Quote className="text-accent-blue-light" />
-                  <p className="mt-6 text-lg leading-8 text-white/90">{testimonial.comment}</p>
+                  <Quote className="text-accent-blue" />
+                  <p className="mt-6 text-lg leading-8 text-text-primary/90">{testimonial.comment}</p>
                   <div className="mt-8 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                       <img
                         src={testimonial.avatar}
                         alt={testimonial.name}
-                        className="h-14 w-14 rounded-full border border-white/10 object-cover"
+                        className="h-14 w-14 rounded-full border border-border-soft object-cover"
                         loading="lazy"
                         decoding="async"
                         referrerPolicy="no-referrer"
                       />
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <p className="font-medium text-white">{testimonial.name}</p>
-                          <BadgeCheck size={15} className="text-accent-blue-light" aria-label="Verified student" />
+                          <p className="font-medium text-navy">{testimonial.name}</p>
+                          <BadgeCheck size={15} className="text-accent-blue" aria-label="Verified student" />
                         </div>
                         <p className="text-sm text-text-secondary">{testimonial.role}</p>
                       </div>
                     </div>
-                    <div className="flex text-amber-300">
+                    <div className="flex text-amber-500">
                       {Array.from({ length: testimonial.rating }).map((_, starIndex) => (
                         <Star key={starIndex} size={16} className="fill-current" />
                       ))}
@@ -887,7 +838,7 @@ function App() {
           </div>
         </section>
 
-        <section id="blog" className="section-shell">
+        <section id="blog" className="section-shell bg-bg-secondary">
           <Reveal>
             <SectionIntro
               eyebrow="Blog"
@@ -908,8 +859,8 @@ function App() {
                     referrerPolicy="no-referrer"
                   />
                   <div className="p-5">
-                    <p className="text-xs uppercase tracking-[0.28em] text-white/40">{post.date}</p>
-                    <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-white">{post.title}</h3>
+                    <p className="text-xs uppercase tracking-[0.28em] text-gray-400">{post.date}</p>
+                    <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-navy">{post.title}</h3>
                     <p className="mt-3 leading-7 text-text-secondary">{post.excerpt}</p>
                   </div>
                 </TiltCard>
@@ -918,7 +869,7 @@ function App() {
           </div>
         </section>
 
-        <section id="faq" className="section-shell pb-32">
+        <section id="faq" className="section-shell bg-white pb-32">
           <Reveal>
             <SectionIntro
               eyebrow="FAQ"

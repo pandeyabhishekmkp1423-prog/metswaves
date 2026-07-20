@@ -40,12 +40,12 @@ export function Navbar() {
       <div
         className={`mx-auto grid max-w-[1280px] grid-cols-[auto_1fr_auto] items-center gap-4 rounded-premium border px-4 py-3 transition-all duration-500 sm:px-6 ${
           isScrolled
-            ? 'border-white/[0.08] bg-[#071327]/80 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl'
-            : 'border-white/[0.06] bg-[#071327]/20 backdrop-blur-md'
+            ? 'border-border-soft bg-white/85 shadow-[0_8px_30px_rgba(16,24,40,0.08)] backdrop-blur-xl'
+            : 'border-transparent bg-transparent'
         }`}
       >
         <a href="#hero" className="flex items-center" aria-label="Metawaves AI home">
-          <img src="/logo.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
+          <img src="/logo-navy.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
         </a>
 
         <nav className="hidden items-center justify-center gap-1 lg:flex">
@@ -55,8 +55,8 @@ export function Navbar() {
               href={item.href}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 active === item.href
-                  ? 'border border-accent-blue/20 bg-accent-blue/15 text-white'
-                  : 'border border-transparent text-text-secondary hover:bg-white/5 hover:text-white'
+                  ? 'border border-accent-blue/20 bg-accent-blue/10 text-accent-blue'
+                  : 'border border-transparent text-text-secondary hover:bg-gray-50 hover:text-navy'
               }`}
             >
               {item.label}
@@ -68,18 +68,18 @@ export function Navbar() {
           <div className="hidden items-center gap-4 lg:flex">
             <a
               href="#contact"
-              className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition hover:text-white"
+              className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition hover:text-navy"
             >
               Log In
             </a>
-            <MagneticButton href="#contact" className="btn-premium inline-flex items-center px-5 py-3 text-sm">
+            <MagneticButton href="#contact" className="btn-premium button-glow inline-flex items-center px-5 py-3 text-sm">
               Enroll Now
             </MagneticButton>
           </div>
 
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.08] bg-white/5 text-white lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft bg-white text-navy lg:hidden"
             onClick={() => setMenuOpen((value) => !value)}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
@@ -95,28 +95,28 @@ export function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="mx-auto mt-3 max-w-[1280px] rounded-premium border border-white/[0.08] bg-[#071327]/95 p-4 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-3 max-w-[1280px] rounded-premium border border-border-soft bg-white p-4 shadow-[0_18px_50px_rgba(16,24,40,0.12)] lg:hidden"
           >
             <div className="grid gap-2">
               {NAV_ITEMS.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-[14px] px-4 py-3 text-text-secondary transition hover:bg-white/5 hover:text-white"
+                  className="rounded-[14px] px-4 py-3 text-text-secondary transition hover:bg-gray-50 hover:text-navy"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <div className="mt-2 grid gap-2 border-t border-white/[0.08] pt-3">
+              <div className="mt-2 grid gap-2 border-t border-border-soft pt-3">
                 <a
                   href="#contact"
-                  className="rounded-[14px] px-4 py-3 text-center text-text-secondary transition hover:bg-white/5 hover:text-white"
+                  className="rounded-[14px] px-4 py-3 text-center text-text-secondary transition hover:bg-gray-50 hover:text-navy"
                   onClick={() => setMenuOpen(false)}
                 >
                   Log In
                 </a>
-                <MagneticButton href="#contact" className="btn-premium inline-flex items-center justify-center px-5 py-3 text-sm">
+                <MagneticButton href="#contact" className="btn-premium button-glow inline-flex items-center justify-center px-5 py-3 text-sm">
                   Enroll Now
                 </MagneticButton>
               </div>

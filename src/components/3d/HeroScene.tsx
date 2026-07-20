@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshTransmissionMaterial, OrbitControls, Points, PointMaterial, Sparkles } from '@react-three/drei';
+import { Float, MeshTransmissionMaterial, OrbitControls, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 function NeuralCore({ mobile }: { mobile: boolean }) {
@@ -74,14 +74,12 @@ function NeuralCore({ mobile }: { mobile: boolean }) {
       </Float>
 
       <lineSegments geometry={lineGeometry}>
-        <lineBasicMaterial color="#7a5af8" transparent opacity={0.45} />
+        <lineBasicMaterial color="#60a5fa" transparent opacity={0.4} />
       </lineSegments>
 
       <Points positions={pointPositions} stride={3}>
-        <PointMaterial color="#6ea7ff" transparent opacity={0.95} size={0.08} sizeAttenuation depthWrite={false} />
+        <PointMaterial color="#93c5fd" transparent opacity={0.9} size={0.07} sizeAttenuation depthWrite={false} />
       </Points>
-
-      <Sparkles count={mobile ? 36 : 72} scale={mobile ? 5 : 7} size={2.5} speed={0.25} color="#4f8cff" />
     </group>
   );
 }
@@ -93,8 +91,8 @@ export default function HeroScene({ mobile = false }: { mobile?: boolean }) {
       <fog attach="fog" args={['#071327', 7, 15]} />
       <ambientLight intensity={0.8} color="#8bb7ff" />
       <directionalLight position={[3, 4, 3]} intensity={2.4} color="#6ea7ff" />
-      <pointLight position={[-4, -2, 4]} intensity={16} distance={10} color="#7a5af8" />
-      <pointLight position={[4, 2, -2]} intensity={14} distance={10} color="#4f8cff" />
+      <pointLight position={[-4, -2, 4]} intensity={14} distance={10} color="#3b82f6" />
+      <pointLight position={[4, 2, -2]} intensity={12} distance={10} color="#60a5fa" />
       <NeuralCore mobile={mobile} />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
     </Canvas>

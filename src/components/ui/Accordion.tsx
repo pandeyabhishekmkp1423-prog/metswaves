@@ -23,9 +23,9 @@ export function Accordion({ items }: AccordionProps) {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="text-lg font-medium text-white">{item.question}</span>
+              <span className="text-lg font-medium text-navy">{item.question}</span>
               <span
-                className={`flex h-9 w-9 flex-none items-center justify-center rounded-full border border-white/10 bg-white/5 text-accent-blue-light transition-transform duration-300 ${
+                className={`flex h-9 w-9 flex-none items-center justify-center rounded-full border border-border-soft bg-accent-blue/10 text-accent-blue transition-transform duration-300 ${
                   isOpen ? 'rotate-180' : ''
                 }`}
               >
