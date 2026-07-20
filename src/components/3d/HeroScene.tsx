@@ -68,20 +68,20 @@ function NeuralCore({ mobile }: { mobile: boolean }) {
             ior={1.12}
             chromaticAberration={0.03}
             backside
-            color="#5f74ff"
+            color="#4f8cff"
           />
         </mesh>
       </Float>
 
       <lineSegments geometry={lineGeometry}>
-        <lineBasicMaterial color="#9c8cff" transparent opacity={0.45} />
+        <lineBasicMaterial color="#7a5af8" transparent opacity={0.45} />
       </lineSegments>
 
       <Points positions={pointPositions} stride={3}>
-        <PointMaterial color="#f59e0b" transparent opacity={0.95} size={0.08} sizeAttenuation depthWrite={false} />
+        <PointMaterial color="#6ea7ff" transparent opacity={0.95} size={0.08} sizeAttenuation depthWrite={false} />
       </Points>
 
-      <Sparkles count={mobile ? 36 : 72} scale={mobile ? 5 : 7} size={2.5} speed={0.25} color="#4cc9ff" />
+      <Sparkles count={mobile ? 36 : 72} scale={mobile ? 5 : 7} size={2.5} speed={0.25} color="#4f8cff" />
     </group>
   );
 }
@@ -89,12 +89,12 @@ function NeuralCore({ mobile }: { mobile: boolean }) {
 export default function HeroScene({ mobile = false }: { mobile?: boolean }) {
   return (
     <Canvas camera={{ position: [0, 0, mobile ? 6.2 : 5.6], fov: mobile ? 42 : 38 }} dpr={[1, 1.8]}>
-      <color attach="background" args={['#020617']} />
-      <fog attach="fog" args={['#020617', 7, 15]} />
+      <color attach="background" args={['#071327']} />
+      <fog attach="fog" args={['#071327', 7, 15]} />
       <ambientLight intensity={0.8} color="#8bb7ff" />
-      <directionalLight position={[3, 4, 3]} intensity={2.4} color="#7dd3fc" />
-      <pointLight position={[-4, -2, 4]} intensity={16} distance={10} color="#ff7b43" />
-      <pointLight position={[4, 2, -2]} intensity={14} distance={10} color="#7c3aed" />
+      <directionalLight position={[3, 4, 3]} intensity={2.4} color="#6ea7ff" />
+      <pointLight position={[-4, -2, 4]} intensity={16} distance={10} color="#7a5af8" />
+      <pointLight position={[4, 2, -2]} intensity={14} distance={10} color="#4f8cff" />
       <NeuralCore mobile={mobile} />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
     </Canvas>

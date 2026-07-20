@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { ArrowRight, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { FOOTER_LINKS } from '../../constants';
 
 const socialLinks = [
@@ -9,22 +10,53 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!email) return;
+    setSubscribed(true);
+    setEmail('');
+  };
+
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-slate-950">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(249,115,22,0.1),transparent_25%)]" />
-      <div className="section-shell relative z-10 py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.7fr_0.7fr_0.7fr]">
+    <footer className="relative overflow-hidden border-t border-white/8 bg-[#050d1e]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(79,140,255,0.1),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(122,90,248,0.08),transparent_28%)]" />
+      <div className="section-shell relative z-10 py-16!">
+        <div className="surface-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.28),rgba(139,92,246,0.35),rgba(249,115,22,0.28))]">
-                <span className="text-lg font-semibold tracking-[-0.08em] text-white">M</span>
-              </div>
-              <div>
-                <p className="text-xl font-semibold tracking-[-0.04em] text-white">Metawaves AI</p>
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Immersive Education</p>
-              </div>
-            </div>
-            <p className="mt-6 max-w-md leading-8 text-slate-300">
+            <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+              Get cohort drops and career signal in your inbox.
+            </h3>
+            <p className="mt-2 text-text-secondary">No spam — just admissions windows, events, and new tracks.</p>
+          </div>
+          <form onSubmit={handleSubscribe} className="flex w-full max-w-md flex-col gap-3 sm:flex-row">
+            <label className="sr-only" htmlFor="newsletter-email">
+              Email address
+            </label>
+            <input
+              id="newsletter-email"
+              type="email"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="input-premium"
+              placeholder="you@example.com"
+            />
+            <button type="submit" className="btn-premium button-glow inline-flex items-center justify-center gap-2 px-6 py-3 text-sm">
+              {subscribed ? 'Subscribed' : 'Subscribe'}
+              <ArrowRight size={16} />
+            </button>
+          </form>
+        </div>
+
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1.1fr_0.7fr_0.7fr_0.7fr]">
+          <div>
+            <a href="#hero" className="inline-flex items-center" aria-label="Metawaves AI home">
+              <img src="/logo.png" alt="Metawaves AI" className="h-7 w-auto" />
+            </a>
+            <p className="mt-6 max-w-md leading-8 text-text-secondary">
               Premium education for learners who want to build AI fluency, creative confidence, and career momentum in one intentional ecosystem.
             </p>
             <div className="mt-8 flex gap-3">
@@ -34,7 +66,7 @@ export function Footer() {
                   <a
                     key={item.label}
                     href="#"
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 hover:text-white"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/5 text-text-secondary transition hover:border-accent-blue/30 hover:bg-accent-blue/10 hover:text-white"
                     aria-label={item.label}
                   >
                     <Icon size={18} />
@@ -78,7 +110,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-white/8 pt-8 text-sm text-white/40 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Metawaves AI. Crafted for the next generation of AI-native careers.</p>
           <p>Built with React, Tailwind CSS, React Three Fiber, Framer Motion, GSAP, and Lenis.</p>
         </div>

@@ -16,10 +16,10 @@ export function SectionIntro({
   return (
     <div className={alignment}>
       <span className="eyebrow">{eyebrow}</span>
-      <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl">
+      <h2 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-0.03em] text-white md:text-5xl">
         {title}
       </h2>
-      <p className="mt-5 text-base leading-8 text-slate-300 md:text-lg">{description}</p>
+      <p className="mt-5 text-base leading-8 text-text-secondary md:text-lg">{description}</p>
     </div>
   );
 }

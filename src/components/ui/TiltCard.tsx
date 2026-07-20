@@ -13,11 +13,11 @@ export function TiltCard({ children, className = '', glareClassName = '' }: Tilt
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [10, -10]), {
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [6, -6]), {
     stiffness: 180,
     damping: 18,
   });
-  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-12, 12]), {
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-8, 8]), {
     stiffness: 180,
     damping: 18,
   });

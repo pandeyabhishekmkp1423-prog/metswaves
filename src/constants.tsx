@@ -35,13 +35,23 @@ export type Course = {
   duration: string;
   students: string;
   tag: string;
+  instructor: string;
+  level: string;
+  rating: number;
+  price: string;
 };
 
 export type Mentor = {
   name: string;
   role: string;
   image: string;
+  experience: string;
   socials: { twitter: string; linkedin: string; instagram: string };
+};
+
+export type Faq = {
+  question: string;
+  answer: string;
 };
 
 export const NAV_ITEMS = [
@@ -50,6 +60,7 @@ export const NAV_ITEMS = [
   { label: 'Teachers', href: '#teachers' },
   { label: 'Events', href: '#events' },
   { label: 'Blog', href: '#blog' },
+  { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -86,6 +97,10 @@ export const COURSES: Course[] = [
     duration: '24 weeks',
     students: '1.2k+',
     tag: 'Flagship',
+    instructor: 'Dr. Sarah Chen',
+    level: 'Advanced',
+    rating: 4.9,
+    price: '$1,499',
   },
   {
     id: 'ui-ux',
@@ -96,6 +111,10 @@ export const COURSES: Course[] = [
     duration: '16 weeks',
     students: '800+',
     tag: 'Design',
+    instructor: 'Marcus Thorne',
+    level: 'Intermediate',
+    rating: 4.8,
+    price: '$999',
   },
   {
     id: 'video-editing',
@@ -106,6 +125,10 @@ export const COURSES: Course[] = [
     duration: '12 weeks',
     students: '1.5k+',
     tag: 'Creator',
+    instructor: 'Elena Rodriguez',
+    level: 'Beginner',
+    rating: 4.7,
+    price: '$799',
   },
   {
     id: 'graphic-design',
@@ -116,6 +139,10 @@ export const COURSES: Course[] = [
     duration: '14 weeks',
     students: '2.1k+',
     tag: 'Brand',
+    instructor: 'Marcus Thorne',
+    level: 'Intermediate',
+    rating: 4.8,
+    price: '$899',
   },
   {
     id: 'web-dev',
@@ -126,6 +153,10 @@ export const COURSES: Course[] = [
     duration: '24 weeks',
     students: '3k+',
     tag: 'Build',
+    instructor: 'James Wilson',
+    level: 'Advanced',
+    rating: 4.9,
+    price: '$1,299',
   },
   {
     id: 'digital-marketing',
@@ -136,6 +167,10 @@ export const COURSES: Course[] = [
     duration: '12 weeks',
     students: '1.8k+',
     tag: 'Growth',
+    instructor: 'Dr. Sarah Chen',
+    level: 'Intermediate',
+    rating: 4.6,
+    price: '$849',
   },
 ];
 
@@ -144,24 +179,28 @@ export const MENTORS: Mentor[] = [
     name: 'Dr. Sarah Chen',
     role: 'AI Research Lead',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800',
+    experience: '12+ yrs experience',
     socials: { twitter: '#', linkedin: '#', instagram: '#' },
   },
   {
     name: 'Marcus Thorne',
     role: 'Experience Design Director',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800',
+    experience: '9+ yrs experience',
     socials: { twitter: '#', linkedin: '#', instagram: '#' },
   },
   {
     name: 'Elena Rodriguez',
     role: 'Motion Systems Specialist',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=800',
+    experience: '7+ yrs experience',
     socials: { twitter: '#', linkedin: '#', instagram: '#' },
   },
   {
     name: 'James Wilson',
     role: 'Full Stack AI Engineer',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800',
+    experience: '10+ yrs experience',
     socials: { twitter: '#', linkedin: '#', instagram: '#' },
   },
 ];
@@ -324,3 +363,36 @@ export const EVENT_META_ICONS = {
   date: CalendarDays,
   location: MapPin,
 };
+
+export const FAQS: Faq[] = [
+  {
+    question: 'Who are these programs designed for?',
+    answer:
+      'Students, working professionals, and career-switchers who want a structured, mentor-led path into AI-native roles. No prior AI experience is required for our foundational tracks.',
+  },
+  {
+    question: 'How much time do I need each week?',
+    answer:
+      'Most cohorts expect 8-10 hours a week across live sessions, project labs, and async coursework. Every track is designed to work alongside a full-time job or studies.',
+  },
+  {
+    question: 'Will I work with a real mentor?',
+    answer:
+      'Yes. Every learner is paired with an industry mentor for weekly critiques, office hours, and portfolio reviews throughout the cohort.',
+  },
+  {
+    question: 'What do I get at the end of a program?',
+    answer:
+      'A shipped capstone project, a reviewed portfolio, and interview and role-matching support through our career launch track.',
+  },
+  {
+    question: 'What is the refund and payment policy?',
+    answer:
+      'Flexible monthly plans are available on every track, with a full refund window in the first two weeks if a cohort is not the right fit.',
+  },
+  {
+    question: 'Do I need coding experience to start?',
+    answer:
+      'It depends on the track. Design, growth, and video programs are beginner-friendly; engineering and AI/ML tracks assume basic programming familiarity.',
+  },
+];

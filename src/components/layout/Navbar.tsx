@@ -38,29 +38,25 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-[60] px-4 py-4 sm:px-6">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 transition-all duration-500 sm:px-6 ${
+        className={`mx-auto grid max-w-[1280px] grid-cols-[auto_1fr_auto] items-center gap-4 rounded-premium border px-4 py-3 transition-all duration-500 sm:px-6 ${
           isScrolled
-            ? 'border-white/10 bg-slate-950/75 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl'
-            : 'border-white/10 bg-slate-950/35 backdrop-blur-md'
+            ? 'border-white/[0.08] bg-[#071327]/80 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl'
+            : 'border-white/[0.06] bg-[#071327]/20 backdrop-blur-md'
         }`}
       >
-        <a href="#hero" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.28),rgba(139,92,246,0.35),rgba(249,115,22,0.28))] shadow-[0_0_40px_rgba(56,189,248,0.2)]">
-            <span className="text-lg font-semibold tracking-[-0.08em] text-white">M</span>
-          </div>
-          <div>
-            <p className="text-lg font-semibold tracking-[-0.04em] text-white">Metawaves AI</p>
-            <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Immersive Education</p>
-          </div>
+        <a href="#hero" className="flex items-center" aria-label="Metawaves AI home">
+          <img src="/logo.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
         </a>
 
-        <nav className="hidden items-center gap-2 lg:flex">
+        <nav className="hidden items-center justify-center gap-1 lg:flex">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={`rounded-full px-4 py-2 text-sm transition-colors ${
-                active === item.href ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                active === item.href
+                  ? 'border border-accent-blue/20 bg-accent-blue/15 text-white'
+                  : 'border border-transparent text-text-secondary hover:bg-white/5 hover:text-white'
               }`}
             >
               {item.label}
@@ -68,20 +64,29 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <MagneticButton href="#contact" className="btn-premium inline-flex items-center px-5 py-3 text-sm">
-            Enroll Now
-          </MagneticButton>
-        </div>
+        <div className="col-start-3 flex items-center justify-end gap-2 sm:gap-3">
+          <div className="hidden items-center gap-4 lg:flex">
+            <a
+              href="#contact"
+              className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition hover:text-white"
+            >
+              Log In
+            </a>
+            <MagneticButton href="#contact" className="btn-premium inline-flex items-center px-5 py-3 text-sm">
+              Enroll Now
+            </MagneticButton>
+          </div>
 
-        <button
-          type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white lg:hidden"
-          onClick={() => setMenuOpen((value) => !value)}
-          aria-label="Toggle navigation menu"
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <button
+            type="button"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.08] bg-white/5 text-white lg:hidden"
+            onClick={() => setMenuOpen((value) => !value)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -90,22 +95,31 @@ export function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="mx-auto mt-3 max-w-7xl rounded-[2rem] border border-white/10 bg-slate-950/90 p-4 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-3 max-w-[1280px] rounded-premium border border-white/[0.08] bg-[#071327]/95 p-4 shadow-[0_18px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl lg:hidden"
           >
             <div className="grid gap-2">
               {NAV_ITEMS.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-2xl px-4 py-3 text-slate-300 transition hover:bg-white/5 hover:text-white"
+                  className="rounded-[14px] px-4 py-3 text-text-secondary transition hover:bg-white/5 hover:text-white"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <MagneticButton href="#contact" className="btn-premium mt-2 inline-flex items-center justify-center px-5 py-3 text-sm">
-                Enroll Now
-              </MagneticButton>
+              <div className="mt-2 grid gap-2 border-t border-white/[0.08] pt-3">
+                <a
+                  href="#contact"
+                  className="rounded-[14px] px-4 py-3 text-center text-text-secondary transition hover:bg-white/5 hover:text-white"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Log In
+                </a>
+                <MagneticButton href="#contact" className="btn-premium inline-flex items-center justify-center px-5 py-3 text-sm">
+                  Enroll Now
+                </MagneticButton>
+              </div>
             </div>
           </motion.div>
         ) : null}
