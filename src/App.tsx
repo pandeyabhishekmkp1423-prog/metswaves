@@ -7,17 +7,17 @@ import {
   BadgeCheck,
   Check,
   CheckCircle2,
-  ChevronRight,
   Instagram,
   Linkedin,
   Play,
   Quote,
   Star,
   Twitter,
+  ChevronRight,
 } from 'lucide-react';
 import { AnnouncementBar } from './components/layout/AnnouncementBar';
 import { Navbar } from './components/layout/Navbar'; 
-import { Footer } from './components/layout/Footer';
+import { Footer } from './components/footer/Footer';
 import { Accordion } from './components/ui/Accordion';
 import { ChatBubble } from './components/ui/ChatBubble';
 import { MagneticButton } from './components/ui/MagneticButton';
@@ -25,6 +25,7 @@ import { Reveal } from './components/ui/Reveal';
 import { ScrollToTopButton } from './components/ui/ScrollToTopButton';
 import { SectionIntro } from './components/ui/SectionIntro';
 import { TiltCard } from './components/ui/TiltCard';
+import { Hero } from './components/home/Hero';
 import { useLenis } from './hooks/useLenis';
 import { handleAnchorClick } from './utils';
 import {
@@ -36,7 +37,6 @@ import {
   EVENT_META_ICONS,
   FAQS,
   FEATURES,
-  GALLERY_ITEMS,
   HERO_TRUST_INDICATORS,
   MENTORS,
   STATS,
@@ -44,6 +44,7 @@ import {
   VIDEO_HIGHLIGHTS,
   WHY_CHOOSE_US,
 } from './constants';
+import { GALLERY_ITEMS } from './constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,83 +59,6 @@ function LoadingScreen() {
         <div className="loader-track" />
       </div>
     </motion.div>
-  );
-}
-
-function HeroSection() {
-  return (
-    <section id="hero" className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#F8FAFC_0%,#FFFFFF_60%)]" aria-hidden="true" />
-      <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_88%_8%,rgba(59,130,246,0.07),transparent_45%)]"
-        aria-hidden="true"
-      />
-
-      <div className="section-shell relative z-10 py-[70px]!">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <div className="text-center lg:text-left">
-            <Reveal duration={0.4}>
-              <h1 className="text-4xl font-bold leading-[1.1] text-navy sm:text-[44px] lg:text-[48px]">
-                Build AI Skills
-                <span className="block bg-[linear-gradient(135deg,#2563EB_0%,#60A5FA_100%)] bg-clip-text text-transparent">
-                  That Build Careers.
-                </span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.08} duration={0.4}>
-              <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-text-secondary sm:text-lg lg:mx-0">
-                Master practical AI skills through structured learning paths, industry mentors, and real-world
-                projects designed for future careers.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.16} duration={0.4}>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                <MagneticButton
-                  href="#courses"
-                  onClick={(event) => handleAnchorClick(event, '#courses')}
-                  className="btn-premium button-glow inline-flex w-full items-center justify-center gap-2 px-6 py-3 text-sm sm:w-auto"
-                >
-                  Explore Courses
-                  <ArrowRight size={16} />
-                </MagneticButton>
-                <MagneticButton
-                  href="#about"
-                  onClick={(event) => handleAnchorClick(event, '#about')}
-                  className="btn-secondary button-glow inline-flex w-full items-center justify-center px-6 py-3 text-sm sm:w-auto"
-                >
-                  View Learning Paths
-                </MagneticButton>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.24} duration={0.4}>
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start">
-                {HERO_TRUST_INDICATORS.map((label) => (
-                  <div key={label} className="flex items-center gap-2 text-sm text-text-secondary">
-                    <CheckCircle2 size={16} className="flex-none text-accent-blue" />
-                    {label}
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.12} duration={0.4}>
-            <div className="mx-auto max-w-md overflow-hidden rounded-premium shadow-[0_20px_50px_rgba(16,24,40,0.12)] lg:max-w-none">
-              <img
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000"
-                alt="Diverse students collaborating on an AI project"
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                className="h-[280px] w-full object-cover sm:h-[340px] lg:h-[400px]"
-              />
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -230,7 +154,7 @@ function App() {
       <Navbar query={courseQuery} onQueryChange={setCourseQuery} onSearchSubmit={handleCourseSearchSubmit} />
 
       <main className="relative z-10">
-        <HeroSection />
+        <Hero />
 
         <section className="relative z-10 border-y border-border-soft bg-bg-secondary">
           <div className="section-shell !py-5">

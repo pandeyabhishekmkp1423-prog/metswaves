@@ -556,11 +556,10 @@ export const FOOTER_EXPLORE_TOPICS: FooterLinkItem[] = [
   'Machine Learning',
   'Generative AI',
   'Prompt Engineering',
-  'OpenAI Workflows',
-  'Claude AI',
-  'Cursor AI',
   'AI Agents',
   'Automation',
+  'Cloud Computing',
+  'Cyber Security',
   'Data Science',
   'Python',
   'Full Stack Development', 
@@ -602,9 +601,9 @@ export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
 ];
 
 export const FOOTER_COMPANY_LINKS: FooterLinkItem[] = [
-  { label: 'About Us', href: '#about' },
+  { label: 'About', href: '#about' },
   { label: 'Our Mission', href: '#about' },
-  { label: 'Our Mentors', href: '#teachers' },
+  { label: 'Mentors', href: '#teachers' },
   { label: 'Become Instructor', href: '#contact' },
   { label: 'Enterprise', href: '#contact' },
   { label: 'Corporate Training', href: '#contact' },

@@ -1,6 +1,6 @@
-import { BottomBar } from '../footer/BottomBar';
-import { FooterNav } from '../footer/FooterNav';
-import { PartnerStrip } from '../footer/PartnerStrip';
+import { BottomBar } from './BottomBar';
+import { FooterNav } from './FooterNav';
+import { PartnerStrip } from './PartnerStrip';
 
 export function Footer() {
   return (
