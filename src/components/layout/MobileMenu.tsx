@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent, type MouseEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown, Search, X } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { CartButton } from '../nav/CartButton';
@@ -27,6 +28,7 @@ type MobileMenuProps = {
 const linkRowClass = 'rounded-[12px] px-4 py-2.5 text-sm text-text-secondary transition-colors duration-200 hover:bg-gray-50 hover:text-navy';
 
 export function MobileMenu({ isOpen, onClose, query, onQueryChange, onSearchSubmit }: MobileMenuProps) {
+  const location = useLocation();
   const [openPanel, setOpenPanel] = useState<NavPanelType | null>(null);
 
   useEffect(() => {
@@ -179,13 +181,14 @@ export function MobileMenu({ isOpen, onClose, query, onQueryChange, onSearchSubm
               {NAV_ITEMS.map((item) => {
                 if (item.mode === 'link') {
                   const Icon = item.icon;
+                  const isActive = location.pathname === item.href || location.pathname.startsWith(`${item.href}/`);
                   return (
                     <a
                       key={item.id}
                       href={item.href}
                       onClick={(event) => handleLinkClick(event, item.href)}
                       className={`font-ui flex items-center gap-2 rounded-[14px] px-4 py-3 text-base font-medium transition-colors duration-200 ${
-                        item.emphasized ? 'bg-accent-blue/10 text-accent-blue' : 'text-navy hover:bg-gray-50'
+                        isActive ? 'bg-accent-blue/10 text-accent-blue' : 'text-navy hover:bg-gray-50'
                       }`}
                     >
                       {Icon ? <Icon size={17} /> : null}

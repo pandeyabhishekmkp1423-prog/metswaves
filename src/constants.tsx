@@ -75,11 +75,11 @@ export type Faq = {
 export type NavPanelType = 'explore' | 'programs' | 'career-tracks' | 'resources' | 'for-business' | 'become-instructor';
 
 export type NavItem =
-  | { id: string; label: string; mode: 'link'; href: string; icon?: LucideIcon; emphasized?: boolean }
+  | { id: string; label: string; mode: 'link'; href: string; icon?: LucideIcon }
   | { id: string; label: string; mode: 'panel'; panel: NavPanelType };
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen, emphasized: true },
+  { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen },
   { id: 'explore', label: 'Explore', mode: 'panel', panel: 'explore' },
   { id: 'programs', label: 'Programs', mode: 'panel', panel: 'programs' },
   { id: 'career-tracks', label: 'Career Tracks', mode: 'panel', panel: 'career-tracks' },

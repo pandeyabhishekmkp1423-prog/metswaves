@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { LayoutGrid, Search, X } from 'lucide-react';
+import { ArrowRight, LayoutGrid, Search, X } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
 import { SectionIntro } from '../components/ui/SectionIntro';
 import { ALL_COURSES, getCategorySummaries, groupCoursesByCategory } from '../data/courseCatalog';
@@ -118,12 +118,12 @@ export function CoursesPage() {
           </div>
         </section>
       ) : (
-        <section className="section-shell pb-32">
-          <div className="grid gap-16">
+        <section className="mx-auto w-full max-w-7xl px-5 pt-10 pb-28 sm:px-6 lg:px-8">
+          <div className="grid gap-12">
             {groups.map((group) => {
               const theme = getCategoryTheme(group.category);
               const Icon = theme.icon;
-              const total = group.subGroups.reduce((sum, sub) => sum + sub.courses.length, 0);
+              const courses = group.subGroups.flatMap((sub) => sub.courses);
 
               return (
                 <div key={group.category} id={group.category.toLowerCase().replace(/\s+/g, '-')}>
@@ -135,34 +135,33 @@ export function CoursesPage() {
                         </span>
                         <h2 className="text-2xl font-semibold text-navy">{group.category}</h2>
                       </div>
-                      <span className="text-sm text-text-secondary">{total} courses</span>
+                      <span className="text-sm text-text-secondary">{courses.length} courses</span>
                     </div>
                   </Reveal>
 
-                  <div className="mt-8 grid gap-10">
-                    {group.subGroups.map((subGroup) => (
-                      <div key={subGroup.subCategory ?? '__general'}>
-                        {subGroup.subCategory ? (
-                          <p className={`mb-4 text-xs font-semibold uppercase tracking-[0.22em] ${theme.text}`}>{subGroup.subCategory}</p>
-                        ) : null}
-                        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                          {subGroup.courses.map((course, index) => (
-                            <Reveal key={course.slug} delay={Math.min(index, 6) * 0.04}>
-                              <a
-                                href={`/courses/${course.slug}`}
-                                onClick={(event) => handleAnchorClick(event, `/courses/${course.slug}`)}
-                                className={`surface-card card-hover flex h-full flex-col gap-3 border-t-4 p-5 ${theme.topBorder}`}
-                              >
-                                <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${theme.text}`}>
-                                  {subGroup.subCategory ?? course.category}
-                                </span>
-                                <p className="font-ui text-lg font-semibold text-navy">{course.title}</p>
-                                <span className="mt-auto text-sm font-semibold text-navy">{course.price ?? 'Certification Program'}</span>
-                              </a>
-                            </Reveal>
-                          ))}
-                        </div>
-                      </div>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    {courses.map((course, index) => (
+                      <Reveal key={course.slug} delay={Math.min(index, 7) * 0.03}>
+                        <a
+                          href={`/courses/${course.slug}`}
+                          onClick={(event) => handleAnchorClick(event, `/courses/${course.slug}`)}
+                          className={`surface-card card-hover group flex h-full flex-col gap-3 border-t-4 p-5 ${theme.topBorder}`}
+                        >
+                          <span className={`flex h-9 w-9 flex-none items-center justify-center rounded-[10px] border ${theme.iconWrap}`}>
+                            <Icon size={16} />
+                          </span>
+                          <div>
+                            <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${theme.text}`}>
+                              {course.subCategory ?? course.category}
+                            </span>
+                            <p className="mt-1 font-ui text-lg font-semibold text-navy">{course.title}</p>
+                          </div>
+                          <div className="mt-auto flex items-center justify-between pt-2">
+                            <span className="text-sm font-semibold text-navy">{course.price ?? 'Certification Program'}</span>
+                            <ArrowRight size={15} className="text-gray-300 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent-blue" />
+                          </div>
+                        </a>
+                      </Reveal>
                     ))}
                   </div>
                 </div>

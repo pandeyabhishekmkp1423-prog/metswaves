@@ -177,18 +177,27 @@ export function CourseDetailPage() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {related.map((course, index) => {
               const relatedTheme = getCategoryTheme(course.category);
+              const RelatedIcon = relatedTheme.icon;
               return (
                 <Reveal key={course.slug} delay={index * 0.05}>
                   <a
                     href={`/courses/${course.slug}`}
                     onClick={(event) => handleAnchorClick(event, `/courses/${course.slug}`)}
-                    className={`surface-card card-hover flex h-full flex-col gap-3 border-t-4 p-5 ${relatedTheme.topBorder}`}
+                    className={`surface-card card-hover group flex h-full flex-col gap-3 border-t-4 p-5 ${relatedTheme.topBorder}`}
                   >
-                    <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${relatedTheme.text}`}>
-                      {course.subCategory ?? course.category}
+                    <span className={`flex h-9 w-9 flex-none items-center justify-center rounded-[10px] border ${relatedTheme.iconWrap}`}>
+                      <RelatedIcon size={16} />
                     </span>
-                    <p className="font-ui text-lg font-semibold text-navy">{course.title}</p>
-                    <span className="mt-auto text-sm font-semibold text-navy">{course.price ?? 'Certification Program'}</span>
+                    <div>
+                      <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${relatedTheme.text}`}>
+                        {course.subCategory ?? course.category}
+                      </span>
+                      <p className="mt-1 font-ui text-lg font-semibold text-navy">{course.title}</p>
+                    </div>
+                    <div className="mt-auto flex items-center justify-between pt-2">
+                      <span className="text-sm font-semibold text-navy">{course.price ?? 'Certification Program'}</span>
+                      <ArrowRight size={15} className="text-gray-300 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent-blue" />
+                    </div>
                   </a>
                 </Reveal>
               );

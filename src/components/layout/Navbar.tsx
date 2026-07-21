@@ -1,5 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import {
   NAV_CAREER_TRACKS,
@@ -27,6 +28,7 @@ type NavbarProps = {
 };
 
 export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
+  const location = useLocation();
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [panelLeft, setPanelLeft] = useState(0);
@@ -140,7 +142,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
                 key={item.id}
                 item={item}
                 isOpen={openMenuId === (item.mode === 'panel' ? item.panel : '')}
-                isActive={false}
+                isActive={item.mode === 'link' && (location.pathname === item.href || location.pathname.startsWith(`${item.href}/`))}
                 onEnter={() => (item.mode === 'panel' ? scheduleOpen(item.panel) : scheduleClose())}
                 onLeave={scheduleClose}
                 onToggle={() => {

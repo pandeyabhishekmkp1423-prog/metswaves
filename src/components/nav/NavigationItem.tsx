@@ -20,11 +20,7 @@ export function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onTog
         onClick={(event) => handleAnchorClick(event, item.href)}
         onMouseEnter={onEnter}
         className={`whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium transition-colors duration-200 ${
-          item.emphasized
-            ? 'bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/15'
-            : isActive
-              ? 'bg-accent-blue/10 text-accent-blue'
-              : 'text-text-secondary hover:bg-gray-50 hover:text-navy'
+          isActive ? 'bg-accent-blue/10 text-accent-blue' : 'text-text-secondary hover:bg-gray-50 hover:text-navy'
         }`}
       >
         {item.label}
