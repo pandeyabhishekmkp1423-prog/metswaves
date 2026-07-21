@@ -26,6 +26,7 @@ import { ScrollToTopButton } from './components/ui/ScrollToTopButton';
 import { SectionIntro } from './components/ui/SectionIntro';
 import { TiltCard } from './components/ui/TiltCard';
 import { Hero } from './components/home/Hero';
+import { FeaturesSection } from './components/home/FeaturesSection';
 import { useLenis } from './hooks/useLenis';
 import { handleAnchorClick } from './utils';
 import {
@@ -166,34 +167,7 @@ function App() {
           </div>
         </section>
 
-        <section id="features" className="section-shell bg-white">
-          <Reveal>
-            <SectionIntro
-              eyebrow="Features"
-              title="A polished learning environment with depth, motion, and measurable outcomes."
-              description="Every layer of the experience is designed to feel intentional: premium visuals, studio-style mentorship, and coursework built for the AI economy."
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {FEATURES.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <Reveal key={feature.title} delay={index * 0.08}>
-                  <TiltCard className="surface-card card-hover h-full p-6">
-                    <div className="flex h-full flex-col">
-                      <div className="icon-chip">
-                        <Icon size={24} />
-                      </div>
-                      <h3 className="mt-6 text-2xl font-semibold text-navy">{feature.title}</h3>
-                      <p className="mt-4 text-text-secondary">{feature.description}</p>
-                      <span className="mt-auto pt-8 text-sm uppercase tracking-[0.24em] text-accent-blue">Premium track</span>
-                    </div>
-                  </TiltCard>
-                </Reveal>
-              );
-            })}
-          </div>
-        </section>
+        <FeaturesSection />
 
         <section id="about" className="section-shell overflow-hidden bg-bg-secondary">
           <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">

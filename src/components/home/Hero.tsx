@@ -5,11 +5,11 @@
 
 export function Hero() {
   return (
-    <section className="relative w-full bg-[#16161a] overflow-hidden h-[650px] lg:h-580px]">
+    <section className="relative w-full bg-[#16161a] overflow-hidden flex items-center justify-center h-auto lg:h-[580px]">
       <img
         src="/hero.png"
         alt="Career Accelerators banner"
-        className="w-full h-full object-cover object-center"
+        className="w-full h-auto max-h-[580px] object-contain object-center lg:h-full lg:object-cover"
         loading="eager"
         decoding="sync"
       />
