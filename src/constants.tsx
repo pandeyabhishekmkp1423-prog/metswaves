@@ -124,7 +124,7 @@ export const COURSES: Course[] = [
     instructor: 'Dr. Sarah Chen',
     level: 'Advanced',
     rating: 4.9,
-    price: '$1,499',
+    price: '1,499',
   },
   {
     id: 'ui-ux',
@@ -138,7 +138,7 @@ export const COURSES: Course[] = [
     instructor: 'Marcus Thorne',
     level: 'Intermediate',
     rating: 4.8,
-    price: '$999',
+    price: '999',
   },
   {
     id: 'video-editing',
@@ -152,7 +152,7 @@ export const COURSES: Course[] = [
     instructor: 'Elena Rodriguez',
     level: 'Beginner',
     rating: 4.7,
-    price: '$799',
+    price: '799',
   },
   {
     id: 'graphic-design',
@@ -166,7 +166,7 @@ export const COURSES: Course[] = [
     instructor: 'Marcus Thorne',
     level: 'Intermediate',
     rating: 4.8,
-    price: '$899',
+    price: '899',
   },
   {
     id: 'web-dev',
@@ -180,7 +180,7 @@ export const COURSES: Course[] = [
     instructor: 'James Wilson',
     level: 'Advanced',
     rating: 4.9,
-    price: '$1,299',
+    price: '1,299',
   },
   {
     id: 'digital-marketing',
