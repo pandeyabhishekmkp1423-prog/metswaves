@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import {
@@ -14,7 +14,7 @@ import { handleLogoClick } from '../../utils';
 import { BecomeInstructorPanel } from '../nav/BecomeInstructorPanel';
 import { CartButton } from '../nav/CartButton';
 import { DropdownMenu } from '../nav/DropdownMenu';
-import { MegaMenu } from '../nav/MegaMenu';
+import { ExploreMenu } from '../nav/ExploreMenu';
 import { NavigationItem } from '../nav/NavigationItem';
 import { SearchBar } from '../nav/SearchBar';
 import { UserMenu } from '../nav/UserMenu';
@@ -29,8 +29,11 @@ type NavbarProps = {
 export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [panelLeft, setPanelLeft] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
 
@@ -66,16 +69,43 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
   useClickOutside(containerRef, closeMenu, isPanelOpen);
   useEscapeKey(closeMenu, openMenuId !== null);
 
-  const handleSelectCourse = (title: string) => {
-    onQueryChange(title);
-    onSearchSubmit();
-    closeMenu();
+  useLayoutEffect(() => {
+    if (!isPanelOpen || !openMenuId) return;
+
+    const container = containerRef.current;
+    const trigger = triggerRefs.current[openMenuId];
+    const panel = panelRef.current;
+    if (!container || !trigger || !panel) return;
+
+    const updatePosition = () => {
+      const containerRect = container.getBoundingClientRect();
+      const triggerRect = trigger.getBoundingClientRect();
+      const panelWidth = panel.getBoundingClientRect().width;
+      const desiredLeft = triggerRect.left - containerRect.left;
+      const maxLeft = Math.max(8, containerRect.width - panelWidth - 8);
+      setPanelLeft(Math.max(8, Math.min(desiredLeft, maxLeft)));
+    };
+
+    updatePosition();
+
+    const resizeObserver = new ResizeObserver(updatePosition);
+    resizeObserver.observe(panel);
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [isPanelOpen, openMenuId]);
+
+  const registerTrigger = (id: string) => (el: HTMLButtonElement | null) => {
+    triggerRefs.current[id] = el;
   };
 
   const renderPanel = () => {
     switch (openMenuId) {
       case 'explore':
-        return <MegaMenu onSelectCourse={handleSelectCourse} />;
+        return <ExploreMenu onNavigate={closeMenu} />;
       case 'programs':
         return <DropdownMenu variant="list" items={NAV_PROGRAMS} onNavigate={closeMenu} />;
       case 'career-tracks':
@@ -118,6 +148,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
                   clearTimers();
                   setOpenMenuId((current) => (current === item.panel ? null : item.panel));
                 }}
+                triggerRef={item.mode === 'panel' ? registerTrigger(item.panel) : undefined}
               />
             ))}
           </nav>
@@ -153,12 +184,13 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
                 onMouseEnter={cancelClose}
                 onMouseLeave={scheduleClose}
-                className="absolute inset-x-0 top-full z-50 hidden justify-center pt-5 min-[1440px]:flex"
+                style={{ left: panelLeft }}
+                className="absolute top-full z-50 hidden pt-3 min-[1440px]:block"
               >
-                <div className="surface-card overflow-hidden" role="menu">
+                <div ref={panelRef} className="surface-card overflow-hidden">
                   {renderPanel()}
                 </div>
               </motion.div>

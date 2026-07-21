@@ -1,10 +1,32 @@
 import type { MouseEvent as ReactMouseEvent } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import type { NavListItem, NavResourceColumn } from '../../constants';
 import { handleAnchorClick } from '../../utils';
 
 type DropdownMenuProps =
   | { variant: 'list'; items: NavListItem[]; onNavigate: () => void }
   | { variant: 'columns'; columns: NavResourceColumn[]; onNavigate: () => void };
+
+type RowProps = {
+  label: string;
+  href: string;
+  icon?: LucideIcon;
+  onClick: (event: ReactMouseEvent<HTMLAnchorElement>) => void;
+};
+
+function Row({ label, href, icon: Icon, onClick }: RowProps) {
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      role="menuitem"
+      className="flex min-h-11 min-w-0 items-center gap-2.5 rounded-[10px] px-3 py-2.5 text-sm text-text-secondary transition-colors duration-150 hover:bg-accent-blue/8 hover:text-accent-blue focus:bg-accent-blue/8 focus:text-accent-blue focus:outline-none"
+    >
+      {Icon ? <Icon size={16} className="flex-none text-gray-400" /> : null}
+      <span className="min-w-0 truncate font-ui">{label}</span>
+    </a>
+  );
+}
 
 export function DropdownMenu(props: DropdownMenuProps) {
   const handleClick = (event: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
@@ -14,26 +36,18 @@ export function DropdownMenu(props: DropdownMenuProps) {
 
   if (props.variant === 'columns') {
     return (
-      <div className="grid w-[620px] max-w-[88vw] grid-cols-3 gap-8 p-6">
-        {props.columns.map((column) => (
-          <div key={column.heading}>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">{column.heading}</p>
-            <div className="mt-3 grid gap-0.5">
-              {column.items.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={(event) => handleClick(event, item.href)}
-                    className="flex items-center gap-3 rounded-[12px] px-3 py-2.5 text-sm text-text-secondary transition-colors duration-200 hover:bg-gray-50 hover:text-navy"
-                  >
-                    <Icon size={16} className="flex-none text-accent-blue" />
-                    {item.label}
-                  </a>
-                );
-              })}
-            </div>
+      <div className="flex">
+        {props.columns.map((column, index) => (
+          <div
+            key={column.heading}
+            className={`max-h-130 w-70 flex-none overflow-y-auto overscroll-contain p-2.5 ${index > 0 ? 'border-l border-border-soft' : ''}`}
+            role="menu"
+            data-lenis-prevent
+          >
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">{column.heading}</p>
+            {column.items.map((item) => (
+              <Row key={item.label} label={item.label} href={item.href} icon={item.icon} onClick={(event) => handleClick(event, item.href)} />
+            ))}
           </div>
         ))}
       </div>
@@ -41,26 +55,10 @@ export function DropdownMenu(props: DropdownMenuProps) {
   }
 
   return (
-    <div className="grid w-[440px] max-w-[88vw] grid-cols-1 gap-1 p-4 sm:grid-cols-2">
-      {props.items.map((item) => {
-        const Icon = item.icon;
-        return (
-          <a
-            key={item.label}
-            href={item.href}
-            onClick={(event) => handleClick(event, item.href)}
-            className="flex items-start gap-3 rounded-[14px] p-3 transition-colors duration-200 hover:bg-gray-50"
-          >
-            <div className="icon-chip h-10 w-10 flex-none">
-              <Icon size={18} />
-            </div>
-            <div className="min-w-0">
-              <p className="font-ui text-sm font-semibold text-navy">{item.label}</p>
-              {item.description ? <p className="mt-0.5 text-xs text-text-secondary">{item.description}</p> : null}
-            </div>
-          </a>
-        );
-      })}
+    <div className="max-h-130 w-70 overflow-y-auto overscroll-contain p-2.5" role="menu" data-lenis-prevent>
+      {props.items.map((item) => (
+        <Row key={item.label} label={item.label} href={item.href} icon={item.icon} onClick={(event) => handleClick(event, item.href)} />
+      ))}
     </div>
   );
 }

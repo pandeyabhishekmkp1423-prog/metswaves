@@ -49,7 +49,7 @@ export function AnnouncementBar() {
             <Volume2 size={14} className="hidden flex-none text-accent-blue-light sm:block" />
 
             <div className="flex items-center justify-center gap-3">
-              <div className="relative h-4 max-w-[62vw] flex-1 overflow-hidden text-center sm:max-w-none sm:w-[360px] sm:flex-none">
+              <div className="relative h-4 w-full max-w-[360px] flex-1 overflow-hidden text-center sm:w-[360px] sm:flex-none">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={index}

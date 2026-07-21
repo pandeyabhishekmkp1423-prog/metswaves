@@ -9,9 +9,10 @@ type NavigationItemProps = {
   onEnter: () => void;
   onLeave: () => void;
   onToggle: () => void;
+  triggerRef?: (el: HTMLButtonElement | null) => void;
 };
 
-export function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onToggle }: NavigationItemProps) {
+export function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onToggle, triggerRef }: NavigationItemProps) {
   if (item.mode === 'link') {
     return (
       <a
@@ -19,7 +20,11 @@ export function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onTog
         onClick={(event) => handleAnchorClick(event, item.href)}
         onMouseEnter={onEnter}
         className={`whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium transition-colors duration-200 ${
-          isActive ? 'bg-accent-blue/10 text-accent-blue' : 'text-text-secondary hover:bg-gray-50 hover:text-navy'
+          item.emphasized
+            ? 'bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/15'
+            : isActive
+              ? 'bg-accent-blue/10 text-accent-blue'
+              : 'text-text-secondary hover:bg-gray-50 hover:text-navy'
         }`}
       >
         {item.label}
@@ -29,6 +34,7 @@ export function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onTog
 
   return (
     <button
+      ref={triggerRef}
       type="button"
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}

@@ -10,7 +10,7 @@ import { FooterColumn } from './FooterColumn';
 
 export function FooterNav() {
   return (
-    <div className="grid grid-cols-1 gap-x-8 py-12 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-x-8 gap-y-2 py-12 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-y-0">
       <FooterColumn
         heading="Explore AI Learning"
         links={FOOTER_EXPLORE_TOPICS}

@@ -75,10 +75,11 @@ export type Faq = {
 export type NavPanelType = 'explore' | 'programs' | 'career-tracks' | 'resources' | 'for-business' | 'become-instructor';
 
 export type NavItem =
-  | { id: string; label: string; mode: 'link'; href: string }
+  | { id: string; label: string; mode: 'link'; href: string; icon?: LucideIcon; emphasized?: boolean }
   | { id: string; label: string; mode: 'panel'; panel: NavPanelType };
 
 export const NAV_ITEMS: NavItem[] = [
+  { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen, emphasized: true },
   { id: 'explore', label: 'Explore', mode: 'panel', panel: 'explore' },
   { id: 'programs', label: 'Programs', mode: 'panel', panel: 'programs' },
   { id: 'career-tracks', label: 'Career Tracks', mode: 'panel', panel: 'career-tracks' },
@@ -615,16 +616,6 @@ export const FOOTER_COMPANY_LINKS: FooterLinkItem[] = [
   { label: 'Accessibility', href: '#' },
 ];
 
-export const FOOTER_LEGAL_LINKS: string[] = [
-  'Privacy Policy',
-  'Terms & Conditions',
-  'Refund Policy',
-  'Cookie Policy',
-  'Accessibility',
-  'Sitemap',
-  'Security',
-];
- 
 export const FOOTER_BOTTOM_LINKS: string[] = ['Cookie Settings', 'Privacy', 'Terms', 'Accessibility']; 
 
 export const FOOTER_TECH_STACK: string[] = ['Google', 'Microsoft', 'OpenAI', 'AWS', 'NVIDIA', 'Meta', 'Adobe'];

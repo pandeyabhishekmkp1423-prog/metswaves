@@ -3,9 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Search, X } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { CartButton } from '../nav/CartButton';
+import { ExploreMobileList } from '../nav/ExploreMobileList';
 import {
   BECOME_INSTRUCTOR,
-  COURSES,
   NAV_CAREER_TRACKS,
   NAV_FOR_BUSINESS,
   NAV_ITEMS,
@@ -13,6 +13,7 @@ import {
   NAV_RESOURCES,
   type NavPanelType,
 } from '../../constants';
+import { EXPLORE_MENU } from '../../data/exploreMenu';
 import { handleAnchorClick, handleLogoClick } from '../../utils';
 
 type MobileMenuProps = {
@@ -58,12 +59,8 @@ export function MobileMenu({ isOpen, onClose, query, onQueryChange, onSearchSubm
     switch (panel) {
       case 'explore':
         return (
-          <div className="grid gap-1 py-2">
-            {COURSES.map((course) => (
-              <a key={course.id} href="#courses" onClick={(event) => handleLinkClick(event, '#courses')} className={linkRowClass}>
-                {course.title}
-              </a>
-            ))}
+          <div className="py-2">
+            <ExploreMobileList nodes={EXPLORE_MENU} onNavigate={onClose} />
           </div>
         );
       case 'programs':
@@ -181,13 +178,17 @@ export function MobileMenu({ isOpen, onClose, query, onQueryChange, onSearchSubm
             <div className="mt-4 grid gap-1">
               {NAV_ITEMS.map((item) => {
                 if (item.mode === 'link') {
+                  const Icon = item.icon;
                   return (
                     <a
                       key={item.id}
                       href={item.href}
                       onClick={(event) => handleLinkClick(event, item.href)}
-                      className="font-ui rounded-[14px] px-4 py-3 text-base font-medium text-navy transition-colors duration-200 hover:bg-gray-50"
+                      className={`font-ui flex items-center gap-2 rounded-[14px] px-4 py-3 text-base font-medium transition-colors duration-200 ${
+                        item.emphasized ? 'bg-accent-blue/10 text-accent-blue' : 'text-navy hover:bg-gray-50'
+                      }`}
                     >
+                      {Icon ? <Icon size={17} /> : null}
                       {item.label}
                     </a>
                   );
@@ -195,7 +196,7 @@ export function MobileMenu({ isOpen, onClose, query, onQueryChange, onSearchSubm
 
                 const isPanelOpen = openPanel === item.panel;
                 return (
-                  <div key={item.id} className="rounded-[14px]">
+                  <div key={item.id} className="min-w-0 rounded-[14px]">
                     <button
                       type="button"
                       onClick={() => setOpenPanel(isPanelOpen ? null : item.panel)}
