@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,18 +6,17 @@ import {
   ArrowRight,
   BadgeCheck,
   Check,
+  CheckCircle2,
   ChevronRight,
   Instagram,
   Linkedin,
   Play,
   Quote,
-  Search,
   Star,
   Twitter,
-  Volume2,
 } from 'lucide-react';
 import { AnnouncementBar } from './components/layout/AnnouncementBar';
-import { Navbar } from './components/layout/Navbar';
+import { Navbar } from './components/layout/Navbar'; 
 import { Footer } from './components/layout/Footer';
 import { Accordion } from './components/ui/Accordion';
 import { ChatBubble } from './components/ui/ChatBubble';
@@ -38,14 +37,13 @@ import {
   FAQS,
   FEATURES,
   GALLERY_ITEMS,
+  HERO_TRUST_INDICATORS,
   MENTORS,
   STATS,
   TESTIMONIALS,
   VIDEO_HIGHLIGHTS,
   WHY_CHOOSE_US,
 } from './constants';
-
-const HeroScene = lazy(() => import('./components/3d/HeroScene'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,189 +61,75 @@ function LoadingScreen() {
   );
 }
 
-function HeroCanvas({ mobile }: { mobile: boolean }) {
-  return (
-    <Suspense
-      fallback={
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-white/60" />
-        </div>
-      }
-    >
-      <HeroScene mobile={mobile} />
-    </Suspense>
-  );
-}
-
-type HeroSectionProps = {
-  mobile: boolean;
-  query: string;
-  onQueryChange: (value: string) => void;
-  onSearchSubmit: () => void;
-};
-
-const HERO_STATS: [string, string][] = [
-  ['4.9/5', 'student satisfaction score'],
-  ['12k+', 'community members and alumni'],
-  ['94%', 'project completion rate'],
-];
-
-function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSectionProps) {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onSearchSubmit();
-  };
-
+function HeroSection() {
   return (
     <section id="hero" className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0" aria-hidden="true">
-        <img
-          src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1920"
-          alt=""
-          className="h-full w-full object-cover [filter:saturate(0.8)_blur(1px)]"
-          loading="eager"
-          decoding="async"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(255,255,255,0.99)_0%,rgba(255,255,255,0.96)_30%,rgba(255,255,255,0.68)_50%,rgba(255,255,255,0.42)_68%,rgba(255,255,255,0.28)_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-white/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t from-white via-white/75 to-transparent" />
-        <div className="absolute inset-0 bg-white lg:hidden" />
-      </div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.10),transparent_38%),radial-gradient(circle_at_85%_12%,rgba(96,165,250,0.09),transparent_32%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#F8FAFC_0%,#FFFFFF_60%)]" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_88%_8%,rgba(59,130,246,0.07),transparent_45%)]"
+        aria-hidden="true"
+      />
 
-      <div className="section-shell relative z-10 flex min-h-screen items-center pt-10">
-        <div className="grid w-full items-start gap-16 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <Reveal>
-              <span className="eyebrow">Immersive AI Education</span>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-5 max-w-4xl text-[32px] font-extrabold text-navy sm:text-[40px] md:text-[48px] xl:text-[64px]">
-                Start Your
+      <div className="section-shell relative z-10 py-[70px]!">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <div className="text-center lg:text-left">
+            <Reveal duration={0.4}>
+              <h1 className="text-4xl font-bold leading-[1.1] text-navy sm:text-[44px] lg:text-[48px]">
+                Build AI Skills
                 <span className="block bg-[linear-gradient(135deg,#2563EB_0%,#60A5FA_100%)] bg-clip-text text-transparent">
-                  AI-Powered
+                  That Build Careers.
                 </span>
-                Career Journey
               </h1>
             </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-6 max-w-2xl text-base text-text-secondary sm:text-lg">
-                A high-conviction learning platform for builders, designers, and operators who want premium skills,
-                portfolio depth, and real market momentum.
+            <Reveal delay={0.08} duration={0.4}>
+              <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-text-secondary sm:text-lg lg:mx-0">
+                Master practical AI skills through structured learning paths, industry mentors, and real-world
+                projects designed for future careers.
               </p>
             </Reveal>
 
-            <Reveal delay={0.22}>
-              <form
-                onSubmit={handleSubmit}
-                className="mt-8 flex w-full max-w-xl items-center gap-1.5 rounded-premium border border-border-soft bg-white p-2 shadow-[0_1px_3px_rgba(16,24,40,0.06)] transition focus-within:border-accent-blue/40 sm:gap-2"
-              >
-                <Search size={18} className="ml-2.5 flex-none text-gray-400 sm:ml-3" />
-                <label className="sr-only" htmlFor="hero-course-search">
-                  Search courses
-                </label>
-                <input
-                  id="hero-course-search"
-                  type="text"
-                  value={query}
-                  onChange={(event) => onQueryChange(event.target.value)}
-                  placeholder="Search courses..."
-                  className="w-full min-w-0 bg-transparent py-3 text-navy placeholder:text-gray-400 outline-none"
-                />
-                <button
-                  type="submit"
-                  className="btn-premium button-glow inline-flex flex-none items-center gap-2 px-4 py-3 text-sm sm:px-5"
-                >
-                  Search
-                </button>
-              </form>
-            </Reveal>
-
-            <Reveal delay={0.26}>
-              <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+            <Reveal delay={0.16} duration={0.4}>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                 <MagneticButton
                   href="#courses"
                   onClick={(event) => handleAnchorClick(event, '#courses')}
-                  className="btn-premium button-glow inline-flex items-center justify-center gap-2 px-7 py-4"
+                  className="btn-premium button-glow inline-flex w-full items-center justify-center gap-2 px-6 py-3 text-sm sm:w-auto"
                 >
-                  Explore Cohorts
-                  <ArrowRight size={18} />
+                  Explore Courses
+                  <ArrowRight size={16} />
                 </MagneticButton>
                 <MagneticButton
-                  href="#video"
-                  onClick={(event) => handleAnchorClick(event, '#video')}
-                  className="btn-secondary button-glow inline-flex items-center justify-center gap-3 px-7 py-4"
+                  href="#about"
+                  onClick={(event) => handleAnchorClick(event, '#about')}
+                  className="btn-secondary button-glow inline-flex w-full items-center justify-center px-6 py-3 text-sm sm:w-auto"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue/10 text-accent-blue">
-                    <Play size={16} className="ml-0.5" />
-                  </span>
-                  Watch the Experience
+                  View Learning Paths
                 </MagneticButton>
               </div>
             </Reveal>
 
-            <Reveal delay={0.32} className="lg:hidden">
-              <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-4">
-                {HERO_STATS.map(([value, label]) => (
-                  <div key={label} className="surface-card p-3 sm:p-4">
-                    <p className="font-ui text-2xl font-bold text-navy sm:text-3xl">{value}</p>
-                    <p className="mt-2 text-xs text-text-secondary sm:text-sm">{label}</p>
+            <Reveal delay={0.24} duration={0.4}>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start">
+                {HERO_TRUST_INDICATORS.map((label) => (
+                  <div key={label} className="flex items-center gap-2 text-sm text-text-secondary">
+                    <CheckCircle2 size={16} className="flex-none text-accent-blue" />
+                    {label}
                   </div>
                 ))}
               </div>
             </Reveal>
           </div>
 
-          <Reveal delay={0.18} className="relative hidden lg:block">
-            <div className="relative ml-auto max-w-xl lg:-mt-4" data-parallax data-depth="80">
-              <div className="relative overflow-hidden rounded-premium border border-navy/10 bg-navy p-6 shadow-[0_24px_60px_rgba(7,19,39,0.32)]">
-                <div className="absolute inset-0 opacity-35 [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]">
-                  <HeroCanvas mobile={mobile} />
-                </div>
-                <div className="absolute -right-16 top-0 h-40 w-40 rounded-full bg-accent-blue/25 blur-3xl" />
-                <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-accent-blue-light/15 blur-3xl" />
-                <div className="relative z-10 grid gap-5">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-accent-blue-light">
-                      Neural Dashboard
-                    </span>
-                    <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs text-emerald-300">Live</span>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
-                      <p className="text-sm text-white/60">Current learner focus</p>
-                      <p className="mt-3 font-ui text-2xl font-semibold text-white">Prompt Systems</p>
-                      <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full w-[82%] rounded-full bg-[linear-gradient(90deg,#3b82f6,#60a5fa)]" />
-                      </div>
-                    </div>
-                    <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
-                      <p className="text-sm text-white/60">Next launch window</p>
-                      <p className="mt-3 font-ui text-2xl font-semibold text-white">May Cohort</p>
-                      <p className="mt-2 text-sm text-accent-blue-light">Admissions open for creators and engineers</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between gap-4 rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-lg">
-                    <div>
-                      <p className="text-sm text-white/60">Sound design hook</p>
-                      <p className="mt-2 text-lg font-medium text-white">Spatial intro ready for Web Audio layering</p>
-                    </div>
-                    <div className="flex h-14 w-14 items-center justify-center rounded-[16px] border border-white/10 bg-white/10 text-accent-blue-light">
-                      <Volume2 />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-3 gap-4">
-                {HERO_STATS.map(([value, label]) => (
-                  <div key={label} className="surface-card p-4">
-                    <p className="font-ui text-2xl font-bold text-navy">{value}</p>
-                    <p className="mt-2 text-sm text-text-secondary">{label}</p>
-                  </div>
-                ))}
-              </div>
+          <Reveal delay={0.12} duration={0.4}>
+            <div className="mx-auto max-w-md overflow-hidden rounded-premium shadow-[0_20px_50px_rgba(16,24,40,0.12)] lg:max-w-none">
+              <img
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000"
+                alt="Diverse students collaborating on an AI project"
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                className="h-[280px] w-full object-cover sm:h-[340px] lg:h-[400px]"
+              />
             </div>
           </Reveal>
         </div>
@@ -258,16 +142,7 @@ function App() {
   useLenis();
 
   const [loading, setLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   const [courseQuery, setCourseQuery] = useState('');
-
-  useEffect(() => {
-    const updateDeviceState = () => setIsMobile(window.innerWidth < 768);
-    updateDeviceState();
-
-    window.addEventListener('resize', updateDeviceState);
-    return () => window.removeEventListener('resize', updateDeviceState);
-  }, []);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), 1400);
@@ -355,12 +230,7 @@ function App() {
       <Navbar query={courseQuery} onQueryChange={setCourseQuery} onSearchSubmit={handleCourseSearchSubmit} />
 
       <main className="relative z-10">
-        <HeroSection
-          mobile={isMobile}
-          query={courseQuery}
-          onQueryChange={setCourseQuery}
-          onSearchSubmit={handleCourseSearchSubmit}
-        />
+        <HeroSection />
 
         <section className="relative z-10 border-y border-border-soft bg-bg-secondary">
           <div className="section-shell !py-5">

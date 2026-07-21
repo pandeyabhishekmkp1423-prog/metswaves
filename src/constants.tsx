@@ -350,12 +350,6 @@ export const CONTACT_CHANNELS = [
   },
 ];
 
-export const FOOTER_LINKS = {
-  company: ['About', 'Programs', 'Mentors', 'Events'],
-  resources: ['Blog', 'Testimonials', 'Careers', 'Support'],
-  contact: ['Privacy Policy', 'Terms of Service', 'Cookies'],
-};
-
 export const ABOUT_PILLARS = [
   {
     title: 'Personalized learning pathways',
@@ -544,3 +538,94 @@ export const BECOME_INSTRUCTOR = {
   primaryCta: 'Become an Instructor',
   secondaryCta: 'Learn More',
 };
+
+export const HERO_TRUST_INDICATORS: string[] = [
+  'Industry Mentors',
+  'Live Cohorts',
+  'Project-Based Learning',
+  'Career Support',
+];
+
+export type FooterLinkItem = {
+  label: string;
+  href: string;
+};
+
+export const FOOTER_EXPLORE_TOPICS: FooterLinkItem[] = [
+  'Artificial Intelligence',
+  'Machine Learning',
+  'Generative AI',
+  'Prompt Engineering',
+  'OpenAI Workflows',
+  'Claude AI',
+  'Cursor AI',
+  'AI Agents',
+  'Automation',
+  'Data Science',
+  'Python',
+  'Full Stack Development', 
+].map((label) => ({ label, href: '#courses' }));
+
+export const FOOTER_EXPLORE_VIEW_ALL: FooterLinkItem = { label: 'View All Courses', href: '#courses' };
+
+export const FOOTER_CAREER_TRACKS: FooterLinkItem[] = [
+  'AI Engineer',
+  'Prompt Engineer',
+  'Automation Engineer',
+  'Machine Learning Engineer',
+  'Data Analyst',
+  'UI UX Designer',
+  'Digital Marketing',
+  'Cloud Engineer',
+  'Cyber Security',
+  'Business Analytics',
+].map((label) => ({ label, href: '#contact' }));
+
+export const FOOTER_CAREER_EXTRA_LINKS: FooterLinkItem[] = [ 
+  { label: 'Career Accelerator', href: '#contact' },
+  { label: 'View All Career Paths', href: '#contact' },
+];
+
+export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
+  { label: 'Blog', href: '#blog' },
+  { label: 'Learning Guides', href: '#contact' },
+  { label: 'Documentation', href: '#contact' },
+  { label: 'Case Studies', href: '#contact' },
+  { label: 'Templates', href: '#contact' },
+  { label: 'Cheat Sheets', href: '#contact' },
+  { label: 'Community', href: '#contact' },
+  { label: 'Events', href: '#events' },
+  { label: 'Success Stories', href: '#testimonials' },
+  { label: 'FAQs', href: '#faq' },
+  { label: 'Help Center', href: '#contact' },
+  { label: 'Contact Support', href: '#contact' },
+];
+
+export const FOOTER_COMPANY_LINKS: FooterLinkItem[] = [
+  { label: 'About Us', href: '#about' },
+  { label: 'Our Mission', href: '#about' },
+  { label: 'Our Mentors', href: '#teachers' },
+  { label: 'Become Instructor', href: '#contact' },
+  { label: 'Enterprise', href: '#contact' },
+  { label: 'Corporate Training', href: '#contact' },
+  { label: 'Careers', href: '#contact' },
+  { label: 'Press', href: '#contact' },
+  { label: 'Privacy Policy', href: '#' },
+  { label: 'Terms & Conditions', href: '#' },
+  { label: 'Refund Policy', href: '#' },
+  { label: 'Accessibility', href: '#' },
+];
+
+export const FOOTER_LEGAL_LINKS: string[] = [
+  'Privacy Policy',
+  'Terms & Conditions',
+  'Refund Policy',
+  'Cookie Policy',
+  'Accessibility',
+  'Sitemap',
+  'Security',
+];
+ 
+export const FOOTER_BOTTOM_LINKS: string[] = ['Cookie Settings', 'Privacy', 'Terms', 'Accessibility']; 
+
+export const FOOTER_TECH_STACK: string[] = ['Google', 'Microsoft', 'OpenAI', 'AWS', 'NVIDIA', 'Meta', 'Adobe'];
