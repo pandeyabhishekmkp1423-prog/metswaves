@@ -194,7 +194,7 @@ export const COURSES: Course[] = [
     instructor: 'Dr. Sarah Chen',
     level: 'Intermediate',
     rating: 4.6,
-    price: '$849',
+    price: '849',
   },
 ];
 
