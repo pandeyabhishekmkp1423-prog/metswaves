@@ -16,11 +16,14 @@ import {
   Twitter,
   Volume2,
 } from 'lucide-react';
+import { AnnouncementBar } from './components/layout/AnnouncementBar';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Accordion } from './components/ui/Accordion';
+import { ChatBubble } from './components/ui/ChatBubble';
 import { MagneticButton } from './components/ui/MagneticButton';
 import { Reveal } from './components/ui/Reveal';
+import { ScrollToTopButton } from './components/ui/ScrollToTopButton';
 import { SectionIntro } from './components/ui/SectionIntro';
 import { TiltCard } from './components/ui/TiltCard';
 import { useLenis } from './hooks/useLenis';
@@ -49,7 +52,7 @@ gsap.registerPlugin(ScrollTrigger);
 function LoadingScreen() {
   return (
     <motion.div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-white"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-white"
       exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.76, 0, 0.24, 1] } }}
     >
       <div className="flex flex-col items-center gap-6">
@@ -111,7 +114,7 @@ function HeroSection({ mobile, query, onQueryChange, onSearchSubmit }: HeroSecti
       </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.10),transparent_38%),radial-gradient(circle_at_85%_12%,rgba(96,165,250,0.09),transparent_32%)]" />
 
-      <div className="section-shell relative z-10 flex min-h-screen items-center pt-28">
+      <div className="section-shell relative z-10 flex min-h-screen items-center pt-10">
         <div className="grid w-full items-start gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <Reveal>
@@ -345,10 +348,11 @@ function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-white text-text-primary">
+    <div className="relative min-h-screen bg-white text-text-primary">
       <AnimatePresence>{loading ? <LoadingScreen /> : null}</AnimatePresence>
 
-      <Navbar />
+      <AnnouncementBar />
+      <Navbar query={courseQuery} onQueryChange={setCourseQuery} onSearchSubmit={handleCourseSearchSubmit} />
 
       <main className="relative z-10">
         <HeroSection
@@ -397,7 +401,7 @@ function App() {
           </div>
         </section>
 
-        <section id="about" className="section-shell bg-bg-secondary">
+        <section id="about" className="section-shell overflow-hidden bg-bg-secondary">
           <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal className="relative">
               <div className="grid grid-cols-2 gap-4" data-rotate>
@@ -935,6 +939,9 @@ function App() {
       </main>
 
       <Footer />
+
+      <ScrollToTopButton />
+      <ChatBubble />
     </div>
   );
 }

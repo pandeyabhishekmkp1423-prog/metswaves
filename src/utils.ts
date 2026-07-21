@@ -9,3 +9,8 @@ export function handleAnchorClick(event: MouseEvent<HTMLAnchorElement>, href: st
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
+
+export function handleLogoClick(event: MouseEvent<HTMLAnchorElement>) {
+  event.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

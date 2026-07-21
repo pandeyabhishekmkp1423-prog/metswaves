@@ -95,7 +95,7 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-[1280px] scroll-mt-28 px-5 py-[60px] sm:px-6 md:py-[80px] lg:px-8 lg:py-[120px];
+    @apply mx-auto w-full max-w-[1280px] scroll-mt-6 px-5 py-[60px] sm:px-6 md:py-[80px] lg:px-8 lg:py-[120px];
   }
 
   .surface-card {

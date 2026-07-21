@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { FOOTER_LINKS } from '../../constants';
-import { handleAnchorClick } from '../../utils';
+import { handleAnchorClick, handleLogoClick } from '../../utils';
 
 const socialLinks = [
   { label: 'Facebook', icon: Facebook },
@@ -56,7 +56,7 @@ export function Footer() {
           <div>
             <a
               href="#hero"
-              onClick={(event) => handleAnchorClick(event, '#hero')}
+              onClick={handleLogoClick}
               className="inline-flex items-center"
               aria-label="Metawaves AI home"
             >

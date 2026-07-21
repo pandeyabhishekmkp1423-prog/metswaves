@@ -1,29 +1,47 @@
 import type { LucideIcon } from 'lucide-react';
 import {
   ArrowUpRight,
+  Award,
   BarChart3,
   BookOpen,
   Bot,
   Briefcase,
+  Building2,
   CalendarDays,
   Camera,
   ChartNoAxesCombined,
   CheckCircle2,
+  ClipboardList,
   Clock3,
   Code2,
   Cpu,
+  FileText,
   Fingerprint,
   Globe2,
   GraduationCap,
+  Handshake,
+  HelpCircle,
   LayoutDashboard,
+  LayoutTemplate,
+  LifeBuoy,
   Lightbulb,
   Mail,
   MapPin,
+  Megaphone,
+  MessageCircle,
+  Newspaper,
+  PenTool,
   Phone,
   PlayCircle,
+  Rocket,
+  ShieldCheck,
   Sparkles,
+  Star,
+  Trophy,
   Users,
   Waypoints,
+  Workflow,
+  Zap,
 } from 'lucide-react';
 
 export type Course = {
@@ -54,14 +72,19 @@ export type Faq = {
   answer: string;
 };
 
-export const NAV_ITEMS = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Courses', href: '#courses' },
-  { label: 'Teachers', href: '#teachers' },
-  { label: 'Events', href: '#events' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+export type NavPanelType = 'explore' | 'programs' | 'career-tracks' | 'resources' | 'for-business' | 'become-instructor';
+
+export type NavItem =
+  | { id: string; label: string; mode: 'link'; href: string }
+  | { id: string; label: string; mode: 'panel'; panel: NavPanelType };
+
+export const NAV_ITEMS: NavItem[] = [
+  { id: 'explore', label: 'Explore', mode: 'panel', panel: 'explore' },
+  { id: 'programs', label: 'Programs', mode: 'panel', panel: 'programs' },
+  { id: 'career-tracks', label: 'Career Tracks', mode: 'panel', panel: 'career-tracks' },
+  { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources' },
+  { id: 'for-business', label: 'For Business', mode: 'panel', panel: 'for-business' },
+  { id: 'become-instructor', label: 'Become Instructor', mode: 'panel', panel: 'become-instructor' },
 ];
 
 export const FEATURES = [
@@ -396,3 +419,128 @@ export const FAQS: Faq[] = [
       'It depends on the track. Design, growth, and video programs are beginner-friendly; engineering and AI/ML tracks assume basic programming familiarity.',
   },
 ];
+
+export const ANNOUNCEMENTS: string[] = [
+  '🚀 AI Summer Cohort Admissions Open',
+  '🎓 Learn AI From Industry Experts',
+  '💼 Career Launchpad With Placement Assistance',
+  '🔥 New AI Courses Released',
+  '⚡ Join Thousands Of Learners',
+];
+
+export const TRENDING_SEARCHES: string[] = [
+  'Prompt Engineering',
+  'Generative AI',
+  'AI Agents',
+  'UI/UX Design',
+  'Growth Marketing',
+  'Web Engineering',
+];
+
+export type LearningPath = {
+  title: string;
+  description: string;
+  courseIds: string[];
+};
+
+export const LEARNING_PATHS: LearningPath[] = [
+  {
+    title: 'AI Product Builder',
+    description: 'Go from model fundamentals to a shipped product.',
+    courseIds: ['ai-ml', 'ui-ux', 'web-dev'],
+  },
+  {
+    title: 'Creative AI Track',
+    description: 'Design and motion skills for AI-native brands.',
+    courseIds: ['ui-ux', 'video-editing', 'graphic-design'],
+  },
+  {
+    title: 'Growth & Automation',
+    description: 'Marketing and engineering skills for AI-led growth.',
+    courseIds: ['digital-marketing', 'web-dev'],
+  },
+];
+
+export type NavListItem = {
+  label: string;
+  description?: string;
+  icon: LucideIcon;
+  href: string;
+};
+
+export const NAV_PROGRAMS: NavListItem[] = [
+  { label: 'AI Foundations', description: 'Core concepts for learners starting from zero.', icon: Cpu, href: '#contact' },
+  { label: 'Career Accelerator', description: 'A fast-track program for a role switch.', icon: Rocket, href: '#contact' },
+  { label: 'Professional Certificates', description: 'Portfolio-ready credentials employers recognize.', icon: Award, href: '#contact' },
+  { label: 'Live Cohorts', description: 'Real-time classes with weekly mentor critique.', icon: Users, href: '#contact' },
+  { label: 'Bootcamps', description: 'Intensive, project-first sprints.', icon: Zap, href: '#contact' },
+  { label: 'Self-Paced Courses', description: 'Learn on your own schedule, lifetime access.', icon: BookOpen, href: '#courses' },
+  { label: 'Corporate Learning', description: 'Upskilling tracks built for teams.', icon: Building2, href: '#contact' },
+  { label: 'Mentorship', description: '1:1 guidance from working industry mentors.', icon: Handshake, href: '#teachers' },
+];
+
+export const NAV_CAREER_TRACKS: NavListItem[] = [
+  { label: 'AI Engineer', icon: Bot, href: '#contact' },
+  { label: 'Prompt Engineer', icon: Sparkles, href: '#contact' },
+  { label: 'Automation Engineer', icon: Workflow, href: '#contact' },
+  { label: 'ML Engineer', icon: Cpu, href: '#contact' },
+  { label: 'Full Stack AI Developer', icon: Code2, href: '#contact' },
+  { label: 'Data Analyst', icon: ChartNoAxesCombined, href: '#contact' },
+  { label: 'Product Designer', icon: PenTool, href: '#contact' },
+  { label: 'Cyber Security', icon: ShieldCheck, href: '#contact' },
+  { label: 'Digital Marketer', icon: Megaphone, href: '#contact' },
+  { label: 'Business Analyst', icon: Briefcase, href: '#contact' },
+];
+
+export const NAV_FOR_BUSINESS: NavListItem[] = [
+  { label: 'Corporate Upskilling', description: 'Structured tracks to grow team AI fluency.', icon: Building2, href: '#contact' },
+  { label: 'Enterprise LMS', description: 'White-labeled learning for your organization.', icon: LayoutDashboard, href: '#contact' },
+  { label: 'Custom Learning Paths', description: "Curricula mapped to your team's roadmap.", icon: Waypoints, href: '#contact' },
+  { label: 'Request a Demo', description: 'See the platform with your own use case.', icon: PlayCircle, href: '#contact' },
+  { label: 'Compare Plans', description: 'Find the right tier for your team size.', icon: BarChart3, href: '#contact' },
+  { label: 'Talk to Sales', description: 'Get a tailored proposal from our team.', icon: Phone, href: '#contact' },
+];
+
+export type NavResourceColumn = {
+  heading: string;
+  items: { label: string; href: string; icon: LucideIcon }[];
+};
+
+export const NAV_RESOURCES: NavResourceColumn[] = [
+  {
+    heading: 'Learning',
+    items: [
+      { label: 'Blog', href: '#blog', icon: Newspaper },
+      { label: 'Guides', href: '#contact', icon: BookOpen },
+      { label: 'Documentation', href: '#contact', icon: FileText },
+      { label: 'Templates', href: '#contact', icon: LayoutTemplate },
+      { label: 'Cheat Sheets', href: '#contact', icon: ClipboardList },
+    ],
+  },
+  {
+    heading: 'Community',
+    items: [
+      { label: 'Discord', href: '#contact', icon: MessageCircle },
+      { label: 'Events', href: '#events', icon: CalendarDays },
+      { label: 'Hackathons', href: '#contact', icon: Trophy },
+      { label: 'Success Stories', href: '#testimonials', icon: Star },
+    ],
+  },
+  {
+    heading: 'Support',
+    items: [
+      { label: 'FAQs', href: '#faq', icon: HelpCircle },
+      { label: 'Help Center', href: '#contact', icon: LifeBuoy },
+      { label: 'Contact', href: '#contact', icon: Mail },
+    ],
+  },
+];
+
+export const BECOME_INSTRUCTOR = {
+  eyebrow: 'Become an AI Mentor',
+  headline: "Teach the skills shaping tomorrow's workforce.",
+  description:
+    'Create premium AI courses, mentor ambitious learners, and build your personal brand with Metawaves.',
+  primaryCta: 'Become an Instructor',
+  secondaryCta: 'Learn More',
+};

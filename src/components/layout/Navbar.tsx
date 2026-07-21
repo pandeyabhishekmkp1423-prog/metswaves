@@ -1,154 +1,179 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { MagneticButton } from '../ui/MagneticButton';
-import { NAV_ITEMS } from '../../constants';
-import { handleAnchorClick } from '../../utils';
+import { Menu } from 'lucide-react';
+import {
+  NAV_CAREER_TRACKS,
+  NAV_FOR_BUSINESS,
+  NAV_ITEMS,
+  NAV_PROGRAMS,
+  NAV_RESOURCES,
+} from '../../constants';
+import { useClickOutside } from '../../hooks/useClickOutside';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { handleLogoClick } from '../../utils';
+import { BecomeInstructorPanel } from '../nav/BecomeInstructorPanel';
+import { CartButton } from '../nav/CartButton';
+import { DropdownMenu } from '../nav/DropdownMenu';
+import { MegaMenu } from '../nav/MegaMenu';
+import { NavigationItem } from '../nav/NavigationItem';
+import { SearchBar } from '../nav/SearchBar';
+import { UserMenu } from '../nav/UserMenu';
+import { MobileMenu } from './MobileMenu';
 
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('#hero');
+type NavbarProps = {
+  query: string;
+  onQueryChange: (value: string) => void;
+  onSearchSubmit: () => void;
+};
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const openTimer = useRef<number | null>(null);
+  const closeTimer = useRef<number | null>(null);
+
+  const clearTimers = () => {
+    if (openTimer.current) window.clearTimeout(openTimer.current);
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  };
+
+  const scheduleOpen = useCallback((id: string) => {
+    clearTimers();
+    setOpenMenuId((current) => {
+      if (current && current !== 'search') return id;
+      return current;
+    });
+    openTimer.current = window.setTimeout(() => setOpenMenuId(id), 100);
   }, []);
 
-  useEffect(() => {
-    const sections = NAV_ITEMS.map((item) => document.querySelector(item.href)).filter(Boolean) as Element[];
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(`#${entry.target.id}`);
-          }
-        });
-      },
-      { threshold: 0.45 },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+  const scheduleClose = useCallback(() => {
+    clearTimers();
+    closeTimer.current = window.setTimeout(() => setOpenMenuId(null), 200);
   }, []);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    clearTimers();
+    setOpenMenuId(null);
+  }, []);
+
+  const isPanelOpen = openMenuId !== null && openMenuId !== 'search';
+  useClickOutside(containerRef, closeMenu, isPanelOpen);
+  useEscapeKey(closeMenu, openMenuId !== null);
+
+  const handleSelectCourse = (title: string) => {
+    onQueryChange(title);
+    onSearchSubmit();
+    closeMenu();
+  };
+
+  const renderPanel = () => {
+    switch (openMenuId) {
+      case 'explore':
+        return <MegaMenu onSelectCourse={handleSelectCourse} />;
+      case 'programs':
+        return <DropdownMenu variant="list" items={NAV_PROGRAMS} onNavigate={closeMenu} />;
+      case 'career-tracks':
+        return <DropdownMenu variant="list" items={NAV_CAREER_TRACKS} onNavigate={closeMenu} />;
+      case 'resources':
+        return <DropdownMenu variant="columns" columns={NAV_RESOURCES} onNavigate={closeMenu} />;
+      case 'for-business':
+        return <DropdownMenu variant="list" items={NAV_FOR_BUSINESS} onNavigate={closeMenu} />;
+      case 'become-instructor':
+        return <BecomeInstructorPanel onNavigate={closeMenu} />;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <header className="font-ui fixed inset-x-0 top-0 z-[60] px-4 py-4 sm:px-6">
-      <div
-        className={`mx-auto grid max-w-[1280px] grid-cols-[auto_1fr_auto] items-center gap-4 rounded-premium border px-4 py-3 transition-all duration-500 sm:px-6 ${
-          isScrolled
-            ? 'border-border-soft bg-white/85 shadow-[0_8px_30px_rgba(16,24,40,0.08)] backdrop-blur-xl'
-            : 'border-transparent bg-transparent'
-        }`}
-      >
-        <a
-          href="#hero"
-          onClick={(event) => handleAnchorClick(event, '#hero')}
-          className="flex items-center"
-          aria-label="Metawaves AI home"
-        >
-          <img src="/logo-navy.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
-        </a>
+    <>
+      <header className="font-ui sticky top-0 z-40 border-b border-border-soft bg-white shadow-[0_4px_20px_rgba(16,24,40,0.06)]">
+        <div ref={containerRef} className="relative mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-3 px-5 sm:px-6 lg:px-6 xl:px-8">
+          <a
+            href="#hero"
+            onClick={handleLogoClick}
+            className="flex flex-none items-center"
+            aria-label="Metawaves AI home"
+          >
+            <img src="/logo-navy.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
+          </a>
 
-        <nav className="hidden items-center justify-center gap-1 lg:flex">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(event) => handleAnchorClick(event, item.href)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                active === item.href
-                  ? 'border border-accent-blue/20 bg-accent-blue/10 text-accent-blue'
-                  : 'border border-transparent text-text-secondary hover:bg-gray-50 hover:text-navy'
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+          <nav className="hidden items-center gap-1 min-[1440px]:flex">
+            {NAV_ITEMS.map((item) => (
+              <NavigationItem
+                key={item.id}
+                item={item}
+                isOpen={openMenuId === (item.mode === 'panel' ? item.panel : '')}
+                isActive={false}
+                onEnter={() => (item.mode === 'panel' ? scheduleOpen(item.panel) : scheduleClose())}
+                onLeave={scheduleClose}
+                onToggle={() => {
+                  if (item.mode !== 'panel') return;
+                  clearTimers();
+                  setOpenMenuId((current) => (current === item.panel ? null : item.panel));
+                }}
+              />
+            ))}
+          </nav>
 
-        <div className="col-start-3 flex items-center justify-end gap-2 sm:gap-3">
-          <div className="hidden items-center gap-4 lg:flex">
-            <a
-              href="#contact"
-              onClick={(event) => handleAnchorClick(event, '#contact')}
-              className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition hover:text-navy"
+          <div className="flex flex-none items-center gap-2 sm:gap-3">
+            <SearchBar
+              query={query}
+              onQueryChange={onQueryChange}
+              onSubmit={onSearchSubmit}
+              isOpen={openMenuId === 'search'}
+              onOpen={() => {
+                clearTimers();
+                setOpenMenuId('search');
+              }}
+              onClose={closeMenu}
+            />
+            <CartButton className="hidden sm:flex" />
+            <UserMenu />
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open navigation menu"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft bg-white text-navy min-[1440px]:hidden"
             >
-              Log In
-            </a>
-            <MagneticButton
-              href="#contact"
-              onClick={(event) => handleAnchorClick(event, '#contact')}
-              className="btn-premium button-glow inline-flex items-center px-5 py-3 text-sm"
-            >
-              Enroll Now
-            </MagneticButton>
+              <Menu size={20} />
+            </button>
           </div>
 
-          <button
-            type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft bg-white text-navy lg:hidden"
-            onClick={() => setMenuOpen((value) => !value)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <AnimatePresence>
+            {isPanelOpen ? (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                onMouseEnter={cancelClose}
+                onMouseLeave={scheduleClose}
+                className="absolute inset-x-0 top-full z-50 hidden justify-center pt-5 min-[1440px]:flex"
+              >
+                <div className="surface-card overflow-hidden" role="menu">
+                  {renderPanel()}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
-      </div>
+      </header>
 
-      <AnimatePresence>
-        {menuOpen ? (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="mx-auto mt-3 max-w-[1280px] rounded-premium border border-border-soft bg-white p-4 shadow-[0_18px_50px_rgba(16,24,40,0.12)] lg:hidden"
-          >
-            <div className="grid gap-2">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-[14px] px-4 py-3 text-text-secondary transition hover:bg-gray-50 hover:text-navy"
-                  onClick={(event) => {
-                    handleAnchorClick(event, item.href);
-                    setMenuOpen(false);
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="mt-2 grid gap-2 border-t border-border-soft pt-3">
-                <a
-                  href="#contact"
-                  className="rounded-[14px] px-4 py-3 text-center text-text-secondary transition hover:bg-gray-50 hover:text-navy"
-                  onClick={(event) => {
-                    handleAnchorClick(event, '#contact');
-                    setMenuOpen(false);
-                  }}
-                >
-                  Log In
-                </a>
-                <MagneticButton
-                  href="#contact"
-                  onClick={(event) => {
-                    handleAnchorClick(event, '#contact');
-                    setMenuOpen(false);
-                  }}
-                  className="btn-premium button-glow inline-flex items-center justify-center px-5 py-3 text-sm"
-                >
-                  Enroll Now
-                </MagneticButton>
-              </div>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </header>
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        query={query}
+        onQueryChange={onQueryChange}
+        onSearchSubmit={onSearchSubmit}
+      />
+    </>
   );
 }
