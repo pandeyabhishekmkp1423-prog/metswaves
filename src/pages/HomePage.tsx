@@ -8,6 +8,11 @@ import { Reveal } from '../components/ui/Reveal';
 import { SectionIntro } from '../components/ui/SectionIntro';
 import { TiltCard } from '../components/ui/TiltCard';
 import { Hero } from '../components/home/Hero';
+import { TrustCredibility } from '../components/home/TrustCredibility';
+import { LearningUniverse } from '../components/home/LearningUniverse';
+import { LearningMethodology } from '../components/home/LearningMethodology';
+import { FeaturedCourses } from '../components/home/FeaturedCourses';
+import { BuildRealProjects } from '../components/home/BuildRealProjects';
 import { FeaturesSection } from '../components/home/FeaturesSection';
 import { handleAnchorClick } from '../utils';
 import {
@@ -103,6 +108,8 @@ export function HomePage({ query, onQueryChange }: HomePageProps) {
   return (
     <>
       <Hero />
+
+      <TrustCredibility />
 
       <section className="relative z-10 border-y border-border-soft bg-bg-secondary">
         <div className="section-shell !py-5">
@@ -208,6 +215,12 @@ export function HomePage({ query, onQueryChange }: HomePageProps) {
         </div>
       </section>
 
+      <LearningUniverse />
+
+      <LearningMethodology />
+
+      <FeaturedCourses />
+
       <section id="courses" className="section-shell bg-bg-alt">
         <Reveal>
           <SectionIntro
@@ -281,6 +294,8 @@ export function HomePage({ query, onQueryChange }: HomePageProps) {
           </div>
         )}
       </section>
+
+      <BuildRealProjects />
 
       <section id="video" className="section-shell bg-white">
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">

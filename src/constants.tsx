@@ -14,31 +14,43 @@ import {
   ClipboardList,
   Clock3,
   Code2,
+  Compass,
   Cpu,
   FileText,
+  Film,
   Fingerprint,
+  Gem,
   Globe2,
   GraduationCap,
+  Hammer,
   Handshake,
   HelpCircle,
+  Image as ImageIcon,
+  Infinity as InfinityIcon,
   LayoutDashboard,
   LayoutTemplate,
   LifeBuoy,
   Lightbulb,
+  Link2,
   Mail,
   MapPin,
   Megaphone,
   MessageCircle,
+  Mic,
+  MousePointer2,
   Newspaper,
   PenTool,
   Phone,
   PlayCircle,
   Rocket,
+  Search,
   ShieldCheck,
   Sparkles,
   Star,
   Trophy,
   Users,
+  Video,
+  Wand2,
   Waypoints,
   Workflow,
   Zap,
@@ -72,20 +84,19 @@ export type Faq = {
   answer: string;
 };
 
-export type NavPanelType = 'explore' | 'programs' | 'career-tracks' | 'resources' | 'for-business' | 'become-instructor';
+export type NavPanelType = 'resources';
 
 export type NavItem =
   | { id: string; label: string; mode: 'link'; href: string; icon?: LucideIcon }
-  | { id: string; label: string; mode: 'panel'; panel: NavPanelType };
+  | { id: string; label: string; mode: 'panel'; panel: NavPanelType; icon?: LucideIcon };
 
 export const NAV_ITEMS: NavItem[] = [
   { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen },
-  { id: 'explore', label: 'Explore', mode: 'panel', panel: 'explore' },
-  { id: 'programs', label: 'Programs', mode: 'panel', panel: 'programs' },
-  { id: 'career-tracks', label: 'Career Tracks', mode: 'panel', panel: 'career-tracks' },
-  { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources' },
-  { id: 'for-business', label: 'For Business', mode: 'panel', panel: 'for-business' },
-  { id: 'become-instructor', label: 'Become Instructor', mode: 'panel', panel: 'become-instructor' },
+  { id: 'learning-paths', label: 'Learning Paths', mode: 'link', href: '#why-choose-us', icon: Waypoints },
+  { id: 'projects', label: 'Projects', mode: 'link', href: '#gallery', icon: LayoutTemplate },
+  { id: 'community', label: 'Community', mode: 'link', href: '#testimonials', icon: Users },
+  { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources', icon: Compass },
+  { id: 'pricing', label: 'Pricing', mode: 'link', href: '#courses', icon: BarChart3 },
 ];
 
 export const FEATURES = [
@@ -415,12 +426,17 @@ export const FAQS: Faq[] = [
   },
 ];
 
-export const ANNOUNCEMENTS: string[] = [
-  '🚀 AI Summer Cohort Admissions Open',
-  '🎓 Learn AI From Industry Experts',
-  '💼 Career Launchpad With Placement Assistance',
-  '🔥 New AI Courses Released',
-  '⚡ Join Thousands Of Learners',
+export type Announcement = {
+  text: string;
+  ctaLabel: string;
+  href: string;
+};
+
+export const ANNOUNCEMENTS: Announcement[] = [
+  { text: '🚀 AI Agent Mastery Bootcamp is now live', ctaLabel: 'Enroll Now', href: '#contact' },
+  { text: '⚡ Save 40% this week', ctaLabel: 'Claim Offer', href: '#contact' },
+  { text: '🎓 Join 25,000+ learners mastering AI', ctaLabel: 'Get Started', href: '#courses' },
+  { text: '🔥 New ChatGPT & Claude courses released', ctaLabel: 'Explore', href: '#courses' },
 ];
 
 export const TRENDING_SEARCHES: string[] = [
@@ -456,89 +472,65 @@ export const LEARNING_PATHS: LearningPath[] = [
   },
 ];
 
-export type NavListItem = {
+export type NavResourceItem = {
   label: string;
-  description?: string;
-  icon: LucideIcon;
   href: string;
+  icon: LucideIcon;
 };
 
-export const NAV_PROGRAMS: NavListItem[] = [
-  { label: 'AI Foundations', description: 'Core concepts for learners starting from zero.', icon: Cpu, href: '#contact' },
-  { label: 'Career Accelerator', description: 'A fast-track program for a role switch.', icon: Rocket, href: '#contact' },
-  { label: 'Professional Certificates', description: 'Portfolio-ready credentials employers recognize.', icon: Award, href: '#contact' },
-  { label: 'Live Cohorts', description: 'Real-time classes with weekly mentor critique.', icon: Users, href: '#contact' },
-  { label: 'Bootcamps', description: 'Intensive, project-first sprints.', icon: Zap, href: '#contact' },
-  { label: 'Self-Paced Courses', description: 'Learn on your own schedule, lifetime access.', icon: BookOpen, href: '#courses' },
-  { label: 'Corporate Learning', description: 'Upskilling tracks built for teams.', icon: Building2, href: '#contact' },
-  { label: 'Mentorship', description: '1:1 guidance from working industry mentors.', icon: Handshake, href: '#teachers' },
-];
-
-export const NAV_CAREER_TRACKS: NavListItem[] = [
-  { label: 'AI Engineer', icon: Bot, href: '#contact' },
-  { label: 'Prompt Engineer', icon: Sparkles, href: '#contact' },
-  { label: 'Automation Engineer', icon: Workflow, href: '#contact' },
-  { label: 'ML Engineer', icon: Cpu, href: '#contact' },
-  { label: 'Full Stack AI Developer', icon: Code2, href: '#contact' },
-  { label: 'Data Analyst', icon: ChartNoAxesCombined, href: '#contact' },
-  { label: 'Product Designer', icon: PenTool, href: '#contact' },
-  { label: 'Cyber Security', icon: ShieldCheck, href: '#contact' },
-  { label: 'Digital Marketer', icon: Megaphone, href: '#contact' },
-  { label: 'Business Analyst', icon: Briefcase, href: '#contact' },
-];
-
-export const NAV_FOR_BUSINESS: NavListItem[] = [
-  { label: 'Corporate Upskilling', description: 'Structured tracks to grow team AI fluency.', icon: Building2, href: '#contact' },
-  { label: 'Enterprise LMS', description: 'White-labeled learning for your organization.', icon: LayoutDashboard, href: '#contact' },
-  { label: 'Custom Learning Paths', description: "Curricula mapped to your team's roadmap.", icon: Waypoints, href: '#contact' },
-  { label: 'Request a Demo', description: 'See the platform with your own use case.', icon: PlayCircle, href: '#contact' },
-  { label: 'Compare Plans', description: 'Find the right tier for your team size.', icon: BarChart3, href: '#contact' },
-  { label: 'Talk to Sales', description: 'Get a tailored proposal from our team.', icon: Phone, href: '#contact' },
-];
-
-export type NavResourceColumn = {
+export type NavResourceSection = {
   heading: string;
-  items: { label: string; href: string; icon: LucideIcon }[];
+  description: string;
+  icon: LucideIcon;
+  items: NavResourceItem[];
 };
 
-export const NAV_RESOURCES: NavResourceColumn[] = [
+export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
   {
-    heading: 'Learning',
+    heading: 'Learn',
+    description: 'Guides and hands-on tutorials to sharpen your skills.',
+    icon: BookOpen,
     items: [
       { label: 'Blog', href: '#blog', icon: Newspaper },
-      { label: 'Guides', href: '#contact', icon: BookOpen },
-      { label: 'Documentation', href: '#contact', icon: FileText },
-      { label: 'Templates', href: '#contact', icon: LayoutTemplate },
-      { label: 'Cheat Sheets', href: '#contact', icon: ClipboardList },
+      { label: 'AI Guides', href: '#contact', icon: Lightbulb },
+      { label: 'Tutorials', href: '#contact', icon: PlayCircle },
+      { label: 'Roadmaps', href: '#why-choose-us', icon: Waypoints },
+    ],
+  },
+  {
+    heading: 'Discover',
+    description: 'Tools, news and live sessions from the AI world.',
+    icon: Compass,
+    items: [
+      { label: 'Free AI Tools', href: '#contact', icon: Sparkles },
+      { label: 'AI News', href: '#blog', icon: Megaphone },
+      { label: 'Events', href: '#events', icon: CalendarDays },
+      { label: 'Webinars', href: '#events', icon: Video },
+    ],
+  },
+  {
+    heading: 'Career',
+    description: 'Turn what you learn into an AI-native career.',
+    icon: Briefcase,
+    items: [
+      { label: 'Certifications', href: '#contact', icon: Award },
+      { label: 'Career Hub', href: '#contact', icon: Briefcase },
+      { label: 'Interview Prep', href: '#contact', icon: ClipboardList },
+      { label: 'Resume Resources', href: '#contact', icon: FileText },
     ],
   },
   {
     heading: 'Community',
+    description: 'Connect with builders, share wins, climb the board.',
+    icon: Users,
     items: [
       { label: 'Discord', href: '#contact', icon: MessageCircle },
-      { label: 'Events', href: '#events', icon: CalendarDays },
-      { label: 'Hackathons', href: '#contact', icon: Trophy },
-      { label: 'Success Stories', href: '#testimonials', icon: Star },
-    ],
-  },
-  {
-    heading: 'Support',
-    items: [
-      { label: 'FAQs', href: '#faq', icon: HelpCircle },
-      { label: 'Help Center', href: '#contact', icon: LifeBuoy },
-      { label: 'Contact', href: '#contact', icon: Mail },
+      { label: 'Student Stories', href: '#testimonials', icon: Star },
+      { label: 'Challenges', href: '#contact', icon: Trophy },
+      { label: 'Leaderboard', href: '#contact', icon: BarChart3 },
     ],
   },
 ];
-
-export const BECOME_INSTRUCTOR = {
-  eyebrow: 'Become an AI Mentor',
-  headline: "Teach the skills shaping tomorrow's workforce.",
-  description:
-    'Create premium AI courses, mentor ambitious learners, and build your personal brand with Metawaves.',
-  primaryCta: 'Become an Instructor',
-  secondaryCta: 'Learn More',
-};
 
 export const HERO_TRUST_INDICATORS: string[] = [
   'Industry Mentors',
@@ -616,6 +608,469 @@ export const FOOTER_COMPANY_LINKS: FooterLinkItem[] = [
   { label: 'Accessibility', href: '#' },
 ];
 
-export const FOOTER_BOTTOM_LINKS: string[] = ['Cookie Settings', 'Privacy', 'Terms', 'Accessibility']; 
+export const FOOTER_BOTTOM_LINKS: string[] = ['Cookie Settings', 'Privacy', 'Terms', 'Accessibility'];
+
+export type TrustStat = {
+  label: string;
+  value: number;
+  suffix: string;
+  icon: LucideIcon;
+};
+
+export const TRUST_STATS: TrustStat[] = [
+  { label: 'Active Learners', value: 25000, suffix: '+', icon: Users },
+  { label: 'AI Courses', value: 120, suffix: '+', icon: BookOpen },
+  { label: 'Projects Built', value: 8400, suffix: '+', icon: Rocket },
+  { label: 'Mentors', value: 60, suffix: '+', icon: GraduationCap },
+  { label: 'Student Satisfaction', value: 98, suffix: '%', icon: Star },
+];
+
+export type AiTechnology = {
+  name: string;
+  icon: LucideIcon;
+};
+
+export type LearningDomain = {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  courses: number;
+  projects: number;
+  level: string;
+  technologies: string[];
+};
+
+export const LEARNING_DOMAINS: LearningDomain[] = [
+  {
+    id: 'prompt-engineering',
+    label: 'Prompt Engineering',
+    icon: Wand2,
+    courses: 14,
+    projects: 32,
+    level: 'Beginner Friendly',
+    technologies: ['ChatGPT', 'Claude', 'Gemini'],
+  },
+  {
+    id: 'ai-agents',
+    label: 'AI Agents',
+    icon: Bot,
+    courses: 18,
+    projects: 40,
+    level: 'Intermediate',
+    technologies: ['LangChain', 'AutoGPT', 'OpenAI API'],
+  },
+  {
+    id: 'ai-development',
+    label: 'AI Development',
+    icon: Code2,
+    courses: 22,
+    projects: 48,
+    level: 'Advanced',
+    technologies: ['Python', 'TensorFlow', 'OpenAI API'],
+  },
+  {
+    id: 'ai-automation',
+    label: 'AI Automation',
+    icon: Workflow,
+    courses: 12,
+    projects: 27,
+    level: 'Intermediate',
+    technologies: ['n8n', 'Zapier', 'Make'],
+  },
+  {
+    id: 'ai-design',
+    label: 'AI Design',
+    icon: PenTool,
+    courses: 10,
+    projects: 25,
+    level: 'Beginner Friendly',
+    technologies: ['Midjourney', 'Figma', 'Runway'],
+  },
+  {
+    id: 'data-science',
+    label: 'Data Science',
+    icon: BarChart3,
+    courses: 16,
+    projects: 34,
+    level: 'Advanced',
+    technologies: ['Python', 'SQL', 'TensorFlow'],
+  },
+  {
+    id: 'ai-marketing',
+    label: 'AI Marketing',
+    icon: Megaphone,
+    courses: 9,
+    projects: 20,
+    level: 'Beginner Friendly',
+    technologies: ['ChatGPT', 'HubSpot', 'Meta Ads'],
+  },
+  {
+    id: 'ai-business',
+    label: 'AI Business',
+    icon: Briefcase,
+    courses: 11,
+    projects: 18,
+    level: 'Intermediate',
+    technologies: ['Notion AI', 'ChatGPT', 'Perplexity'],
+  },
+];
+
+export const AI_TECHNOLOGIES: AiTechnology[] = [
+  { name: 'ChatGPT', icon: Bot },
+  { name: 'Claude', icon: Sparkles },
+  { name: 'Gemini', icon: Gem },
+  { name: 'Cursor', icon: MousePointer2 },
+  { name: 'n8n', icon: Workflow },
+  { name: 'LangChain', icon: Link2 },
+  { name: 'Midjourney', icon: ImageIcon },
+  { name: 'Runway', icon: Film },
+  { name: 'ElevenLabs', icon: Mic },
+  { name: 'OpenAI API', icon: Cpu },
+  { name: 'Perplexity', icon: Compass },
+];
 
 export const FOOTER_TECH_STACK: string[] = ['Google', 'Microsoft', 'OpenAI', 'AWS', 'NVIDIA', 'Meta', 'Adobe'];
+
+export type ProjectDifficulty = 'Beginner' | 'Intermediate' | 'Advanced';
+export type ProjectSize = 'large' | 'wide' | 'tall' | 'small';
+
+export type Project = {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  technologies: string[];
+  difficulty: ProjectDifficulty;
+  duration: string;
+  hasLiveDemo: boolean;
+  hasCertificate: boolean;
+  size: ProjectSize;
+};
+
+export const PROJECTS: Project[] = [
+  {
+    id: 'ai-chatbot',
+    title: 'AI Chatbot',
+    description:
+      'A context-aware support chatbot with long-term memory, tool calling, and live handoff to a human agent.',
+    icon: MessageCircle,
+    technologies: ['OpenAI API', 'LangChain', 'Vector DB'],
+    difficulty: 'Beginner',
+    duration: '4-6 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'large',
+  },
+  {
+    id: 'ai-resume-analyzer',
+    title: 'AI Resume Analyzer',
+    description: 'Parse resumes, extract skills, and score candidates against a job description in seconds.',
+    icon: FileText,
+    technologies: ['Python', 'OpenAI API'],
+    difficulty: 'Beginner',
+    duration: '3-5 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'ai-voice-agent',
+    title: 'AI Voice Agent',
+    description: 'A real-time voice assistant that listens, thinks, and speaks back with natural, low-latency conversation.',
+    icon: Mic,
+    technologies: ['ElevenLabs', 'Whisper', 'WebRTC'],
+    difficulty: 'Advanced',
+    duration: '8-10 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'wide',
+  },
+  {
+    id: 'ai-research-assistant',
+    title: 'AI Research Assistant',
+    description: 'Summarize papers, cross-reference sources, and answer questions with citations you can trust.',
+    icon: Search,
+    technologies: ['Claude', 'LangChain', 'RAG'],
+    difficulty: 'Intermediate',
+    duration: '6-8 hrs',
+    hasLiveDemo: false,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'ai-workflow-automation',
+    title: 'AI Workflow Automation',
+    description: 'Chain agents and tools together to automate multi-step business workflows end to end.',
+    icon: Workflow,
+    technologies: ['n8n', 'Zapier', 'OpenAI API'],
+    difficulty: 'Intermediate',
+    duration: '5-7 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'tall',
+  },
+  {
+    id: 'ai-coding-assistant',
+    title: 'AI Coding Assistant',
+    description: 'A code-completion and review copilot that understands your whole repo, not just one file.',
+    icon: Code2,
+    technologies: ['OpenAI API', 'TypeScript'],
+    difficulty: 'Advanced',
+    duration: '10-12 hrs',
+    hasLiveDemo: false,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'ai-meeting-summarizer',
+    title: 'AI Meeting Summarizer',
+    description: 'Transcribe calls in real time and turn them into clean summaries with clear action items.',
+    icon: ClipboardList,
+    technologies: ['Whisper', 'GPT-4'],
+    difficulty: 'Beginner',
+    duration: '3-4 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'ai-content-generator',
+    title: 'AI Content Generator',
+    description: 'Generate on-brand marketing copy and visuals at scale, from brief to publish-ready draft.',
+    icon: Sparkles,
+    technologies: ['GPT-4', 'Midjourney'],
+    difficulty: 'Intermediate',
+    duration: '4-6 hrs',
+    hasLiveDemo: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+];
+
+export type LearningFeatureSize = 'large' | 'wide' | 'tall' | 'small';
+
+export type LearningFeature = {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  gradient: string;
+  size: LearningFeatureSize;
+};
+
+export const LEARNING_FEATURES: LearningFeature[] = [
+  {
+    id: 'learn-by-building',
+    title: 'Learn by Building',
+    description: 'Every lesson ends in a working product, not just notes — theory only sticks once you ship it.',
+    icon: Hammer,
+    gradient: 'from-blue-500 to-cyan-400',
+    size: 'large',
+  },
+  {
+    id: 'live-ai-cohorts',
+    title: 'Live AI Cohorts',
+    description: 'Scheduled live sessions with real-time feedback from mentors and peers.',
+    icon: CalendarDays,
+    gradient: 'from-purple-500 to-pink-400',
+    size: 'small',
+  },
+  {
+    id: 'expert-mentorship',
+    title: 'Expert Mentorship',
+    description: '1:1 guidance from operators who have shipped real AI products in production.',
+    icon: GraduationCap,
+    gradient: 'from-emerald-500 to-teal-400',
+    size: 'wide',
+  },
+  {
+    id: 'hands-on-projects',
+    title: 'Hands-on Projects',
+    description: 'Ship portfolio-ready builds across every domain you learn.',
+    icon: LayoutTemplate,
+    gradient: 'from-amber-500 to-orange-400',
+    size: 'small',
+  },
+  {
+    id: 'industry-certificates',
+    title: 'Industry Certificates',
+    description: 'Earn credentials recognized by hiring teams and recruiters.',
+    icon: Award,
+    gradient: 'from-indigo-500 to-blue-400',
+    size: 'tall',
+  },
+  {
+    id: 'community-support',
+    title: 'Community Support',
+    description: 'A global network of builders to learn, ship, and grow alongside.',
+    icon: MessageCircle,
+    gradient: 'from-rose-500 to-pink-400',
+    size: 'small',
+  },
+  {
+    id: 'career-guidance',
+    title: 'Career Guidance',
+    description: 'Resume reviews, interview prep, and placement support built in.',
+    icon: Briefcase,
+    gradient: 'from-sky-500 to-blue-400',
+    size: 'small',
+  },
+  {
+    id: 'lifetime-access',
+    title: 'Lifetime Access',
+    description: 'Come back anytime — course updates and replays, forever.',
+    icon: InfinityIcon,
+    gradient: 'from-violet-500 to-purple-400',
+    size: 'small',
+  },
+];
+
+export type FeaturedCourseDifficulty = 'Beginner' | 'Intermediate' | 'Advanced';
+export type FeaturedCourseCategory = 'Automation' | 'AI Agents' | 'Development' | 'Business' | 'Design';
+export type FeaturedCourseBadge = 'New' | 'Best Seller';
+
+export type FeaturedCourse = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  instructor: string;
+  difficulty: FeaturedCourseDifficulty;
+  category: FeaturedCourseCategory;
+  duration: string;
+  projects: number;
+  hasCertificate: boolean;
+  students: string;
+  rating: number;
+  badge?: FeaturedCourseBadge;
+};
+
+export const FEATURED_COURSE_FILTERS = [
+  'All',
+  'Beginner',
+  'Advanced',
+  'Automation',
+  'AI Agents',
+  'Development',
+  'Business',
+  'Design',
+] as const;
+
+export const FEATURED_COURSES: FeaturedCourse[] = [
+  {
+    id: 'prompt-engineering-mastery',
+    title: 'Prompt Engineering Mastery',
+    description: 'Master the art of prompting ChatGPT, Claude, and Gemini to build production-ready AI workflows.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Dr. Sarah Chen',
+    difficulty: 'Beginner',
+    category: 'AI Agents',
+    duration: '6 weeks',
+    projects: 8,
+    hasCertificate: true,
+    students: '3.4k+',
+    rating: 4.9,
+    badge: 'Best Seller',
+  },
+  {
+    id: 'building-ai-agents',
+    title: 'Building AI Agents with LangChain',
+    description: 'Design and deploy autonomous agents that plan, reason, and use tools with LangChain.',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'James Wilson',
+    difficulty: 'Intermediate',
+    category: 'AI Agents',
+    duration: '10 weeks',
+    projects: 12,
+    hasCertificate: true,
+    students: '2.1k+',
+    rating: 4.8,
+    badge: 'Best Seller',
+  },
+  {
+    id: 'ai-workflow-automation-n8n',
+    title: 'AI Workflow Automation with n8n',
+    description: 'Automate multi-step business processes end to end with n8n, Zapier, and AI APIs.',
+    image: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Marcus Thorne',
+    difficulty: 'Intermediate',
+    category: 'Automation',
+    duration: '8 weeks',
+    projects: 10,
+    hasCertificate: true,
+    students: '1.6k+',
+    rating: 4.7,
+  },
+  {
+    id: 'full-stack-ai-development',
+    title: 'Full-Stack AI Development',
+    description: 'Ship full-stack AI products from API to interface with modern engineering practices.',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'James Wilson',
+    difficulty: 'Advanced',
+    category: 'Development',
+    duration: '18 weeks',
+    projects: 16,
+    hasCertificate: true,
+    students: '2.8k+',
+    rating: 4.9,
+    badge: 'New',
+  },
+  {
+    id: 'ai-powered-product-design',
+    title: 'AI-Powered Product Design',
+    description: 'Design intelligent interfaces and AI-native product experiences that feel effortless.',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Marcus Thorne',
+    difficulty: 'Intermediate',
+    category: 'Design',
+    duration: '10 weeks',
+    projects: 9,
+    hasCertificate: true,
+    students: '1.1k+',
+    rating: 4.8,
+  },
+  {
+    id: 'ai-for-business-leaders',
+    title: 'AI for Business Leaders',
+    description: 'Apply AI strategically to operations, growth, and decision-making without writing code.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Elena Rodriguez',
+    difficulty: 'Beginner',
+    category: 'Business',
+    duration: '5 weeks',
+    projects: 6,
+    hasCertificate: true,
+    students: '2.4k+',
+    rating: 4.6,
+  },
+  {
+    id: 'advanced-ai-agent-systems',
+    title: 'Advanced AI Agent Systems',
+    description: 'Go deep on retrieval-augmented generation and multi-agent systems for real production use.',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Dr. Sarah Chen',
+    difficulty: 'Advanced',
+    category: 'AI Agents',
+    duration: '12 weeks',
+    projects: 14,
+    hasCertificate: true,
+    students: '900+',
+    rating: 4.9,
+    badge: 'New',
+  },
+  {
+    id: 'applied-data-science-ai',
+    title: 'Applied Data Science & AI',
+    description: 'Turn raw data into predictive models and dashboards using modern AI tooling.',
+    image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200',
+    instructor: 'Dr. Sarah Chen',
+    difficulty: 'Advanced',
+    category: 'Development',
+    duration: '16 weeks',
+    projects: 15,
+    hasCertificate: true,
+    students: '1.9k+',
+    rating: 4.8,
+  },
+];

@@ -1,24 +1,16 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
-import {
-  NAV_CAREER_TRACKS,
-  NAV_FOR_BUSINESS,
-  NAV_ITEMS,
-  NAV_PROGRAMS,
-  NAV_RESOURCES,
-} from '../../constants';
+import { NAV_ITEMS } from '../../constants';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
-import { handleLogoClick } from '../../utils';
-import { BecomeInstructorPanel } from '../nav/BecomeInstructorPanel';
-import { CartButton } from '../nav/CartButton';
-import { DropdownMenu } from '../nav/DropdownMenu';
-import { ExploreMenu } from '../nav/ExploreMenu';
+import { handleAnchorClick } from '../../utils';
+import { CommandPaletteButton } from '../nav/CommandPaletteButton';
+import { GradientCtaButton } from '../nav/GradientCtaButton';
+import { Logo } from '../nav/Logo';
+import { MegaMenu } from '../nav/MegaMenu';
 import { NavigationItem } from '../nav/NavigationItem';
-import { SearchBar } from '../nav/SearchBar';
-import { UserMenu } from '../nav/UserMenu';
 import { MobileMenu } from './MobileMenu';
 
 type NavbarProps = {
@@ -32,12 +24,20 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [panelLeft, setPanelLeft] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const clearTimers = () => {
     if (openTimer.current) window.clearTimeout(openTimer.current);
@@ -46,10 +46,6 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
 
   const scheduleOpen = useCallback((id: string) => {
     clearTimers();
-    setOpenMenuId((current) => {
-      if (current && current !== 'search') return id;
-      return current;
-    });
     openTimer.current = window.setTimeout(() => setOpenMenuId(id), 100);
   }, []);
 
@@ -67,9 +63,9 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
     setOpenMenuId(null);
   }, []);
 
-  const isPanelOpen = openMenuId !== null && openMenuId !== 'search';
+  const isPanelOpen = openMenuId !== null;
   useClickOutside(containerRef, closeMenu, isPanelOpen);
-  useEscapeKey(closeMenu, openMenuId !== null);
+  useEscapeKey(closeMenu, isPanelOpen);
 
   useLayoutEffect(() => {
     if (!isPanelOpen || !openMenuId) return;
@@ -104,101 +100,97 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
     triggerRefs.current[id] = el;
   };
 
-  const renderPanel = () => {
-    switch (openMenuId) {
-      case 'explore':
-        return <ExploreMenu onNavigate={closeMenu} />;
-      case 'programs':
-        return <DropdownMenu variant="list" items={NAV_PROGRAMS} onNavigate={closeMenu} />;
-      case 'career-tracks':
-        return <DropdownMenu variant="list" items={NAV_CAREER_TRACKS} onNavigate={closeMenu} />;
-      case 'resources':
-        return <DropdownMenu variant="columns" columns={NAV_RESOURCES} onNavigate={closeMenu} />;
-      case 'for-business':
-        return <DropdownMenu variant="list" items={NAV_FOR_BUSINESS} onNavigate={closeMenu} />;
-      case 'become-instructor':
-        return <BecomeInstructorPanel onNavigate={closeMenu} />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
-      <header className="font-ui sticky top-0 z-40 border-b border-border-soft bg-white shadow-[0_4px_20px_rgba(16,24,40,0.06)]">
-        <div ref={containerRef} className="relative mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-3 px-5 sm:px-6 lg:px-6 xl:px-8">
-          <a
-            href="#hero"
-            onClick={handleLogoClick}
-            className="flex flex-none items-center"
-            aria-label="Metawaves AI home"
-          >
-            <img src="/logo-navy.png" alt="Metawaves AI" className="h-6 w-auto sm:h-7" />
-          </a>
+      <header className="font-ui sticky top-0 z-40 w-full px-3 pt-3 sm:px-4 sm:pt-4">
+        <motion.div
+          initial={false}
+          animate={{
+            height: scrolled ? 64 : 80,
+            backgroundColor: scrolled ? 'rgba(255,255,255,0.86)' : 'rgba(255,255,255,0.44)',
+            boxShadow: scrolled ? '0 12px 34px rgba(16,24,40,0.12)' : '0 1px 0 rgba(16,24,40,0)',
+          }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className={`relative mx-auto flex w-[92%] max-w-[1400px] items-center justify-between gap-3 rounded-[28px] border px-4 backdrop-blur-xl transition-[border-color] duration-500 sm:px-6 ${
+            scrolled ? 'border-border-soft/80' : 'border-white/50'
+          }`}
+        >
+          <div ref={containerRef} className="relative flex w-full items-center justify-between gap-3">
+            <Logo />
 
-          <nav className="hidden items-center gap-1 min-[1440px]:flex">
-            {NAV_ITEMS.map((item) => (
-              <NavigationItem
-                key={item.id}
-                item={item}
-                isOpen={openMenuId === (item.mode === 'panel' ? item.panel : '')}
-                isActive={item.mode === 'link' && (location.pathname === item.href || location.pathname.startsWith(`${item.href}/`))}
-                onEnter={() => (item.mode === 'panel' ? scheduleOpen(item.panel) : scheduleClose())}
-                onLeave={scheduleClose}
-                onToggle={() => {
-                  if (item.mode !== 'panel') return;
-                  clearTimers();
-                  setOpenMenuId((current) => (current === item.panel ? null : item.panel));
-                }}
-                triggerRef={item.mode === 'panel' ? registerTrigger(item.panel) : undefined}
+            <nav className="hidden items-center gap-0.5 min-[1200px]:flex" aria-label="Primary">
+              {NAV_ITEMS.map((item) => (
+                <NavigationItem
+                  key={item.id}
+                  item={item}
+                  isOpen={openMenuId === (item.mode === 'panel' ? item.panel : '')}
+                  isActive={item.mode === 'link' && !item.href.startsWith('#') && (location.pathname === item.href || location.pathname.startsWith(`${item.href}/`))}
+                  onEnter={() => (item.mode === 'panel' ? scheduleOpen(item.panel) : scheduleClose())}
+                  onLeave={scheduleClose}
+                  onToggle={() => {
+                    if (item.mode !== 'panel') return;
+                    clearTimers();
+                    setOpenMenuId((current) => (current === item.panel ? null : item.panel));
+                  }}
+                  triggerRef={item.mode === 'panel' ? registerTrigger(item.panel) : undefined}
+                />
+              ))}
+            </nav>
+
+            <div className="flex flex-none items-center gap-2 sm:gap-2.5">
+              <CommandPaletteButton
+                query={query}
+                onQueryChange={onQueryChange}
+                onSubmit={onSearchSubmit}
+                className="hidden min-[1200px]:flex"
               />
-            ))}
-          </nav>
 
-          <div className="flex flex-none items-center gap-2 sm:gap-3">
-            <SearchBar
-              query={query}
-              onQueryChange={onQueryChange}
-              onSubmit={onSearchSubmit}
-              isOpen={openMenuId === 'search'}
-              onOpen={() => {
-                clearTimers();
-                setOpenMenuId('search');
-              }}
-              onClose={closeMenu}
-            />
-            <CartButton className="hidden sm:flex" />
-            <UserMenu />
-
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label="Open navigation menu"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-border-soft bg-white text-navy min-[1440px]:hidden"
-            >
-              <Menu size={20} />
-            </button>
-          </div>
-
-          <AnimatePresence>
-            {isPanelOpen ? (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.15, ease: 'easeOut' }}
-                onMouseEnter={cancelClose}
-                onMouseLeave={scheduleClose}
-                style={{ left: panelLeft }}
-                className="absolute top-full z-50 hidden pt-3 min-[1440px]:block"
+              <a
+                href="#contact"
+                onClick={(event) => handleAnchorClick(event, '#contact')}
+                className="btn-glass-nav hidden px-4 py-2.5 text-sm hover:-translate-y-0.5 min-[1200px]:inline-flex"
               >
-                <div ref={panelRef} className="surface-card overflow-hidden">
-                  {renderPanel()}
-                </div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
-        </div>
+                Login
+              </a>
+
+              <GradientCtaButton
+                href="#contact"
+                onClick={(event) => handleAnchorClick(event, '#contact')}
+                className="hidden px-5 py-2.5 text-sm min-[1200px]:inline-flex"
+              >
+                Start Learning
+              </GradientCtaButton>
+
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Open navigation menu"
+                className="btn-glass-nav flex h-11 w-11 items-center justify-center text-navy min-[1200px]:hidden"
+              >
+                <Menu size={19} />
+              </button>
+            </div>
+
+            <AnimatePresence>
+              {isPanelOpen ? (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  onMouseEnter={cancelClose}
+                  onMouseLeave={scheduleClose}
+                  style={{ left: panelLeft }}
+                  className="absolute top-full z-50 hidden pt-4 min-[1200px]:block"
+                >
+                  <div ref={panelRef} className="surface-card overflow-hidden bg-white/95 backdrop-blur-xl">
+                    <MegaMenu onNavigate={closeMenu} />
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </header>
 
       <MobileMenu

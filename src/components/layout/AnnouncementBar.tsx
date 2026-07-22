@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Volume2, X } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { Sparkles, X } from 'lucide-react';
 import { ANNOUNCEMENTS } from '../../constants';
 import { handleAnchorClick } from '../../utils';
 
 const DISMISS_KEY = 'metawaves-announcement-dismissed';
+const ROTATE_MS = 4200;
 
 export function AnnouncementBar() {
   const [index, setIndex] = useState(0);
   const [dismissed, setDismissed] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     try {
@@ -19,21 +23,25 @@ export function AnnouncementBar() {
   }, []);
 
   useEffect(() => {
-    if (dismissed) return;
-    const timer = window.setInterval(() => {
+    if (dismissed || paused || reduceMotion) return;
+    timerRef.current = window.setInterval(() => {
       setIndex((current) => (current + 1) % ANNOUNCEMENTS.length);
-    }, 5000);
-    return () => window.clearInterval(timer);
-  }, [dismissed]);
+    }, ROTATE_MS);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [dismissed, paused, reduceMotion]);
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setDismissed(true);
     try {
       window.sessionStorage.setItem(DISMISS_KEY, '1');
     } catch {
       // ignore
     }
-  };
+  }, []);
+
+  const current = ANNOUNCEMENTS[index];
 
   return (
     <AnimatePresence initial={false}>
@@ -42,61 +50,73 @@ export function AnnouncementBar() {
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="relative z-[70] overflow-hidden bg-navy"
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-[70] flex justify-center overflow-hidden bg-white px-3 pt-2.5 sm:px-5"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          <div className="font-ui grid h-9 grid-cols-[auto_1fr_auto] items-center gap-3 px-4 text-white">
-            <Volume2 size={14} className="hidden flex-none text-accent-blue-light sm:block" />
+          <div
+            role="status"
+            aria-live="polite"
+            className="announcement-gradient announcement-shimmer relative flex h-10 w-full max-w-[1400px] items-center justify-center gap-2 rounded-full border border-border-soft/70 px-4 shadow-[0_2px_10px_rgba(16,24,40,0.06)] sm:h-11 sm:gap-3 sm:px-5"
+          >
+            <span className="relative hidden flex-none items-center justify-center sm:flex">
+              <span className="announcement-live-dot h-1.5 w-1.5 rounded-full bg-accent-blue" />
+            </span>
+            <Sparkles size={14} className="hidden flex-none text-accent-blue sm:block" />
 
-            <div className="flex items-center justify-center gap-3">
-              <div className="relative h-4 w-full max-w-[360px] flex-1 overflow-hidden text-center sm:w-[360px] sm:flex-none">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={index}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-x-0 truncate text-xs font-medium"
-                  >
-                    {ANNOUNCEMENTS[index]}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-
-              <div className="hidden items-center gap-1.5 sm:flex">
-                {ANNOUNCEMENTS.map((announcement, dotIndex) => (
-                  <button
-                    key={announcement}
-                    type="button"
-                    onClick={() => setIndex(dotIndex)}
-                    aria-label={`Show announcement ${dotIndex + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      dotIndex === index ? 'w-4 bg-accent-blue-light' : 'w-1.5 bg-white/30 hover:bg-white/50'
-                    }`}
-                  />
-                ))}
-              </div>
+            <div className="relative h-5 w-full max-w-[300px] flex-1 overflow-hidden text-center sm:w-[320px] sm:flex-none">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-x-0 truncate text-[13px] font-semibold text-navy sm:text-sm"
+                >
+                  {current.text}
+                </motion.p>
+              </AnimatePresence>
             </div>
 
-            <div className="flex flex-none items-center gap-3">
-              <a
-                href="#contact"
-                onClick={(event) => handleAnchorClick(event, '#contact')}
-                className="hidden flex-none items-center gap-1 text-xs font-semibold text-white transition-colors duration-200 hover:text-accent-blue-light sm:flex"
-              >
-                Enroll Now
-                <span aria-hidden="true">→</span>
-              </a>
-              <button
-                type="button"
-                onClick={handleDismiss}
-                aria-label="Dismiss announcement"
-                className="flex h-5 w-5 flex-none items-center justify-center rounded-full text-white/50 transition-colors duration-200 hover:bg-white/10 hover:text-white"
-              >
-                <X size={12} />
-              </button>
+            <div className="hidden items-center gap-1.5 md:flex">
+              {ANNOUNCEMENTS.map((announcement, dotIndex) => (
+                <button
+                  key={announcement.text}
+                  type="button"
+                  onClick={() => setIndex(dotIndex)}
+                  aria-label={`Show announcement ${dotIndex + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    dotIndex === index ? 'w-4 bg-accent-blue' : 'w-1.5 bg-navy/15 hover:bg-navy/30'
+                  }`}
+                />
+              ))}
             </div>
+
+            <a
+              href={current.href}
+              onClick={(event) => handleAnchorClick(event, current.href)}
+              className="btn-gradient-cta hidden flex-none px-3.5 py-1.5 text-[11px] tracking-wide sm:inline-flex"
+              style={{ boxShadow: '0 0 0 rgba(37,99,235,0)' }}
+            >
+              <motion.span
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full"
+                animate={reduceMotion ? undefined : { boxShadow: ['0 0 0px rgba(59,130,246,0)', '0 0 14px rgba(59,130,246,0.55)', '0 0 0px rgba(59,130,246,0)'] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <span className="relative">{current.ctaLabel}</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={handleDismiss}
+              aria-label="Dismiss announcement"
+              className="flex h-6 w-6 flex-none items-center justify-center rounded-full text-navy/40 transition-colors duration-200 hover:bg-navy/5 hover:text-navy"
+            >
+              <X size={13} />
+            </button>
           </div>
         </motion.div>
       ) : null}

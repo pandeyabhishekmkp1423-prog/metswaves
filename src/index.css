@@ -150,6 +150,111 @@
   .badge-pill {
     @apply font-ui inline-flex items-center gap-1.5 rounded-full border border-border-soft bg-gray-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-gray-600;
   }
+
+  .btn-glass-nav {
+    @apply font-ui inline-flex items-center justify-center rounded-full border border-border-soft bg-white/60 font-medium text-navy backdrop-blur-md transition-all duration-300 ease-out;
+  }
+
+  .btn-glass-nav:hover {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+  }
+
+  .btn-gradient-cta {
+    @apply font-ui relative inline-flex items-center justify-center overflow-hidden rounded-full border border-transparent bg-[linear-gradient(135deg,#2563EB_0%,#3B82F6_55%,#60A5FA_100%)] font-semibold text-white shadow-[0_10px_28px_rgba(37,99,235,0.32)] transition-all duration-300 ease-out;
+  }
+
+  .btn-gradient-cta:hover {
+    box-shadow: 0 14px 36px rgba(37, 99, 235, 0.42);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes gradientDrift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes rippleExpand {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes marqueeGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.announcement-gradient {
+  background: linear-gradient(120deg, #eef4ff, #f7f9ff, #eef2ff, #eef8ff);
+  background-size: 300% 300%;
+  animation: gradientDrift 14s ease infinite;
+}
+
+.announcement-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.announcement-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(59, 130, 246, 0.14) 45%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(59, 130, 246, 0.14) 55%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  animation: shimmerSweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.announcement-live-dot {
+  animation: marqueeGlow 2.4s ease-in-out infinite;
+}
+
+.ripple-dot {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.55);
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  animation: rippleExpand 650ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-shimmer::before,
+  .announcement-gradient,
+  .announcement-live-dot,
+  .ripple-dot {
+    animation: none !important;
+  }
 }
 
 @keyframes loaderPulse {
@@ -194,4 +299,170 @@
   border-radius: 9999px;
   background: linear-gradient(90deg, #2563eb, #60a5fa);
   animation: loaderBar 1.3s ease-in-out infinite;
+}
+
+@property --trust-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes trustBorderSpin {
+  to {
+    --trust-border-angle: 360deg;
+  }
+}
+
+.trust-gradient-border {
+  position: relative;
+}
+
+.trust-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--trust-border-angle, 0deg),
+    rgba(59, 130, 246, 0.9),
+    rgba(168, 85, 247, 0.9),
+    rgba(34, 211, 238, 0.9),
+    rgba(59, 130, 246, 0.9)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: trustBorderSpin 4.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes trustChipFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--float-rotate, -1.5deg));
+  }
+  50% {
+    transform: translateY(var(--float-distance, -8px)) rotate(calc(var(--float-rotate, -1.5deg) * -1));
+  }
+}
+
+.trust-chip-float {
+  animation: trustChipFloat var(--float-duration, 5s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes trustParticleTwinkle {
+  0%,
+  100% {
+    opacity: var(--particle-min-opacity, 0.15);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: var(--particle-max-opacity, 0.6);
+    transform: translateY(-14px) scale(1.15);
+  }
+}
+
+.trust-particle {
+  animation: trustParticleTwinkle var(--particle-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--particle-delay, 0s);
+}
+
+@keyframes trustBlobDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(var(--blob-drift-x, 24px), var(--blob-drift-y, -18px), 0) scale(1.06);
+  }
+}
+
+.trust-blob {
+  animation: trustBlobDrift var(--blob-duration, 16s) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-gradient-border::before,
+  .trust-chip-float,
+  .trust-particle,
+  .trust-blob {
+    animation: none !important;
+  }
+}
+
+.universe-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse 65% 65% at 50% 45%, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 65% at 50% 45%, #000 40%, transparent 85%);
+}
+
+@keyframes universeRingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.universe-ring-spin {
+  animation: universeRingSpin 22s linear infinite;
+}
+
+.universe-ring-spin-reverse {
+  animation: universeRingSpin 30s linear infinite reverse;
+}
+
+@keyframes universeNodeFloat {
+  0%,
+  100% {
+    transform: translate(var(--node-tx, 0), var(--node-ty, 0)) translateY(0);
+  }
+  50% {
+    transform: translate(var(--node-tx, 0), var(--node-ty, 0)) translateY(var(--node-float, -7px));
+  }
+}
+
+.universe-node-float {
+  animation: universeNodeFloat var(--node-duration, 5.5s) ease-in-out infinite;
+  animation-delay: var(--node-delay, 0s);
+}
+
+@keyframes neuralFlow {
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+.neural-line-flow {
+  stroke-dasharray: 5 9;
+  animation: neuralFlow 3.2s linear infinite;
+}
+
+@keyframes universeCorePulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+
+.universe-core-pulse {
+  animation: universeCorePulse 3.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe-ring-spin,
+  .universe-ring-spin-reverse,
+  .universe-node-float,
+  .neural-line-flow,
+  .universe-core-pulse {
+    animation: none !important;
+  }
 }

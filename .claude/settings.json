@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node projects-rm-check.mjs)",
+      "Bash(grep -E \"\\\\.mjs$\")",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 12432 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(grep -iE '^\\(infinity|hammer|shapes\\)\\\\.js$')",
+      "Bash(node methodology-check.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 1444 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(node featured-check.mjs)",
+      "Bash(node featured-rm-debug.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 5628 -Force -ErrorAction SilentlyContinue\")"
+    ]
+  }
+}
