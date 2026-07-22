@@ -13,6 +13,7 @@ import { LearningUniverse } from '../components/home/LearningUniverse';
 import { LearningMethodology } from '../components/home/LearningMethodology';
 import { FeaturedCourses } from '../components/home/FeaturedCourses';
 import { BuildRealProjects } from '../components/home/BuildRealProjects';
+import { CareerJourney } from '../components/home/CareerJourney';
 import { FeaturesSection } from '../components/home/FeaturesSection';
 import { handleAnchorClick } from '../utils';
 import {
@@ -296,6 +297,8 @@ export function HomePage({ query, onQueryChange }: HomePageProps) {
       </section>
 
       <BuildRealProjects />
+
+      <CareerJourney />
 
       <section id="video" className="section-shell bg-white">
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">

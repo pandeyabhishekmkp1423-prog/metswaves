@@ -466,3 +466,48 @@
     animation: none !important;
   }
 }
+
+@keyframes auroraPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.aurora-pulse {
+  animation: auroraPulse 8s ease-in-out infinite;
+}
+
+@keyframes lightTrailMove {
+  0% {
+    transform: translate(-10%, -10%) rotate(var(--trail-angle, -18deg));
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--trail-opacity, 0.5);
+  }
+  85% {
+    opacity: var(--trail-opacity, 0.5);
+  }
+  100% {
+    transform: translate(110%, 10%) rotate(var(--trail-angle, -18deg));
+    opacity: 0;
+  }
+}
+
+.light-trail {
+  animation: lightTrailMove var(--trail-duration, 9s) linear infinite;
+  animation-delay: var(--trail-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-pulse,
+  .light-trail {
+    animation: none !important;
+  }
+}

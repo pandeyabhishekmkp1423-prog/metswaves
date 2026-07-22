@@ -47,6 +47,7 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
+  TrendingUp,
   Trophy,
   Users,
   Video,
@@ -1073,4 +1074,71 @@ export const FEATURED_COURSES: FeaturedCourse[] = [
     students: '1.9k+',
     rating: 4.8,
   },
+];
+
+export type CareerMilestone = {
+  id: string;
+  label: string;
+  description: string;
+  highlight: string;
+  icon: LucideIcon;
+};
+
+export const CAREER_MILESTONES: CareerMilestone[] = [
+  {
+    id: 'explore',
+    label: 'Explore',
+    description: 'Discover AI domains and career paths, and find the skills in highest demand right now.',
+    highlight: '8 AI domains to explore',
+    icon: Compass,
+  },
+  {
+    id: 'learn',
+    label: 'Learn',
+    description: 'Master core concepts through structured, mentor-led curriculum built for real retention.',
+    highlight: '120+ structured courses',
+    icon: BookOpen,
+  },
+  {
+    id: 'build',
+    label: 'Build',
+    description: 'Ship real, working AI projects that prove what you can actually do, not just what you know.',
+    highlight: '40+ real-world projects',
+    icon: Hammer,
+  },
+  {
+    id: 'validate',
+    label: 'Validate',
+    description: 'Earn certifications recognized by hiring teams, backed by mentor-reviewed portfolio work.',
+    highlight: 'Industry-recognized certificates',
+    icon: Award,
+  },
+  {
+    id: 'launch',
+    label: 'Launch',
+    description: 'Build a standout portfolio and apply with confidence, backed by 1:1 career support.',
+    highlight: '1:1 career & portfolio support',
+    icon: Rocket,
+  },
+  {
+    id: 'grow',
+    label: 'Grow',
+    description: 'Keep growing with lifetime access, a global alumni network, and continuous mentorship.',
+    highlight: 'Lifetime community access',
+    icon: TrendingUp,
+  },
+];
+
+export type CareerStat = {
+  label: string;
+  value: number;
+  suffix: string;
+  icon: LucideIcon;
+};
+
+export const CAREER_STATS: CareerStat[] = [
+  { label: 'Career Placements', value: 2400, suffix: '+', icon: Rocket },
+  { label: 'Avg. Salary Increase', value: 65, suffix: '%', icon: TrendingUp },
+  { label: 'Hiring Partners', value: 150, suffix: '+', icon: Handshake },
+  { label: 'Avg. Weeks to Job-Ready', value: 16, suffix: '', icon: Award },
 ];
