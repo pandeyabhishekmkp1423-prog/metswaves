@@ -9,7 +9,27 @@
       "Bash(powershell -NoProfile -Command \"Stop-Process -Id 1444 -Force -ErrorAction SilentlyContinue\")",
       "Bash(node featured-check.mjs)",
       "Bash(node featured-rm-debug.mjs)",
-      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 5628 -Force -ErrorAction SilentlyContinue\")"
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 5628 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(node career-check.mjs)",
+      "Bash(node career-hover-debug.mjs)",
+      "Bash(node career-hover-debug2.mjs)",
+      "Bash(node career-rm-debug.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 23260 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(sed -i \"s#localhost:3001#localhost:3000#g\" career-check.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 4304 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(grep -iE '^\\(github|eye|globe|external-link\\)\\\\.js$')",
+      "Bash(node showcase-check.mjs)",
+      "Bash(node showcase-overflow-debug.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 18612 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(grep -iE '^\\(user|refresh-cw|lock\\)\\\\.js$')",
+      "Bash(node comparison-check.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 27204 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(grep -iE '^users-2?\\\\.js$|^user-round-group\\\\.js$')",
+      "Bash(node community-check.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 25040 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(grep -iE '^\\(credit-card|shield-check|badge-check|wallet\\)\\\\.js$')",
+      "Bash(node pricing-check.mjs)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 13612 -Force -ErrorAction SilentlyContinue\")"
     ]
   }
 }

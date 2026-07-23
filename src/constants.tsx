@@ -16,6 +16,7 @@ import {
   Code2,
   Compass,
   Cpu,
+  CreditCard,
   FileText,
   Film,
   Fingerprint,
@@ -32,6 +33,7 @@ import {
   LifeBuoy,
   Lightbulb,
   Link2,
+  Lock,
   Mail,
   MapPin,
   Megaphone,
@@ -42,6 +44,7 @@ import {
   PenTool,
   Phone,
   PlayCircle,
+  RefreshCw,
   Rocket,
   Search,
   ShieldCheck,
@@ -49,6 +52,7 @@ import {
   Star,
   TrendingUp,
   Trophy,
+  User,
   Users,
   Video,
   Wand2,
@@ -1141,4 +1145,428 @@ export const CAREER_STATS: CareerStat[] = [
   { label: 'Avg. Salary Increase', value: 65, suffix: '%', icon: TrendingUp },
   { label: 'Hiring Partners', value: 150, suffix: '+', icon: Handshake },
   { label: 'Avg. Weeks to Job-Ready', value: 16, suffix: '', icon: Award },
+];
+
+export type StudentProjectDifficulty = 'Beginner' | 'Intermediate' | 'Advanced';
+export type StudentProjectSize = 'large' | 'wide' | 'tall' | 'small';
+
+export type StudentProject = {
+  id: string;
+  title: string;
+  description: string;
+  builtBy: string;
+  icon: LucideIcon;
+  gradient: string;
+  technologies: string[];
+  skills: string[];
+  difficulty: StudentProjectDifficulty;
+  duration: string;
+  hasLivePreview: boolean;
+  hasGithub: boolean;
+  hasCertificate: boolean;
+  size: StudentProjectSize;
+};
+
+export const STUDENT_PROJECTS: StudentProject[] = [
+  {
+    id: 'neuraldesk',
+    title: 'NeuralDesk — AI Support Copilot',
+    description: 'A context-aware helpdesk copilot that resolves 70% of tickets without a human touch.',
+    builtBy: 'Aditi R.',
+    icon: MessageCircle,
+    gradient: 'from-blue-500 to-cyan-400',
+    technologies: ['OpenAI API', 'LangChain', 'Vector DB'],
+    skills: ['Prompt Engineering', 'RAG Pipelines', 'API Integration'],
+    difficulty: 'Intermediate',
+    duration: '6 weeks',
+    hasLivePreview: true,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'large',
+  },
+  {
+    id: 'resumeiq',
+    title: 'ResumeIQ',
+    description: 'Scores resumes against job descriptions and rewrites weak bullet points instantly.',
+    builtBy: 'Marco T.',
+    icon: FileText,
+    gradient: 'from-emerald-500 to-teal-400',
+    technologies: ['Python', 'OpenAI API'],
+    skills: ['NLP Basics', 'Data Parsing'],
+    difficulty: 'Beginner',
+    duration: '3 weeks',
+    hasLivePreview: true,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'echovoice',
+    title: 'EchoVoice',
+    description: 'Real-time speech translation with natural-sounding voice cloning.',
+    builtBy: 'Priya S.',
+    icon: Mic,
+    gradient: 'from-purple-500 to-pink-400',
+    technologies: ['Whisper', 'ElevenLabs'],
+    skills: ['Audio Pipelines', 'Real-Time Systems'],
+    difficulty: 'Advanced',
+    duration: '8 weeks',
+    hasLivePreview: true,
+    hasGithub: false,
+    hasCertificate: true,
+    size: 'wide',
+  },
+  {
+    id: 'papermind',
+    title: 'PaperMind',
+    description: 'Summarizes and cross-references research papers with cited, trustworthy answers.',
+    builtBy: 'Daniel K.',
+    icon: Search,
+    gradient: 'from-indigo-500 to-blue-400',
+    technologies: ['Claude', 'RAG'],
+    skills: ['Retrieval Systems', 'Citation Handling'],
+    difficulty: 'Intermediate',
+    duration: '5 weeks',
+    hasLivePreview: false,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'flowpilot',
+    title: 'FlowPilot',
+    description: 'A drag-and-drop dashboard that automates multi-step business workflows.',
+    builtBy: 'Zoe L.',
+    icon: Workflow,
+    gradient: 'from-amber-500 to-orange-400',
+    technologies: ['n8n', 'OpenAI API'],
+    skills: ['Workflow Design', 'API Orchestration'],
+    difficulty: 'Intermediate',
+    duration: '6 weeks',
+    hasLivePreview: true,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'tall',
+  },
+  {
+    id: 'codesensei',
+    title: 'CodeSensei',
+    description: 'An AI pair-programmer that reviews pull requests and explains its reasoning.',
+    builtBy: 'Ibrahim H.',
+    icon: Code2,
+    gradient: 'from-slate-600 to-slate-400',
+    technologies: ['OpenAI API', 'TypeScript'],
+    skills: ['Code Analysis', 'Developer Tooling'],
+    difficulty: 'Advanced',
+    duration: '10 weeks',
+    hasLivePreview: false,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'meetrecap',
+    title: 'MeetRecap',
+    description: 'Turns messy meeting audio into clean summaries with clear action items.',
+    builtBy: 'Hana W.',
+    icon: ClipboardList,
+    gradient: 'from-rose-500 to-red-400',
+    technologies: ['Whisper', 'GPT-4'],
+    skills: ['Transcription Pipelines', 'Summarization'],
+    difficulty: 'Beginner',
+    duration: '3 weeks',
+    hasLivePreview: true,
+    hasGithub: true,
+    hasCertificate: true,
+    size: 'small',
+  },
+  {
+    id: 'brandforge',
+    title: 'BrandForge',
+    description: 'Generates on-brand marketing copy and visuals from a single product brief.',
+    builtBy: 'Owen P.',
+    icon: Sparkles,
+    gradient: 'from-violet-500 to-purple-400',
+    technologies: ['GPT-4', 'Midjourney'],
+    skills: ['Creative Prompting', 'Brand Systems'],
+    difficulty: 'Intermediate',
+    duration: '5 weeks',
+    hasLivePreview: true,
+    hasGithub: false,
+    hasCertificate: true,
+    size: 'small',
+  },
+];
+
+export type ComparisonRow = {
+  id: string;
+  traditionalLabel: string;
+  traditionalIcon: LucideIcon;
+  metawavesLabel: string;
+  metawavesIcon: LucideIcon;
+};
+
+export const COMPARISON_ROWS: ComparisonRow[] = [
+  {
+    id: 'projects',
+    traditionalLabel: 'Passive Videos',
+    traditionalIcon: PlayCircle,
+    metawavesLabel: 'Real Projects',
+    metawavesIcon: Hammer,
+  },
+  {
+    id: 'certificates',
+    traditionalLabel: 'Generic Certificates',
+    traditionalIcon: FileText,
+    metawavesLabel: 'Portfolio-Ready Work',
+    metawavesIcon: LayoutTemplate,
+  },
+  {
+    id: 'content',
+    traditionalLabel: 'Static Content',
+    traditionalIcon: Lock,
+    metawavesLabel: 'Weekly AI Updates',
+    metawavesIcon: RefreshCw,
+  },
+  {
+    id: 'community',
+    traditionalLabel: 'Learning Alone',
+    traditionalIcon: User,
+    metawavesLabel: 'Community & Mentorship',
+    metawavesIcon: Users,
+  },
+  {
+    id: 'practice',
+    traditionalLabel: 'Theory',
+    traditionalIcon: BookOpen,
+    metawavesLabel: 'Practical Implementation',
+    metawavesIcon: Code2,
+  },
+  {
+    id: 'future',
+    traditionalLabel: 'Following Trends',
+    traditionalIcon: TrendingUp,
+    metawavesLabel: 'Building The Future',
+    metawavesIcon: Rocket,
+  },
+];
+
+export type CommunityStat = {
+  label: string;
+  value: number;
+  suffix: string;
+  icon: LucideIcon;
+};
+
+export const COMMUNITY_STATS: CommunityStat[] = [
+  { label: 'Community Members', value: 28000, suffix: '+', icon: Users },
+  { label: 'Countries Represented', value: 120, suffix: '+', icon: Globe2 },
+  { label: 'Weekly Events', value: 40, suffix: '+', icon: CalendarDays },
+  { label: 'Study Groups', value: 850, suffix: '+', icon: BookOpen },
+];
+
+export type CommunityChannel = {
+  name: string;
+  icon: LucideIcon;
+};
+
+export const COMMUNITY_CHANNELS: CommunityChannel[] = [
+  { name: 'general', icon: MessageCircle },
+  { name: 'showcase', icon: LayoutTemplate },
+  { name: 'study-groups', icon: BookOpen },
+  { name: 'career', icon: Briefcase },
+];
+
+export type WeeklyActivity = {
+  id: string;
+  day: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const WEEKLY_ACTIVITIES: WeeklyActivity[] = [
+  {
+    id: 'monday',
+    day: 'Monday',
+    title: 'Live Q&A with Mentors',
+    description: 'Bring your blockers straight to working AI practitioners.',
+    icon: MessageCircle,
+  },
+  {
+    id: 'tuesday',
+    day: 'Tuesday',
+    title: 'Peer Code Review',
+    description: 'Get real feedback on your project code from fellow builders.',
+    icon: Code2,
+  },
+  {
+    id: 'wednesday',
+    day: 'Wednesday',
+    title: 'Project Showcase',
+    description: 'Demo what you shipped this week to the community.',
+    icon: LayoutTemplate,
+  },
+  {
+    id: 'thursday',
+    day: 'Thursday',
+    title: 'AI Tool Deep Dive',
+    description: 'A guided walkthrough of a new AI tool or workflow.',
+    icon: Sparkles,
+  },
+  {
+    id: 'friday',
+    day: 'Friday',
+    title: 'Study Group Sessions',
+    description: 'Small-group sprints to close out the week together.',
+    icon: BookOpen,
+  },
+  {
+    id: 'weekend',
+    day: 'Weekend',
+    title: 'Community Challenge',
+    description: 'A weekend build challenge with community voting.',
+    icon: Trophy,
+  },
+];
+
+export type StudentStory = {
+  id: string;
+  name: string;
+  outcome: string;
+  quote: string;
+  gradient: string;
+};
+
+export const STUDENT_STORIES: StudentStory[] = [
+  {
+    id: 'aditi',
+    name: 'Aditi R.',
+    outcome: 'Landed an AI product role in 4 months',
+    quote: 'The community pushed me to ship, not just watch.',
+    gradient: 'from-blue-500 to-cyan-400',
+  },
+  {
+    id: 'marco',
+    name: 'Marco T.',
+    outcome: 'Now freelancing as an AI developer',
+    quote: 'I found my first client through a study group connection.',
+    gradient: 'from-emerald-500 to-teal-400',
+  },
+  {
+    id: 'priya',
+    name: 'Priya S.',
+    outcome: 'ML Engineer at a Series B startup',
+    quote: 'Weekly challenges kept me sharp between courses.',
+    gradient: 'from-purple-500 to-pink-400',
+  },
+  {
+    id: 'daniel',
+    name: 'Daniel K.',
+    outcome: 'Independent AI researcher',
+    quote: 'Mentors here actually respond. That changed everything.',
+    gradient: 'from-amber-500 to-orange-400',
+  },
+  {
+    id: 'zoe',
+    name: 'Zoe L.',
+    outcome: 'Runs her own automation consultancy',
+    quote: "Built my agency's first client project with peer feedback.",
+    gradient: 'from-indigo-500 to-blue-400',
+  },
+];
+
+export type PricingPlan = {
+  id: string;
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  benefits: string[];
+  ctaLabel: string;
+  icon: LucideIcon;
+  isFeatured?: boolean;
+};
+
+export const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '$0',
+    period: 'forever',
+    description: 'Explore the platform and start learning the fundamentals, risk-free.',
+    benefits: ['Access to intro courses', 'Community access', 'Weekly AI newsletter', 'Limited project templates'],
+    ctaLabel: 'Start Free',
+    icon: Sparkles,
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    price: '$49',
+    period: '/month',
+    description: 'Everything you need to go from beginner to job-ready, with mentorship built in.',
+    benefits: [
+      'All courses & learning paths',
+      'Real-world projects with certificates',
+      '1:1 mentor sessions monthly',
+      'Career support & portfolio reviews',
+      'Priority community access',
+    ],
+    ctaLabel: 'Start Pro Plan',
+    icon: Rocket,
+    isFeatured: true,
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: 'Custom',
+    period: 'billing',
+    description: 'Upskill your team with tailored AI training and dedicated support.',
+    benefits: [
+      'Everything in Pro',
+      'Custom learning paths for teams',
+      'Dedicated success manager',
+      'Team analytics & reporting',
+      'SSO & procurement support',
+    ],
+    ctaLabel: 'Contact Sales',
+    icon: Building2,
+  },
+];
+
+export type TrustBadgeItem = {
+  label: string;
+  icon: LucideIcon;
+};
+
+export const PRICING_TRUST_BADGES: TrustBadgeItem[] = [
+  { label: '30-Day Money-Back Guarantee', icon: ShieldCheck },
+  { label: 'Cancel Anytime', icon: CheckCircle2 },
+  { label: 'Secure Checkout', icon: Lock },
+  { label: '10,000+ Students Trust Us', icon: Users },
+];
+
+export const PAYMENT_METHODS: string[] = ['Visa', 'Mastercard', 'American Express', 'PayPal', 'UPI', 'Apple Pay'];
+
+export const PRICING_FAQS: Faq[] = [
+  {
+    question: 'Can I switch plans later?',
+    answer: 'Yes — upgrade or downgrade anytime from your account settings. Changes apply immediately and billing is prorated.',
+  },
+  {
+    question: 'Is there a free trial for the Pro plan?',
+    answer: 'The Starter plan is free forever, so you can explore the platform risk-free before deciding to upgrade to Pro.',
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept all major credit and debit cards, PayPal, UPI, and Apple Pay, processed through a secure checkout.',
+  },
+  {
+    question: 'Can I cancel my subscription anytime?',
+    answer: 'Yes, there are no lock-in contracts. Cancel anytime from your billing dashboard with no hidden fees.',
+  },
+  {
+    question: 'Do you offer refunds?',
+    answer: "If you're not satisfied within your first 30 days on a paid plan, we'll refund you in full, no questions asked.",
+  },
 ];

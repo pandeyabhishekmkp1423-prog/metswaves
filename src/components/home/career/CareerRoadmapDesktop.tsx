@@ -55,7 +55,7 @@ export function CareerRoadmapDesktop({ milestones }: CareerRoadmapDesktopProps) 
           className="absolute -translate-x-1/2 -translate-y-1/2"
           style={{ left: `${point.x}%`, top: `${point.y}%` }}
         >
-          <RoadmapNode milestone={point.milestone} index={index} tooltipDirection={point.y === 28 ? 'top' : 'bottom'} />
+          <RoadmapNode milestone={point.milestone} index={index} tooltipDirection={point.y === 28 ? 'bottom' : 'top'} />
         </div>
       ))}
     </div>

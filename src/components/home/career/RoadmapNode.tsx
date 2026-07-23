@@ -28,7 +28,7 @@ export function RoadmapNode({ milestone, index, tooltipDirection }: RoadmapNodeP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: tooltipDirection === 'top' ? 8 : -8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`pointer-events-none absolute z-30 w-56 rounded-2xl border border-white/15 bg-[#10121f]/95 p-4 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl ${
+            className={`pointer-events-none absolute z-50 w-56 rounded-2xl border border-white/15 bg-[#10121f]/95 p-4 text-left shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl ${
               tooltipDirection === 'top' ? 'bottom-[calc(100%+18px)]' : 'top-[calc(100%+18px)]'
             }`}
           >
