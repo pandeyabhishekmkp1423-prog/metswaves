@@ -1,8 +1,51 @@
+import {
+  Award,
+  BarChart3,
+  Briefcase,
+  ClipboardList,
+  Cpu,
+  FileText,
+  Image as ImageIcon,
+  LayoutDashboard,
+  MessageCircle,
+  MessageSquareText,
+  PenTool,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  Workflow,
+  type LucideIcon,
+} from 'lucide-react';
+import { AI_TECHNOLOGIES, MENTORS, type AiTechnology, type Mentor, type ProjectDifficulty } from '../constants';
 import type { CourseCatalogEntry } from './courseCatalog';
 
 export type CourseModule = {
   title: string;
   lessons: string[];
+};
+
+export type CourseProject = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  difficulty: ProjectDifficulty;
+};
+
+export type CourseReview = {
+  name: string;
+  role: string;
+  comment: string;
+  rating: number;
+};
+
+export type CourseInstructor = {
+  name: string;
+  role: string;
+  image: string;
+  experience: string;
+  bio: string;
+  socials: Mentor['socials'];
 };
 
 export type GeneratedCourseContent = {
@@ -14,6 +57,10 @@ export type GeneratedCourseContent = {
   level: string;
   duration: string;
   format: string;
+  projects: CourseProject[];
+  tools: AiTechnology[];
+  reviews: CourseReview[];
+  instructor: CourseInstructor;
 };
 
 const LEARNING_POOLS: Record<string, string[]> = {
@@ -97,6 +144,203 @@ const MODULE_TEMPLATES: Record<string, string[]> = {
   default: ['Getting Started', 'Core Skills', 'Applied Practice', 'Wrap-Up & Next Steps'],
 };
 
+const PROJECT_POOLS: Record<string, CourseProject[]> = {
+  'Generative AI': [
+    {
+      title: 'AI Content Generator',
+      description: 'Produce on-brand marketing copy and visuals from a single creative brief.',
+      icon: Sparkles,
+      difficulty: 'Beginner',
+    },
+    {
+      title: 'AI Image Campaign Kit',
+      description: 'Build a full campaign of on-brand images and captions using generative tools.',
+      icon: ImageIcon,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Brand Voice Assistant',
+      description: 'A writing assistant tuned to match a specific brand voice across every channel.',
+      icon: PenTool,
+      difficulty: 'Intermediate',
+    },
+  ],
+  'Prompt Engineering': [
+    {
+      title: 'Prompt Library & Playbook',
+      description: 'A reusable, versioned library of prompts built for a real team workflow.',
+      icon: MessageSquareText,
+      difficulty: 'Beginner',
+    },
+    {
+      title: 'Multi-Model Prompt Router',
+      description: 'Route the same task to different models and compare output quality.',
+      icon: Workflow,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'AI Output QA Evaluator',
+      description: 'Score and flag inconsistent AI outputs before they reach production.',
+      icon: ClipboardList,
+      difficulty: 'Advanced',
+    },
+  ],
+  Automation: [
+    {
+      title: 'AI Workflow Automation',
+      description: 'Automate a multi-step business process end to end with AI in the loop.',
+      icon: Workflow,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Smart Inbox Router',
+      description: 'Classify and route incoming requests automatically using AI-driven triggers.',
+      icon: MessageCircle,
+      difficulty: 'Beginner',
+    },
+    {
+      title: 'Ops Alerting Pipeline',
+      description: 'A monitored automation that flags failures before they become incidents.',
+      icon: ShieldCheck,
+      difficulty: 'Advanced',
+    },
+  ],
+  'Machine Learning': [
+    {
+      title: 'Predictive Scoring Model',
+      description: 'Train and evaluate a model that scores leads, risk, or churn.',
+      icon: BarChart3,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Computer Vision Classifier',
+      description: 'Build and deploy an image classifier behind a simple inference API.',
+      icon: Cpu,
+      difficulty: 'Advanced',
+    },
+    {
+      title: 'Model Monitoring Dashboard',
+      description: 'Track drift and performance for a model running in production.',
+      icon: LayoutDashboard,
+      difficulty: 'Advanced',
+    },
+  ],
+  'Data Science': [
+    {
+      title: 'Executive Insights Dashboard',
+      description: 'Turn a raw dataset into a decision-ready dashboard stakeholders trust.',
+      icon: BarChart3,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Customer Segmentation Study',
+      description: 'Cluster customers into actionable segments from behavioral data.',
+      icon: Users,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'A/B Test Analysis Report',
+      description: 'Design and analyze an experiment with a clear, defensible conclusion.',
+      icon: ClipboardList,
+      difficulty: 'Beginner',
+    },
+  ],
+  'Career Programs': [
+    {
+      title: 'Capstone Portfolio Project',
+      description: 'A full, mentor-reviewed project built specifically for your job search.',
+      icon: Briefcase,
+      difficulty: 'Advanced',
+    },
+    {
+      title: 'Resume & Case Study Rebuild',
+      description: 'Turn your project work into a resume and case study recruiters actually read.',
+      icon: FileText,
+      difficulty: 'Beginner',
+    },
+  ],
+  'Professional Certifications': [
+    {
+      title: 'Exam Simulation Project',
+      description: 'A hands-on project modeled directly on the certification exam blueprint.',
+      icon: Award,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Applied Practice Lab',
+      description: 'Timed, scenario-based labs that mirror real exam conditions.',
+      icon: ClipboardList,
+      difficulty: 'Intermediate',
+    },
+  ],
+  default: [
+    {
+      title: 'Guided Capstone Project',
+      description: 'Apply everything from the course to one polished, portfolio-ready build.',
+      icon: Rocket,
+      difficulty: 'Intermediate',
+    },
+    {
+      title: 'Real-World Practice Brief',
+      description: 'A realistic brief that mirrors the kind of work you would ship on the job.',
+      icon: ClipboardList,
+      difficulty: 'Beginner',
+    },
+  ],
+};
+
+const REVIEW_POOL: CourseReview[] = [
+  {
+    name: 'Ananya Iyer',
+    role: 'Product Designer',
+    comment:
+      'The pacing was perfect — I went from confused to confident by module 3, and mentor feedback caught things I would have missed.',
+    rating: 5,
+  },
+  {
+    name: 'Rohit Malhotra',
+    role: 'Software Engineer',
+    comment: 'Best project-based course I have taken. The capstone alone was worth the price — I use it in interviews now.',
+    rating: 5,
+  },
+  {
+    name: 'Priya Nair',
+    role: 'Marketing Lead',
+    comment: 'Clear structure, real examples, and a mentor who actually responded. It felt like a proper program, not a video dump.',
+    rating: 5,
+  },
+  {
+    name: 'Karan Verma',
+    role: 'Data Analyst',
+    comment: 'I was skeptical about AI courses in general, but this one is genuinely hands-on. Shipped two real projects by the end.',
+    rating: 4,
+  },
+  {
+    name: 'Sneha Reddy',
+    role: 'Freelance Consultant',
+    comment: 'Directly applied what I learned to client work in week two. The templates and workflows alone paid for the course.',
+    rating: 5,
+  },
+  {
+    name: 'Arjun Mehta',
+    role: 'Operations Manager',
+    comment: 'The automation module changed how my team works. We cut a two-day process down to twenty minutes.',
+    rating: 5,
+  },
+  {
+    name: 'Neha Kapoor',
+    role: 'UX Researcher',
+    comment: 'Loved that every lesson ended with something to build, not just watch. The certificate looks great on LinkedIn too.',
+    rating: 4,
+  },
+  {
+    name: 'Vikram Shah',
+    role: 'Startup Founder',
+    comment: 'Practical, no fluff, and the mentor office hours were genuinely useful for our specific use case.',
+    rating: 5,
+  },
+];
+
 const FAQ_TEMPLATE = [
   {
     question: 'Is this course self-paced or scheduled?',
@@ -137,17 +381,55 @@ function tierFromPrice(price?: string): { level: string; duration: string; forma
   return { level: 'Beginner', duration: '1-2 weeks', format: 'Self-paced' };
 }
 
+function getCourseProjects(entry: CourseCatalogEntry): CourseProject[] {
+  const pool = PROJECT_POOLS[entry.category] ?? PROJECT_POOLS.default;
+  const offset = hashString(`${entry.slug}-projects`);
+  return rotate(pool, offset).slice(0, Math.min(3, pool.length));
+}
+
+function getCourseTools(entry: CourseCatalogEntry): AiTechnology[] {
+  const offset = hashString(`${entry.slug}-tools`);
+  return rotate(AI_TECHNOLOGIES, offset).slice(0, 5);
+}
+
+function getCourseReviews(entry: CourseCatalogEntry): CourseReview[] {
+  const offset = hashString(`${entry.slug}-reviews`);
+  return rotate(REVIEW_POOL, offset).slice(0, 3);
+}
+
+function getCourseInstructor(entry: CourseCatalogEntry): CourseInstructor {
+  const matched = entry.instructor ? MENTORS.find((mentor) => mentor.name === entry.instructor) : undefined;
+  const mentor = matched ?? MENTORS[hashString(`${entry.slug}-instructor`) % MENTORS.length];
+
+  return {
+    name: mentor.name,
+    role: mentor.role,
+    image: mentor.image,
+    experience: mentor.experience,
+    bio: `${mentor.role} with ${mentor.experience.replace(' experience', '')} of experience, teaching real-world ${entry.category.toLowerCase()} workflows through hands-on, mentor-reviewed projects.`,
+    socials: mentor.socials,
+  };
+}
+
 export function generateCourseContent(entry: CourseCatalogEntry): GeneratedCourseContent {
+  const shared = {
+    faq: FAQ_TEMPLATE,
+    projects: getCourseProjects(entry),
+    tools: getCourseTools(entry),
+    reviews: getCourseReviews(entry),
+    instructor: getCourseInstructor(entry),
+  };
+
   if (entry.description) {
     return {
       tagline: `Part of the ${entry.category} track at Metawaves AI.`,
       description: entry.description,
       whatYouWillLearn: rotate(LEARNING_POOLS.default, hashString(entry.slug)).slice(0, 6),
       curriculum: buildCurriculum(entry, 'default'),
-      faq: FAQ_TEMPLATE,
       level: entry.level ?? 'All Levels',
       duration: entry.duration ?? '6-8 weeks',
       format: 'Self-paced',
+      ...shared,
     };
   }
 
@@ -161,8 +443,8 @@ export function generateCourseContent(entry: CourseCatalogEntry): GeneratedCours
     description: `${entry.title} is a hands-on program in Metawaves AI's ${entry.category} curriculum. You'll build practical, job-ready skills through guided exercises and mentor-reviewed projects — focused entirely on what you can actually apply, not theory for its own sake.`,
     whatYouWillLearn,
     curriculum: buildCurriculum(entry, entry.category),
-    faq: FAQ_TEMPLATE,
     ...tier,
+    ...shared,
   };
 }
 

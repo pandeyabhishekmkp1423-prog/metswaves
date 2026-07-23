@@ -99,7 +99,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen },
   { id: 'learning-paths', label: 'Learning Paths', mode: 'link', href: '#why-choose-us', icon: Waypoints },
   { id: 'projects', label: 'Projects', mode: 'link', href: '#gallery', icon: LayoutTemplate },
-  { id: 'community', label: 'Community', mode: 'link', href: '#testimonials', icon: Users },
+  { id: 'community', label: 'Community', mode: 'link', href: '/community', icon: Users },
   { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources', icon: Compass },
   { id: 'pricing', label: 'Pricing', mode: 'link', href: '#courses', icon: BarChart3 },
 ];
@@ -496,7 +496,7 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     description: 'Guides and hands-on tutorials to sharpen your skills.',
     icon: BookOpen,
     items: [
-      { label: 'Blog', href: '#blog', icon: Newspaper },
+      { label: 'Blog', href: '/insights', icon: Newspaper },
       { label: 'AI Guides', href: '#contact', icon: Lightbulb },
       { label: 'Tutorials', href: '#contact', icon: PlayCircle },
       { label: 'Roadmaps', href: '#why-choose-us', icon: Waypoints },
@@ -508,7 +508,7 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     icon: Compass,
     items: [
       { label: 'Free AI Tools', href: '#contact', icon: Sparkles },
-      { label: 'AI News', href: '#blog', icon: Megaphone },
+      { label: 'AI News', href: '/insights', icon: Megaphone },
       { label: 'Events', href: '#events', icon: CalendarDays },
       { label: 'Webinars', href: '#events', icon: Video },
     ],
@@ -584,13 +584,13 @@ export const FOOTER_CAREER_EXTRA_LINKS: FooterLinkItem[] = [
 ];
 
 export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
-  { label: 'Blog', href: '#blog' },
+  { label: 'Blog', href: '/insights' },
   { label: 'Learning Guides', href: '#contact' },
   { label: 'Documentation', href: '#contact' },
   { label: 'Case Studies', href: '#contact' },
   { label: 'Templates', href: '#contact' },
   { label: 'Cheat Sheets', href: '#contact' },
-  { label: 'Community', href: '#contact' },
+  { label: 'Community', href: '/community' },
   { label: 'Events', href: '#events' },
   { label: 'Success Stories', href: '#testimonials' },
   { label: 'FAQs', href: '#faq' },
@@ -599,8 +599,8 @@ export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
 ];
 
 export const FOOTER_COMPANY_LINKS: FooterLinkItem[] = [
-  { label: 'About', href: '#about' },
-  { label: 'Our Mission', href: '#about' },
+  { label: 'About', href: '/about' },
+  { label: 'Our Mission', href: '/about' },
   { label: 'Mentors', href: '#teachers' },
   { label: 'Become Instructor', href: '#contact' },
   { label: 'Enterprise', href: '#contact' },

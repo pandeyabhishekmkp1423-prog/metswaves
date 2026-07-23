@@ -1,4 +1,5 @@
 import { COURSES } from '../constants';
+import { formatPriceINR } from '../utils';
 import { EXPLORE_COURSE_CATALOG, type ExploreCourseEntry } from './exploreMenu';
 
 export type CourseCatalogEntry = ExploreCourseEntry & {
@@ -16,7 +17,7 @@ const exploreSlugs = new Set(EXPLORE_COURSE_CATALOG.map((entry) => entry.slug));
 const flagshipEntries: CourseCatalogEntry[] = COURSES.map((course) => ({
   slug: exploreSlugs.has(course.id) ? `${course.id}-flagship` : course.id,
   title: course.title,
-  price: course.price,
+  price: formatPriceINR(course.price),
   category: 'Flagship Programs',
   subCategory: course.tag,
   description: course.description,

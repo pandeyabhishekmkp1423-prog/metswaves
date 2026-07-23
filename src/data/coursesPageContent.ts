@@ -30,7 +30,7 @@ function countCourses(categories: string[]): number {
   return ALL_COURSES.filter((course) => categories.includes(course.category)).length;
 }
 
-const LEARNING_PATH_SEEDS: Omit<LearningPath, 'categories'> & { categories: string[] }[] = [
+const LEARNING_PATH_SEEDS: LearningPath[] = [
   {
     id: 'ai-product-builder',
     title: 'AI Product Builder',

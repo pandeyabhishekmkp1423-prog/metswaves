@@ -36,6 +36,11 @@ export function handleAnchorClick(event: MouseEvent<HTMLAnchorElement>, href: st
   }
 }
 
+export function formatPriceINR(price?: string): string | undefined {
+  if (!price) return price;
+  return price.startsWith('₹') ? price : `₹${price}`;
+}
+
 export function handleLogoClick(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
 

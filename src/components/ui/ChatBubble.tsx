@@ -14,7 +14,7 @@ export function ChatBubble() {
   useEscapeKey(close, open);
 
   return (
-    <div ref={wrapperRef} className="fixed bottom-6 left-6 z-40">
+    <div ref={wrapperRef} className="fixed bottom-24 left-6 z-40 lg:bottom-6">
       <AnimatePresence>
         {open ? (
           <motion.div

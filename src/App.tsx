@@ -7,8 +7,12 @@ import { Footer } from './components/footer/Footer';
 import { ChatBubble } from './components/ui/ChatBubble';
 import { ScrollToTopButton } from './components/ui/ScrollToTopButton';
 import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { CommunityPage } from './pages/CommunityPage';
 import { CoursesPage } from './pages/CoursesPage';
 import { CourseDetailPage } from './pages/CourseDetailPage';
+import { InsightsPage } from './pages/InsightsPage';
+import { BlogDetailPage } from './pages/BlogDetailPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useLenis } from './hooks/useLenis';
 import { setNavigate } from './routerBridge';
@@ -75,8 +79,12 @@ function App() {
       <main className="relative z-10">
         <Routes>
           <Route path="/" element={<HomePage query={courseQuery} onQueryChange={setCourseQuery} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/community" element={<CommunityPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:slug" element={<CourseDetailPage />} />
+          <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/insights/:slug" element={<BlogDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
