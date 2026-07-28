@@ -41,7 +41,7 @@ export function FeaturedCoursesSection() {
         ))}
       </Reveal>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
         {filtered.map((course, index) => (
           <FeaturedCourseCard key={course.id} course={course} delay={Math.min(index, 6) * 0.05} />
         ))}

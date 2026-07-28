@@ -13,6 +13,10 @@ const DIFFICULTY_STYLES: Record<FeaturedCourse['difficulty'], string> = {
 const BADGE_STYLES: Record<NonNullable<FeaturedCourse['badge']>, string> = {
   'Best Seller': 'bg-gradient-to-r from-amber-500 to-orange-500',
   New: 'bg-gradient-to-r from-accent-blue to-purple-500',
+  Popular: 'bg-gradient-to-r from-pink-500 to-rose-500',
+  'Certificate Included': 'bg-gradient-to-r from-emerald-500 to-teal-500',
+  'Live Cohort': 'bg-gradient-to-r from-violet-500 to-indigo-500',
+  'Career Track': 'bg-gradient-to-r from-slate-600 to-slate-800',
 };
 
 type FeaturedCourseCardProps = {

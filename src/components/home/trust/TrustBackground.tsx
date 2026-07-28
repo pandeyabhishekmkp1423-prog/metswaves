@@ -109,8 +109,6 @@ export function TrustBackground() {
           }
         />
       ))}
-
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg-secondary" />
     </div>
   );
 }

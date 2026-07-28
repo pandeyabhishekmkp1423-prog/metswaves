@@ -21,7 +21,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <TiltCard className="group h-full rounded-[28px]">
       <article
         aria-labelledby={`${project.id}-title`}
-        className="relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 group-hover:border-accent-blue-light/30 sm:p-6"
+        className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 group-hover:border-accent-blue-light/30 sm:p-6"
       >
         <span
           aria-hidden="true"
@@ -51,7 +51,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        <div className={`relative mt-4 min-h-[110px] flex-1 ${isLarge ? 'sm:min-h-[160px]' : ''}`}>
+        <div className={`relative mt-4 flex-1 ${isLarge ? 'min-h-[160px]' : 'min-h-[110px]'}`}>
           <ProjectMockup icon={project.icon} large={isLarge} />
         </div>
 

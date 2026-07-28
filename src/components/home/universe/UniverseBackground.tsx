@@ -1,5 +1,6 @@
 import { useMemo, type CSSProperties, type MouseEvent } from 'react';
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
+import { SectionDivider } from '../../ui/SectionDivider';
 
 const PARTICLE_COUNT = 18;
 
@@ -84,8 +85,8 @@ export function UniverseBackground() {
         />
       ))}
 
-      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white to-transparent sm:h-44" />
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-bg-alt sm:h-44" />
+      <SectionDivider position="top" />
+      <SectionDivider position="bottom" />
     </div>
   );
 }

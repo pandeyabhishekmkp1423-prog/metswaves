@@ -8,6 +8,7 @@ import {
   MessageSquareText,
   ShieldCheck,
   Sparkles,
+  Terminal,
   Workflow,
   type LucideIcon,
 } from 'lucide-react';
@@ -54,6 +55,17 @@ const LEARNING_PATH_SEEDS: LearningPath[] = [
     careerOutcome: 'AI Agent Engineer',
   },
   {
+    id: 'ai-application-development',
+    title: 'AI Application Development',
+    description: 'Build production AI apps with the OpenAI and Claude APIs, RAG pipelines, and autonomous agent frameworks.',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1400',
+    icon: Terminal,
+    gradient: 'from-teal-500 to-cyan-400',
+    categories: ['AI Development'],
+    duration: '14-20 weeks',
+    careerOutcome: 'AI Application Engineer',
+  },
+  {
     id: 'automation-workflow-systems',
     title: 'Automation & Workflow Systems',
     description: 'Design and ship multi-step automations that connect AI models to real business workflows.',
@@ -85,14 +97,18 @@ export const LEARNING_PATHS_WITH_COUNTS: (LearningPath & { courseCount: number }
 );
 
 export const FEATURED_COURSE_PRICING: Record<string, { price: string; originalPrice?: string }> = {
-  'prompt-engineering-mastery': { price: '₹4,999', originalPrice: '₹7,999' },
-  'building-ai-agents': { price: '₹8,999', originalPrice: '₹12,999' },
-  'ai-workflow-automation-n8n': { price: '₹6,999', originalPrice: '₹9,999' },
-  'full-stack-ai-development': { price: '₹14,999', originalPrice: '₹19,999' },
-  'ai-powered-product-design': { price: '₹7,499', originalPrice: '₹10,999' },
-  'ai-for-business-leaders': { price: '₹3,999', originalPrice: '₹5,999' },
-  'advanced-ai-agent-systems': { price: '₹11,999', originalPrice: '₹16,999' },
-  'applied-data-science-ai': { price: '₹12,999', originalPrice: '₹17,999' },
+  'prompt-engineering-mastery': { price: '₹1,999', originalPrice: '₹2,999' },
+  'building-ai-agents': { price: '₹4,999', originalPrice: '₹7,999' },
+  'ai-workflow-automation-n8n': { price: '₹2,999', originalPrice: '₹4,999' },
+  'full-stack-ai-development': { price: '₹9,999', originalPrice: '₹14,999' },
+  'ai-powered-product-design': { price: '₹2,999', originalPrice: '₹4,999' },
+  'ai-for-business-leaders': { price: '₹1,499', originalPrice: '₹2,499' },
+  'advanced-ai-agent-systems': { price: '₹5,999', originalPrice: '₹8,999' },
+  'applied-data-science-ai': { price: '₹7,999', originalPrice: '₹11,999' },
+  'cloud-computing-for-ai': { price: '₹3,999', originalPrice: '₹5,999' },
+  'ai-powered-cybersecurity': { price: '₹2,999', originalPrice: '₹4,999' },
+  'ai-seo-content-marketing': { price: '₹1,499', originalPrice: '₹2,499' },
+  'prompt-engineer-career-track': { price: '₹24,999', originalPrice: '₹29,999' },
 };
 
 export function getFeaturedCoursePricing(course: FeaturedCourse) {

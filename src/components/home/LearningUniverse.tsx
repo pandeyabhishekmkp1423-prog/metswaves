@@ -83,7 +83,7 @@ export function LearningUniverse() {
           role="group"
           aria-label="AI learning domains"
           onMouseLeave={() => setHoveredId(null)}
-          className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[560px] md:block lg:mt-20 lg:max-w-[760px]"
+          className="relative mx-auto mt-16 hidden aspect-square w-full max-w-[380px] md:block lg:mt-20 lg:max-w-[750px]"
         >
           <NeuralLines positions={positions} hoveredId={hoveredId} />
 

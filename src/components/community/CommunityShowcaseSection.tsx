@@ -22,7 +22,7 @@ export function CommunityShowcaseSection() {
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((project, index) => (
-          <Reveal key={project.id} delay={Math.min(index, 6) * 0.06} className="h-[320px]">
+          <Reveal key={project.id} delay={Math.min(index, 6) * 0.06} className="h-[460px]">
             <StudentProjectCard project={project} />
           </Reveal>
         ))}
