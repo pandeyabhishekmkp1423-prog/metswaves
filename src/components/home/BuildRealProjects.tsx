@@ -7,13 +7,6 @@ import { Reveal } from '../ui/Reveal';
 import { ProjectCard } from './projects/ProjectCard';
 import { ProjectsBackground } from './projects/ProjectsBackground';
 
-const SIZE_CLASSES: Record<ProjectSize, string> = {
-  large: 'col-span-2 md:row-span-2',
-  wide: 'col-span-2',
-  tall: 'col-span-1 md:row-span-2',
-  small: 'col-span-1',
-};
-
 export function BuildRealProjects() {
   const headingId = useId();
 
@@ -38,9 +31,9 @@ export function BuildRealProjects() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 grid-flow-dense gap-4 sm:gap-5 md:grid-cols-4 md:auto-rows-[190px] lg:auto-rows-[210px] lg:gap-6">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-4 lg:gap-6">
           {PROJECTS.map((project, index) => (
-            <Reveal key={project.id} delay={index * 0.05} className={SIZE_CLASSES[project.size]}>
+            <Reveal key={project.id} delay={index * 0.05}>
               <ProjectCard project={project} />
             </Reveal>
           ))}

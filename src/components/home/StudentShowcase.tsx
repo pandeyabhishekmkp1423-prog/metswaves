@@ -7,13 +7,6 @@ import { SectionIntro } from '../ui/SectionIntro';
 import { ShowcaseBackground } from './showcase/ShowcaseBackground';
 import { StudentProjectCard } from './showcase/StudentProjectCard';
 
-const SIZE_CLASSES: Record<StudentProjectSize, string> = {
-  large: 'col-span-2 md:row-span-2',
-  wide: 'col-span-2',
-  tall: 'col-span-1 md:row-span-2',
-  small: 'col-span-1',
-};
-
 export function StudentShowcase() {
   return (
     <section className="relative overflow-hidden bg-white">
@@ -29,9 +22,9 @@ export function StudentShowcase() {
           />
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 grid-flow-dense gap-4 sm:gap-5 md:grid-cols-4 md:auto-rows-[220px] lg:auto-rows-[240px] lg:gap-6">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-4 lg:gap-6">
           {STUDENT_PROJECTS.map((project, index) => (
-            <Reveal key={project.id} delay={index * 0.05} className={SIZE_CLASSES[project.size]}>
+            <Reveal key={project.id} delay={index * 0.05}>
               <StudentProjectCard project={project} />
             </Reveal>
           ))}

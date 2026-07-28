@@ -4,13 +4,6 @@ import { SectionIntro } from '../ui/SectionIntro';
 import { FeatureBentoCard } from './methodology/FeatureBentoCard';
 import { LightAtmosphere } from './methodology/LightAtmosphere';
 
-const SIZE_CLASSES: Record<LearningFeatureSize, string> = {
-  large: 'col-span-2 md:row-span-2',
-  wide: 'col-span-2',
-  tall: 'col-span-1 md:row-span-2',
-  small: 'col-span-1',
-};
-
 export function LearningMethodology() {
   return (
     <section className="relative overflow-hidden bg-white">
@@ -26,9 +19,9 @@ export function LearningMethodology() {
           />
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 grid-flow-dense gap-4 sm:gap-5 md:grid-cols-4 md:auto-rows-[190px] lg:auto-rows-[210px] lg:gap-6">
+        <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-5 md:grid-cols-4 lg:gap-6">
           {LEARNING_FEATURES.map((feature, index) => (
-            <Reveal key={feature.id} delay={index * 0.05} className={SIZE_CLASSES[feature.size]}>
+            <Reveal key={feature.id} delay={index * 0.05}>
               <FeatureBentoCard feature={feature} />
             </Reveal>
           ))}

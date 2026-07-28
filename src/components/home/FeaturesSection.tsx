@@ -14,7 +14,7 @@ export function FeaturesSection() {
           align="center"
         />
       </Reveal>
-      <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-6">
         {FEATURES.map((feature, index) => {
           const Icon = feature.icon;
           return (
