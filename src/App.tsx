@@ -13,6 +13,15 @@ import { CoursesPage } from './pages/CoursesPage';
 import { CourseDetailPage } from './pages/CourseDetailPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
+import { AiGuidesPage } from './pages/AiGuidesPage';
+import { TutorialsPage } from './pages/TutorialsPage';
+import { FreeAiToolsPage } from './pages/FreeAiToolsPage';
+import { CertificationsPage } from './pages/CertificationsPage';
+import { CareerHubPage } from './pages/CareerHubPage';
+import { InterviewPrepPage } from './pages/InterviewPrepPage';
+import { ResumeResourcesPage } from './pages/ResumeResourcesPage';
+import { ChallengesPage } from './pages/ChallengesPage';
+import { LeaderboardPage } from './pages/LeaderboardPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useLenis } from './hooks/useLenis';
 import { setNavigate } from './routerBridge';
@@ -85,6 +94,15 @@ function App() {
           <Route path="/courses/:slug" element={<CourseDetailPage />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/insights/:slug" element={<BlogDetailPage />} />
+          <Route path="/ai-guides" element={<AiGuidesPage />} />
+          <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/free-ai-tools" element={<FreeAiToolsPage />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/career-hub" element={<CareerHubPage />} />
+          <Route path="/interview-prep" element={<InterviewPrepPage />} />
+          <Route path="/resume-resources" element={<ResumeResourcesPage />} />
+          <Route path="/challenges" element={<ChallengesPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

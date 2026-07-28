@@ -525,8 +525,8 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     icon: BookOpen,
     items: [
       { label: 'Blog', href: '/insights', icon: Newspaper },
-      { label: 'AI Guides', href: '#contact', icon: Lightbulb },
-      { label: 'Tutorials', href: '#contact', icon: PlayCircle },
+      { label: 'AI Guides', href: '/ai-guides', icon: Lightbulb },
+      { label: 'Tutorials', href: '/tutorials', icon: PlayCircle },
       { label: 'Roadmaps', href: '#why-choose-us', icon: Waypoints },
     ],
   },
@@ -535,7 +535,7 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     description: 'Tools, news and live sessions from the AI world.',
     icon: Compass,
     items: [
-      { label: 'Free AI Tools', href: '#contact', icon: Sparkles },
+      { label: 'Free AI Tools', href: '/free-ai-tools', icon: Sparkles },
       { label: 'AI News', href: '/insights', icon: Megaphone },
       { label: 'Events', href: '#events', icon: CalendarDays },
       { label: 'Webinars', href: '#events', icon: Video },
@@ -546,10 +546,10 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     description: 'Turn what you learn into an AI-native career.',
     icon: Briefcase,
     items: [
-      { label: 'Certifications', href: '#contact', icon: Award },
-      { label: 'Career Hub', href: '#contact', icon: Briefcase },
-      { label: 'Interview Prep', href: '#contact', icon: ClipboardList },
-      { label: 'Resume Resources', href: '#contact', icon: FileText },
+      { label: 'Certifications', href: '/certifications', icon: Award },
+      { label: 'Career Hub', href: '/career-hub', icon: Briefcase },
+      { label: 'Interview Prep', href: '/interview-prep', icon: ClipboardList },
+      { label: 'Resume Resources', href: '/resume-resources', icon: FileText },
     ],
   },
   {
@@ -559,8 +559,8 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     items: [
       { label: 'Discord', href: '#contact', icon: MessageCircle },
       { label: 'Student Stories', href: '#testimonials', icon: Star },
-      { label: 'Challenges', href: '#contact', icon: Trophy },
-      { label: 'Leaderboard', href: '#contact', icon: BarChart3 },
+      { label: 'Challenges', href: '/challenges', icon: Trophy },
+      { label: 'Leaderboard', href: '/leaderboard', icon: BarChart3 },
     ],
   },
 ];
