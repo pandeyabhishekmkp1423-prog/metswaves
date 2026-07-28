@@ -201,7 +201,7 @@ export function HomePage({ query, onQueryChange }: HomePageProps) {
             align="center"
           />
         </Reveal>
-        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-14 grid grid-cols-2 gap-6 md:grid-cols-2 xl:grid-cols-4 bg-blue-light/5 p-6 rounded-3xl">
           {STATS.map((stat, index) => {
             const Icon = stat.icon;
             return (
