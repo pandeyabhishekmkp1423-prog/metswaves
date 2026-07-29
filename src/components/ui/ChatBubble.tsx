@@ -1,20 +1,65 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MessageCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 import { handleAnchorClick } from '../../utils';
 
+const GREETING_DISMISSED_KEY = 'metawaves-wave-greeting-dismissed';
+
 export function ChatBubble() {
   const [open, setOpen] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const close = () => setOpen(false);
   useClickOutside(wrapperRef, close, open);
   useEscapeKey(close, open);
 
+  useEffect(() => {
+    if (sessionStorage.getItem(GREETING_DISMISSED_KEY)) return;
+    const timer = window.setTimeout(() => setShowGreeting(true), 1600);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const dismissGreeting = () => {
+    setShowGreeting(false);
+    sessionStorage.setItem(GREETING_DISMISSED_KEY, '1');
+  };
+
+  const handleAvatarClick = () => {
+    setOpen((value) => !value);
+    if (showGreeting) dismissGreeting();
+  };
+
   return (
-    <div ref={wrapperRef} className="fixed bottom-24 left-6 z-40 lg:bottom-6">
+    <div ref={wrapperRef} className="fixed bottom-24 right-6 z-40 lg:bottom-6">
+      <AnimatePresence>
+        {showGreeting && !open ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.94 }}
+            transition={{ duration: 0.25 }}
+            className="absolute bottom-16 right-14 w-[220px] max-w-[68vw]"
+          >
+            <div className="surface-card relative rounded-2xl py-3 pl-4 pr-8 shadow-[0_16px_36px_rgba(16,24,40,0.16)]">
+              <button
+                type="button"
+                onClick={dismissGreeting}
+                aria-label="Dismiss message"
+                className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full text-gray-400 transition-colors duration-200 hover:bg-gray-50 hover:text-navy"
+              >
+                <X size={13} />
+              </button>
+              <p className="text-sm font-semibold text-navy">Hi, I'm Wave 👋</p>
+              <p className="mt-0.5 text-sm leading-snug text-text-secondary">I'll help you find...</p>
+              <span className="absolute -bottom-1.5 right-7 h-3 w-3 rotate-45 border-b border-r border-border-soft bg-white" />
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -22,13 +67,14 @@ export function ChatBubble() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="surface-card absolute bottom-16 left-0 w-[300px] max-w-[85vw] p-5"
+            className="surface-card absolute bottom-24 right-0 w-[300px] max-w-[85vw] p-5"
             role="dialog"
-            aria-label="Chat with Metawaves"
+            aria-label="Chat with Wave"
           >
             <div className="flex items-start justify-between gap-3">
-              <div className="icon-chip h-11 w-11 flex-none">
-                <MessageCircle size={20} />
+              <div className="flex items-center gap-2.5">
+                <img src="/assitant.png" alt="" className="h-10 w-10 rounded-full object-cover object-top" />
+                <p className="font-heading text-base font-bold text-navy">Wave</p>
               </div>
               <button
                 type="button"
@@ -39,8 +85,7 @@ export function ChatBubble() {
                 <X size={16} />
               </button>
             </div>
-            <p className="font-heading mt-4 text-lg font-bold text-navy">Need a hand?</p>
-            <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+            <p className="mt-4 text-sm leading-relaxed text-text-secondary">
               Ask us about courses, cohorts, or pricing — our admissions team typically replies within a few hours.
             </p>
             <a
@@ -59,14 +104,15 @@ export function ChatBubble() {
 
       <motion.button
         type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
+        onClick={handleAvatarClick}
+        aria-label={open ? 'Close chat with Wave' : 'Chat with Wave'}
         aria-expanded={open}
-        whileHover={{ y: -2 }}
-        transition={{ duration: 0.2 }}
-        className="flex h-12 w-12 items-center justify-center rounded-full border border-border-soft bg-white text-accent-blue shadow-[0_12px_28px_rgba(16,24,40,0.14)] transition-colors duration-200 hover:text-navy"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.05 }}
+        className="block drop-shadow-[0_14px_24px_rgba(16,24,40,0.22)]"
       >
-        {open ? <X size={20} /> : <MessageCircle size={20} />}
+        <img src="/assitant.png" alt="Wave, the Metawaves assistant" className="h-28 w-auto sm:h-30" />
       </motion.button>
     </div>
   );

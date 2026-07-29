@@ -31,7 +31,8 @@ export function CourseCatalogBrowser({ query, activeCategory, onClearFilters }: 
     return (
       <section className="section-shell bg-white">
         <div className="surface-card flex flex-col items-center gap-3 p-12 text-center">
-          <p className="text-lg text-navy">No courses match your search.</p>
+          <img src="/avatar.png" alt="" aria-hidden="true" className="h-32 w-auto object-contain" />
+          <p className="mt-1 text-lg text-navy">No courses match your search.</p>
           <button type="button" onClick={onClearFilters} className="text-sm font-medium text-accent-blue hover:text-navy">
             Clear filters
           </button>

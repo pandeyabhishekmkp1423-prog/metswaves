@@ -11,6 +11,7 @@ import { AboutPage } from './pages/AboutPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { CoursesPage } from './pages/CoursesPage';
 import { CourseDetailPage } from './pages/CourseDetailPage';
+import { LearningPathsPage } from './pages/LearningPathsPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
 import { AiGuidesPage } from './pages/AiGuidesPage';
@@ -32,8 +33,13 @@ function LoadingScreen() {
       className="fixed inset-0 z-[80] flex items-center justify-center bg-white"
       exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.76, 0, 0.24, 1] } }}
     >
-      <div className="flex flex-col items-center gap-6">
-        <img src="/logo-navy.png" alt="Metawaves AI" className="loader-logo h-8 w-auto" />
+      <div className="flex flex-col items-center gap-5">
+        <img
+          src="/avatar3.png"
+          alt="Metawaves AI mascot"
+          className="loader-logo h-100 w-auto object-contain sm:h-100"
+        />
+        <img src="/logo-navy.png" alt="Metawaves AI" className="h-8 w-auto object-contain sm:h-6" />
         <div className="loader-track" />
       </div>
     </motion.div>
@@ -92,6 +98,7 @@ function App() {
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:slug" element={<CourseDetailPage />} />
+          <Route path="/learning-paths" element={<LearningPathsPage />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/insights/:slug" element={<BlogDetailPage />} />
           <Route path="/ai-guides" element={<AiGuidesPage />} />

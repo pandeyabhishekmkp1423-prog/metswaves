@@ -1,4 +1,5 @@
 import { AboutHero } from '../components/about/AboutHero';
+import { AboutUsIntro } from '../components/about/AboutUsIntro';
 import { MissionStatement } from '../components/about/MissionStatement';
 import { WhyWeExist } from '../components/about/WhyWeExist';
 import { StoryTimeline } from '../components/about/StoryTimeline';
@@ -13,6 +14,7 @@ export function AboutPage() {
   return (
     <>
       <AboutHero />
+      <AboutUsIntro />
       <MissionStatement />
       <WhyWeExist />
       <StoryTimeline />

@@ -13,7 +13,8 @@ export function NotFoundPage({
 }: NotFoundPageProps) {
   return (
     <section className="section-shell flex min-h-[60vh] flex-col items-center justify-center text-center">
-      <span className="badge-pill">404</span>
+      <img src="/avatar.png" alt="" aria-hidden="true" className="h-48 w-auto object-contain sm:h-56" />
+      <span className="badge-pill mt-2">404</span>
       <h1 className="mt-5 text-3xl font-bold text-navy sm:text-4xl">{title}</h1>
       <p className="mt-4 max-w-md text-text-secondary">{description}</p>
       <MagneticButton

@@ -97,9 +97,10 @@ export type NavItem =
 
 export const NAV_ITEMS: NavItem[] = [
   { id: 'courses', label: 'Courses', mode: 'link', href: '/courses', icon: BookOpen },
-  { id: 'learning-paths', label: 'Learning Paths', mode: 'link', href: '#why-choose-us', icon: Waypoints },
+  { id: 'learning-paths', label: 'Learning Paths', mode: 'link', href: '/learning-paths', icon: Waypoints },
   { id: 'projects', label: 'Projects', mode: 'link', href: '#gallery', icon: LayoutTemplate },
   { id: 'community', label: 'Community', mode: 'link', href: '/community', icon: Users },
+  { id: 'about', label: 'About', mode: 'link', href: '/about', icon: Building2 },
   { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources', icon: Compass },
   { id: 'blog', label: 'Blog', mode: 'link', href: '/insights', icon: BarChart3 },
 ];
@@ -527,7 +528,7 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
       { label: 'Blog', href: '/insights', icon: Newspaper },
       { label: 'AI Guides', href: '/ai-guides', icon: Lightbulb },
       { label: 'Tutorials', href: '/tutorials', icon: PlayCircle },
-      { label: 'Roadmaps', href: '#why-choose-us', icon: Waypoints },
+      { label: 'Roadmaps', href: '/learning-paths', icon: Waypoints },
     ],
   },
   {
@@ -537,8 +538,8 @@ export const NAV_RESOURCES_MEGA: NavResourceSection[] = [
     items: [
       { label: 'Free AI Tools', href: '/free-ai-tools', icon: Sparkles },
       { label: 'AI News', href: '/insights', icon: Megaphone },
-      { label: 'Events', href: '#events', icon: CalendarDays },
-      { label: 'Webinars', href: '#events', icon: Video },
+      { label: 'Events', href: '/community', icon: CalendarDays },
+      { label: 'Webinars', href: '/community', icon: Video },
     ],
   },
   {
@@ -619,9 +620,9 @@ export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
   { label: 'Templates', href: '#contact' },
   { label: 'Cheat Sheets', href: '#contact' },
   { label: 'Community', href: '/community' },
-  { label: 'Events', href: '#events' },
+  { label: 'Events', href: '/community' },
   { label: 'Success Stories', href: '#testimonials' },
-  { label: 'FAQs', href: '#faq' },
+  { label: 'FAQs', href: '/courses' },
   { label: 'Help Center', href: '#contact' },
   { label: 'Contact Support', href: '#contact' },
 ];
