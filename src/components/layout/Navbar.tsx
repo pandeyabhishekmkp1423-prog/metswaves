@@ -23,6 +23,7 @@ import { Logo } from '../nav/Logo';
 
 const RECENT_SEARCHES_KEY = 'metawaves-recent-searches';
 const HIDE_SCROLL_THRESHOLD = 120;
+const SCROLL_DIRECTION_DEADZONE = 8;
 
 // ---------------------------------------------------------------------------
 // Desktop primary nav link / mega-menu trigger
@@ -47,7 +48,7 @@ function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onToggle, tr
         href={item.href}
         onClick={(event) => handleAnchorClick(event, item.href)}
         onMouseEnter={onEnter}
-        className="group relative whitespace-nowrap rounded-full px-3.5 py-2.5 text-[13.5px] font-medium text-text-secondary transition-colors duration-200 hover:text-navy"
+        className="group relative whitespace-nowrap rounded-full px-2.5 py-2.5 text-[13.5px] font-medium text-text-secondary transition-colors duration-200 hover:text-navy"
       >
         <span className="relative z-10">{item.label}</span>
         <motion.span
@@ -78,7 +79,7 @@ function NavigationItem({ item, isOpen, isActive, onEnter, onLeave, onToggle, tr
       onClick={onToggle}
       aria-haspopup="true"
       aria-expanded={isOpen}
-      className="group relative flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2.5 text-[13.5px] font-medium text-text-secondary transition-colors duration-200 hover:text-navy"
+      className="group relative flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2.5 text-[13.5px] font-medium text-text-secondary transition-colors duration-200 hover:text-navy"
     >
       <motion.span
         aria-hidden="true"
@@ -359,8 +360,8 @@ function CommandPaletteButton({ query, onQueryChange, onSubmit, className = '' }
         className={`flex h-11 items-center gap-2.5 rounded-full border border-border-soft bg-white/60 px-4 text-sm text-text-secondary backdrop-blur-md transition-colors duration-200 hover:border-accent-blue/30 hover:text-navy ${className}`}
       >
         <Search size={16} className="flex-none text-gray-400" />
-        <span className="hidden whitespace-nowrap lg:inline">Search Courses...</span>
-        <span className="ml-1 hidden flex-none items-center gap-0.5 rounded-md border border-border-soft bg-gray-50 px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 lg:flex">
+        <span className="hidden whitespace-nowrap min-[1480px]:inline">Search Courses...</span>
+        <span className="ml-1 hidden flex-none items-center gap-0.5 rounded-md border border-border-soft bg-gray-50 px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 min-[1480px]:flex">
           <span aria-hidden="true">⌘</span>K
         </span>
       </motion.button>
@@ -685,11 +686,14 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
 
       if (currentY < HIDE_SCROLL_THRESHOLD) {
         setHidden(false);
-      } else if (currentY > lastScrollY.current) {
-        setHidden(true);
-      } else if (currentY < lastScrollY.current) {
-        setHidden(false);
+        lastScrollY.current = currentY;
+        return;
       }
+
+      const delta = currentY - lastScrollY.current;
+      if (Math.abs(delta) < SCROLL_DIRECTION_DEADZONE) return;
+
+      setHidden(delta > 0);
       lastScrollY.current = currentY;
     };
     onScroll();
@@ -777,7 +781,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
             boxShadow: scrolled ? '0 12px 34px rgba(16,24,40,0.12)' : '0 1px 0 rgba(16,24,40,0)',
           }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className={`relative mx-auto flex w-[92%] max-w-[1400px] items-center justify-between gap-3 rounded-[28px] border px-4 backdrop-blur-xl transition-[border-color] duration-500 sm:px-6 ${
+          className={`relative mx-auto flex w-[95%] max-w-[1440px] items-center justify-between gap-3 rounded-[28px] border px-4 backdrop-blur-xl transition-[border-color] duration-500 sm:px-6 ${
             scrolled ? 'border-border-soft/80' : 'border-white/50'
           }`}
         >
@@ -803,7 +807,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
               ))}
             </nav>
 
-            <div className="flex flex-none items-center gap-2 sm:gap-2.5">
+            <div className="flex flex-none items-center gap-1.5 sm:gap-2">
               <CommandPaletteButton
                 query={query}
                 onQueryChange={onQueryChange}
@@ -814,7 +818,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
               <a
                 href="#contact"
                 onClick={(event) => handleAnchorClick(event, '#contact')}
-                className="btn-glass-nav hidden px-4 py-2.5 text-sm hover:-translate-y-0.5 min-[1200px]:inline-flex"
+                className="btn-glass-nav hidden px-3.5 py-2.5 text-sm hover:-translate-y-0.5 min-[1200px]:inline-flex"
               >
                 Login
               </a>
@@ -822,7 +826,7 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
               <GradientCtaButton
                 href="#contact"
                 onClick={(event) => handleAnchorClick(event, '#contact')}
-                className="hidden px-5 py-2.5 text-sm min-[1200px]:inline-flex"
+                className="hidden px-4 py-2.5 text-sm min-[1200px]:inline-flex"
               >
                 Start Learning
               </GradientCtaButton>

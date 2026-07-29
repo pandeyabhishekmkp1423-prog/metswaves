@@ -103,6 +103,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'about', label: 'About', mode: 'link', href: '/about', icon: Building2 },
   { id: 'resources', label: 'Resources', mode: 'panel', panel: 'resources', icon: Compass },
   { id: 'blog', label: 'Blog', mode: 'link', href: '/insights', icon: BarChart3 },
+  { id: 'faq', label: 'FAQ', mode: 'link', href: '/faq', icon: HelpCircle },
 ];
 
 export const FEATURES = [
@@ -622,7 +623,7 @@ export const FOOTER_RESOURCES_LINKS: FooterLinkItem[] = [
   { label: 'Community', href: '/community' },
   { label: 'Events', href: '/community' },
   { label: 'Success Stories', href: '#testimonials' },
-  { label: 'FAQs', href: '/courses' },
+  { label: 'FAQs', href: '/faq' },
   { label: 'Help Center', href: '#contact' },
   { label: 'Contact Support', href: '#contact' },
 ];

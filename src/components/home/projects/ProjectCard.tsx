@@ -62,7 +62,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <p className="mt-2 text-sm leading-relaxed text-white/55">{project.description}</p>
         </div>
 
-        <div className="relative mt-3 grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]">
+        <div className="relative mt-3 grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out md:grid-rows-[0fr] md:group-hover:grid-rows-[1fr] md:group-focus-within:grid-rows-[1fr]">
           <div className="overflow-hidden">
             <div className="flex items-center gap-1.5 pt-1 text-xs text-white/45">
               <Clock3 size={13} />
@@ -73,7 +73,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               {project.technologies.map((tech, index) => (
                 <span
                   key={tech}
-                  className="translate-y-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] text-white/60 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                  className="translate-y-0 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] text-white/60 opacity-100 transition-all duration-300 ease-out md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100"
                   style={{ transitionDelay: `${index * 60}ms` }}
                 >
                   {tech}

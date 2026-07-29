@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 export function ScrollToTopButton() {
+  const location = useLocation();
+  const isCourseDetail = /^\/courses\/[^/]+$/.test(location.pathname);
+
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export function ScrollToTopButton() {
           exit={{ opacity: 0, y: 12, scale: 0.9 }}
           transition={{ duration: 0.2 }}
           aria-label="Scroll back to top"
-          className="btn-premium button-glow fixed bottom-24 left-6 z-40 flex h-12 w-12 items-center justify-center rounded-full lg:bottom-6"
+          className={`btn-premium button-glow fixed left-6 z-40 flex h-12 w-12 items-center justify-center rounded-full lg:bottom-6 ${isCourseDetail ? 'bottom-24' : 'bottom-6'}`}
         >
           <ArrowUp size={20} />
         </motion.button>

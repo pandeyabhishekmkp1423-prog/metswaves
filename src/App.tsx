@@ -23,6 +23,7 @@ import { InterviewPrepPage } from './pages/InterviewPrepPage';
 import { ResumeResourcesPage } from './pages/ResumeResourcesPage';
 import { ChallengesPage } from './pages/ChallengesPage';
 import { LeaderboardPage } from './pages/LeaderboardPage';
+import { FaqPage } from './pages/FaqPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useLenis } from './hooks/useLenis';
 import { setNavigate } from './routerBridge';
@@ -110,6 +111,7 @@ function App() {
           <Route path="/resume-resources" element={<ResumeResourcesPage />} />
           <Route path="/challenges" element={<ChallengesPage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/faq" element={<FaqPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

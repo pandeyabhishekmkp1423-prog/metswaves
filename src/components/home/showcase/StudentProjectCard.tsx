@@ -90,7 +90,7 @@ export function StudentProjectCard({ project }: StudentProjectCardProps) {
             {project.description}
           </p>
 
-          <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]">
+          <div className="grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out md:grid-rows-[0fr] md:group-hover:grid-rows-[1fr] md:group-focus-within:grid-rows-[1fr]">
             <div className="overflow-hidden">
               <div className="flex flex-wrap gap-1.5 pt-3">
                 {chips.map((chip, index) => {
@@ -98,7 +98,7 @@ export function StudentProjectCard({ project }: StudentProjectCardProps) {
                   return (
                     <span
                       key={chip}
-                      className={`translate-y-1 rounded-full border px-2.5 py-1 text-[10px] font-medium opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 ${
+                      className={`translate-y-0 rounded-full border px-2.5 py-1 text-[10px] font-medium opacity-100 transition-all duration-300 ease-out md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 ${
                         isTech ? 'border-accent-blue/15 bg-accent-blue/8 text-accent-blue' : 'border-border-soft bg-gray-50 text-text-secondary'
                       }`}
                       style={{ transitionDelay: `${index * 45}ms` }}
