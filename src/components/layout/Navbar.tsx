@@ -777,8 +777,8 @@ export function Navbar({ query, onQueryChange, onSearchSubmit }: NavbarProps) {
           initial={false}
           animate={{
             height: scrolled ? 64 : 80,
-            backgroundColor: scrolled ? 'rgba(255,255,255,0.86)' : 'rgba(255,255,255,0.44)',
             boxShadow: scrolled ? '0 12px 34px rgba(16,24,40,0.12)' : '0 1px 0 rgba(16,24,40,0)',
+            backgroundColor: scrolled ? 'rgba(240, 245, 255, 0.86)' : 'rgba(240, 245, 255, 0.44)',
           }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className={`relative mx-auto flex w-[95%] max-w-[1440px] items-center justify-between gap-3 rounded-[28px] border px-4 backdrop-blur-xl transition-[border-color] duration-500 sm:px-6 ${
