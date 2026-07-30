@@ -41,9 +41,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="w-full max-w-[320px] sm:max-w-[380px] lg:w-[45%] lg:max-w-[440px]">
+        <div className="w-full max-w-[320px] sm:max-w-[380px] lg:w-[45%] lg:max-w-[790px]">
           <img
-            src="/avatar.png"
+            src="/avatar4.png"
             alt="Metawaves AI mascot"
             className="mx-auto h-auto w-full object-contain"
             loading="eager"
